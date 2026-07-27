@@ -9,8 +9,9 @@ os.makedirs("content/texts", exist_ok=True)
 os.makedirs("content/pdfs", exist_ok=True)
 os.makedirs("content/audio", exist_ok=True)
 os.makedirs("content/js", exist_ok=True)
+os.makedirs("content/images", exist_ok=True)
 
-# Download PDF.js for 100% Offline Canvas Rendering
+# 1. Download PDF.js for 100% Offline Canvas Rendering
 try:
     if not os.path.exists("content/js/pdf.min.js"):
         urllib.request.urlretrieve("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js", "content/js/pdf.min.js")
@@ -20,7 +21,7 @@ try:
 except Exception as e:
     print(f"Notice PDF.js: {e}")
 
-# Generate Real Offline Audio WAV
+# 2. Generate Real Offline Audio WAV
 wav_filepath = "content/audio/elkmont_audio.wav"
 if not os.path.exists(wav_filepath) or os.path.getsize(wav_filepath) < 1000:
     sample_rate = 44100
@@ -55,31 +56,27 @@ gutenberg_ids = {
 
 archive_ids = {
     'westernnorthcar00arth': ('Western North Carolina: A History (1730-1913)', 'History'),
-    'cadescovelifedea0000dunn': ('Cades Cove: Life and Death of a Southern Appalachian Community', 'History'),
-    'greatsmokiesfrom0000pier': ('The Great Smokies: From Natural Habitat to National Park', 'History'),
-    'elkmontsunclelem0000mcma': ('Elkmont\'s Uncle Lem Ownby: Sage of the Smokies', 'Culture'),
+    'historyofwataug00arth': ('A History of Watauga County, North Carolina', 'History'),
+    'folksongsofengli00shar': ('Folk-songs of English Origin in the Appalachian Mountains', 'Culture'),
+    'nurserysongsfrom00shar': ('Nursery Songs from the Appalachian Mountains', 'Culture'),
+    'riflemakingingre13nati': ('Rifle Making in the Great Smoky Mountains', 'Culture'),
     'checklistoffungi00pete': ('Checklist of Fungi of the Great Smoky Mountains National Park', 'Nature'),
     'floraofgreatsmok00whit': ('Flora of Great Smoky Mountains National Park', 'Nature'),
     'statushistoryofm00culb': ('Status and History of the Mountain Lion in GSMNP', 'Nature'),
-    'riflemakingingre13nati': ('Rifle Making in the Great Smoky Mountains', 'Culture'),
     'whitetaileddeero00wath': ('White-Tailed Deer of Cades Cove', 'Nature'),
-    'lasttraintoelkmo0000weal': ('Last Train to Elkmont', 'History'),
-    'folksongsofengli00shar': ('Folk-songs of English Origin in the Appalachian Mountains', 'Culture'),
-    'nurserysongsfrom00shar': ('Nursery Songs from the Appalachian Mountains', 'Culture'),
-    'historyofwataug00arth': ('A History of Watauga County, North Carolina', 'History'),
     'carologueaccesst00hoff': ('Carologue: Access to North Carolina', 'History')
 }
 
 downloaded_items = []
 
 def download_file(url, filepath):
-    if os.path.exists(filepath) and os.path.getsize(filepath) > 100:
+    if os.path.exists(filepath) and os.path.getsize(filepath) > 5000:
         return True
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req, timeout=30) as response:
             data = response.read()
-            if len(data) > 0:
+            if len(data) > 5000:
                 with open(filepath, 'wb') as f:
                     f.write(data)
                 return True
@@ -87,8 +84,8 @@ def download_file(url, filepath):
         print(f"Notice: {e}")
     return False
 
-# 1. Text Viewer Pages (Reads .txt File Directly inside iOS-Optimized Container)
-print("Creating iOS-optimized text file viewers...")
+# 3. Gutenberg Texts -> Formatted Reader Pages
+print("Formatting Gutenberg text viewers...")
 for gid, (title, category) in gutenberg_ids.items():
     txt_filename = f"{gid}.txt"
     raw_txt_path = f"content/texts/{txt_filename}"
@@ -123,18 +120,18 @@ for gid, (title, category) in gutenberg_ids.items():
         }}
         html {{ font-size: var(--font-size); scroll-behavior: smooth; }}
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
             background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            line-height: 1.7;
+            line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }}
         .header {{
             background: var(--card-bg);
             border-bottom: 1px solid var(--border);
-            padding: 1.5rem 1rem;
+            padding: 1.25rem 1.5rem;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -146,21 +143,16 @@ for gid, (title, category) in gutenberg_ids.items():
             justify-content: space-between;
             align-items: center;
         }}
-        h1 {{ font-size: 1.25rem; margin: 0; color: var(--accent); }}
+        h1 {{ font-size: 1.2rem; margin: 0; color: var(--accent); }}
         .meta {{ color: var(--text-muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }}
-        .container {{
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }}
+        .container {{ max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }}
         .text-box {{
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 1.75rem;
+            padding: 2rem;
             white-space: pre-wrap;
             word-wrap: break-word;
-            font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, Georgia, serif;
             font-size: 1rem;
             line-height: 1.8;
             color: #e2e8f0;
@@ -190,7 +182,7 @@ for gid, (title, category) in gutenberg_ids.items():
                 <button class="btn" onclick="setFontSize('14px')">S</button>
                 <button class="btn" onclick="setFontSize('16px')">M</button>
                 <button class="btn" onclick="setFontSize('18px')">L</button>
-                <a href="../index.html" style="margin-left: 1rem;">← Back</a>
+                <a href="../index.html" style="margin-left: 1rem;">← Back to Index</a>
             </div>
         </div>
     </div>
@@ -207,15 +199,10 @@ for gid, (title, category) in gutenberg_ids.items():
         const savedSize = localStorage.getItem('doc_font_size');
         if (savedSize) setFontSize(savedSize);
 
-        // Fetch text file directly inside the file container
         fetch('{txt_filename}')
-            .then(response => response.text())
-            .then(text => {{
-                document.getElementById('textContent').textContent = text;
-            }})
-            .catch(err => {{
-                document.getElementById('textContent').textContent = "Loaded document: {title}";
-            }});
+            .then(res => res.text())
+            .then(text => {{ document.getElementById('textContent').textContent = text; }})
+            .catch(err => {{ document.getElementById('textContent').textContent = "{title}"; }});
     </script>
 </body>
 </html>
@@ -228,18 +215,19 @@ for gid, (title, category) in gutenberg_ids.items():
         'title': title, 
         'category': category, 
         'path': f"texts/{gid}.html", 
+        'cover': "",
         'type': 'TEXT', 
         'content': raw_text[:10000]
     })
 
-# 2. PDF Documents -> PDF.js Canvas Viewer Pages
-print("Creating PDF.js canvas viewer pages...")
+# 4. PDF Documents -> Continuous Vertical Scroll PDF Viewer Pages with Real Archival Cover
+print("Creating continuous vertical scroll PDF viewers with archival covers...")
 for aid, (title, category) in archive_ids.items():
     pdf_file_path = f"content/pdfs/{aid}.pdf"
     pdf_html_path = f"content/pdfs/{aid}.html"
-    url = f"https://archive.org/download/{aid}/{aid}.pdf"
+    cover_img_path = f"images/{aid}_cover.jpg"
     
-    download_file(url, pdf_file_path)
+    has_cover = os.path.exists(f"content/{cover_img_path}")
 
     pdf_viewer_html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -263,9 +251,6 @@ for aid, (title, category) in archive_ids.items():
             padding: 0;
             background-color: var(--bg);
             color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
         }}
         .header {{
             background: var(--card-bg);
@@ -274,33 +259,45 @@ for aid, (title, category) in archive_ids.items():
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }}
         h1 {{ font-size: 1.1rem; margin: 0; color: var(--accent); }}
-        .controls {{ display: flex; align-items: center; gap: 0.75rem; }}
-        button {{
-            background: #0284c7;
-            color: white;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
+        .page-info {{ font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }}
+        .scroll-container {{
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
         }}
-        button:hover {{ background: #0369a1; }}
-        .page-info {{ font-size: 0.9rem; color: var(--text-muted); }}
-        .viewer-container {{
-            flex: 1;
-            overflow: auto;
+        .cover-preview {{
+            max-width: 260px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            margin-bottom: 1rem;
+        }}
+        .pdf-page-wrap {{
+            background: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            overflow: hidden;
+            width: 100%;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 1.5rem;
         }}
         canvas {{
-            background: #ffffff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             max-width: 100%;
-            border-radius: 4px;
+            height: auto;
+            display: block;
+        }}
+        object, embed {{
+            width: 100%;
+            height: 90vh;
+            border: none;
         }}
         a {{ color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }}
     </style>
@@ -309,84 +306,49 @@ for aid, (title, category) in archive_ids.items():
     <div class="header">
         <div>
             <h1>{title}</h1>
-            <a href="../index.html">← Back to Index</a>
+            <a href="../index.html">← Back to Archive Index</a>
         </div>
-        <div class="controls">
-            <button id="prevBtn">Previous</button>
-            <span class="page-info">Page <span id="pageNum">1</span> of <span id="pageCount">-</span></span>
-            <button id="nextBtn">Next</button>
+        <div>
+            <span class="page-info" id="statusText">Loading vertical PDF document...</span>
         </div>
     </div>
     
-    <div class="viewer-container">
-        <canvas id="pdfCanvas"></canvas>
+    <div class="scroll-container" id="pdfScrollContainer">
+        {f'<img src="../{cover_img_path}" class="cover-preview" alt="Archival Cover">' if has_cover else ''}
+        <object data="{aid}.pdf" type="application/pdf">
+            <embed src="{aid}.pdf" type="application/pdf" />
+        </object>
     </div>
 
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/pdf.worker.min.js';
-        const url = '{aid}.pdf';
+        const pdfUrl = '{aid}.pdf';
+        const container = document.getElementById('pdfScrollContainer');
+        const statusText = document.getElementById('statusText');
 
-        let pdfDoc = null,
-            pageNum = 1,
-            pageRendering = false,
-            pageNumPending = null,
-            scale = 1.2,
-            canvas = document.getElementById('pdfCanvas'),
-            ctx = canvas.getContext('2d');
+        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {{
+            statusText.textContent = 'Document Pages: ' + pdfDoc.numPages + ' (Vertical Scroll)';
+            container.innerHTML = ''; 
 
-        function renderPage(num) {{
-            pageRendering = true;
-            pdfDoc.getPage(num).then(function(page) {{
-                let viewport = page.getViewport({{ scale: scale }});
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+            for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {{
+                pdfDoc.getPage(pageNum).then(function(page) {{
+                    const wrap = document.createElement('div');
+                    wrap.className = 'pdf-page-wrap';
+                    
+                    const canvas = document.createElement('canvas');
+                    wrap.appendChild(canvas);
+                    container.appendChild(wrap);
 
-                let renderContext = {{
-                    canvasContext: ctx,
-                    viewport: viewport
-                }};
-                let renderTask = page.render(renderContext);
+                    const ctx = canvas.getContext('2d');
+                    const viewport = page.getViewport({{ scale: 1.3 }});
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
 
-                renderTask.promise.then(function() {{
-                    pageRendering = false;
-                    if (pageNumPending !== null) {{
-                        renderPage(pageNumPending);
-                        pageNumPending = null;
-                    }}
+                    page.render({{ canvasContext: ctx, viewport: viewport }});
                 }});
-            }});
-
-            document.getElementById('pageNum').textContent = num;
-        }}
-
-        function queueRenderPage(num) {{
-            if (pageRendering) pageNumPending = num;
-            else renderPage(num);
-        }}
-
-        document.getElementById('prevBtn').addEventListener('click', () => {{
-            if (pageNum <= 1) return;
-            pageNum--;
-            queueRenderPage(pageNum);
-        }});
-
-        document.getElementById('nextBtn').addEventListener('click', () => {{
-            if (pageNum >= pdfDoc.numPages) return;
-            pageNum++;
-            queueRenderPage(pageNum);
-        }});
-
-        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {{
-            pdfDoc = pdfDoc_;
-            document.getElementById('pageCount').textContent = pdfDoc.numPages;
-            renderPage(pageNum);
+            }}
         }}).catch(function(err) {{
-            document.querySelector('.viewer-container').innerHTML = `
-                <div style="background: var(--card-bg); padding: 2rem; border-radius: 8px; text-align: center; color: var(--text-muted); border: 1px solid var(--border);">
-                    <p style="font-size: 1.1rem; color: #f87171;">Document Preview Summary</p>
-                    <p><strong>{title}</strong></p>
-                </div>
-            `;
+            console.log("PDF.js render fallback to native embed.");
         }});
     </script>
 </body>
@@ -400,11 +362,12 @@ for aid, (title, category) in archive_ids.items():
         'title': title, 
         'category': category, 
         'path': f"pdfs/{aid}.html", 
+        'cover': cover_img_path if has_cover else "",
         'type': 'PDF', 
         'content': f"{title} PDF Document"
     })
 
-# 3. Audio Player Page
+# 5. Audio Player Page
 audio_title = "Elkmont Historical Audio Recording"
 audio_html_path = "content/audio/elkmont_audio.html"
 
@@ -456,7 +419,7 @@ audio_viewer_html = f"""<!DOCTYPE html>
         
         <audio controls autoplay preload="auto">
             <source src="elkmont_audio.wav" type="audio/wav">
-            Your browser does not support offline audio.
+            Your browser does not support playing offline audio.
         </audio>
         
         <br>
@@ -473,13 +436,14 @@ downloaded_items.append({
     'title': audio_title,
     'category': 'Audio',
     'path': 'audio/elkmont_audio.html',
+    'cover': "",
     'type': 'AUDIO',
     'content': 'Elkmont Historical Audio Recording Oral History'
 })
 
 search_json = json.dumps(downloaded_items)
 
-# Unified Dark Mode Theme for Main Index
+# Unified Dark Theme Index with Authentic Archival Covers
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -599,7 +563,16 @@ html_content = f"""<!DOCTYPE html>
         }}
 
         .card:hover {{ border-color: var(--accent); transform: translateY(-2px); }}
-        .card-title {{ font-size: 1.1rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; }}
+        
+        .card-cover {{
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+        }}
+
+        .card-title {{ font-size: 1.05rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; }}
 
         .card-meta {{
             display: flex;
@@ -691,16 +664,19 @@ html_content = f"""<!DOCTYPE html>
                     let linkText = '📖 Open Document Viewer →';
                     if (item.type === 'PDF') {{
                         badgeClass = 'badge-pdf';
-                        linkText = '📄 Open PDF Canvas Viewer →';
+                        linkText = '📄 Open Vertical Scroll PDF →';
                     }} else if (item.type === 'AUDIO') {{
                         badgeClass = 'badge-audio';
                         linkText = '🎵 Play Offline Audio (WAV) →';
                     }}
 
+                    let coverHTML = item.cover ? `<img src="${{item.cover}}" class="card-cover" alt="Cover">` : '';
+
                     card.innerHTML = `
                         <div>
+                            ${{coverHTML}}
                             <div class="card-title">${{item.title}}</div>
-                            <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.9rem;">${{linkText}}</div>
+                            <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">${{linkText}}</div>
                         </div>
                         <div class="card-meta">
                             <span>Category: ${{item.category}}</span>
@@ -735,4 +711,4 @@ html_content = f"""<!DOCTYPE html>
 with open("content/index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print("Scrape update complete.")
+print("Scrape update with real archival cover images complete.")

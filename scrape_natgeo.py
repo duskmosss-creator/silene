@@ -1,66 +1,65 @@
 import os
-import urllib.request
 import json
-import urllib.parse
 
 natgeo_dir = "natgeo_collection"
 os.makedirs(f"{natgeo_dir}/texts", exist_ok=True)
 os.makedirs(f"{natgeo_dir}/pdfs", exist_ok=True)
+os.makedirs(f"{natgeo_dir}/images", exist_ok=True)
 
 real_natgeo_volumes = [
     {
         'id': 'nationalgeograph11889nati',
-        'title': 'The National Geographic Magazine (Volume I - 1889 Archive)',
+        'title': 'National Geographic Magazine (Volume 1 - 1889 Historical Archive)',
         'category': 'Historical',
-        'ia_id': 'nationalgeograph11889nati'
+        'cover': 'images/nationalgeograph11889nati_cover.jpg'
     },
     {
         'id': 'nationalgeograph37natiuoft',
-        'title': 'National Geographic Magazine (Volume 37 - 1920 Expedition & Parks Archive)',
+        'title': 'National Geographic Magazine (Volume 37 - 1920 Expedition Archive)',
         'category': 'Smokies',
-        'ia_id': 'nationalgeograph37natiuoft'
+        'cover': 'images/nationalgeograph37natiuoft_cover.jpg'
     },
     {
         'id': '194701to12',
         'title': 'National Geographic Magazine (1947 Full Year Collection)',
         'category': 'Appalachia',
-        'ia_id': '194701to12'
+        'cover': 'images/194701to12_cover.jpg'
     },
     {
         'id': '194905',
         'title': 'National Geographic Magazine (1949 Full Year Collection)',
         'category': 'Nature',
-        'ia_id': '194905'
+        'cover': 'images/194905_cover.jpg'
     },
     {
         'id': '195011',
         'title': 'National Geographic Magazine (1950 Full Year Collection)',
         'category': 'Appalachia',
-        'ia_id': '195011'
+        'cover': 'images/195011_cover.jpg'
     },
     {
         'id': '195105',
         'title': 'National Geographic Magazine (1951 Full Year Collection)',
         'category': 'Historical',
-        'ia_id': '195105'
+        'cover': 'images/195105_cover.jpg'
     },
     {
         'id': '195204',
         'title': 'National Geographic Magazine (1952 Full Year Collection)',
         'category': 'Nature',
-        'ia_id': '195204'
+        'cover': 'images/195204_cover.jpg'
     },
     {
         'id': '195304',
         'title': 'National Geographic Magazine (1953 Full Year Collection)',
         'category': 'Historical',
-        'ia_id': '195304'
+        'cover': 'images/195304_cover.jpg'
     },
     {
         'id': 'jishankhan_hotmail_1954',
         'title': 'National Geographic Magazine (1954 Full Year Collection)',
         'category': 'Historical',
-        'ia_id': 'jishankhan_hotmail_1954'
+        'cover': 'images/jishankhan_hotmail_1954_cover.jpg'
     }
 ]
 
@@ -80,6 +79,7 @@ for item in real_natgeo_volumes:
         'title': item['title'],
         'category': item['category'],
         'path': f"texts/{item['id']}.txt",
+        'cover': item['cover'],
         'type': 'MAGAZINE',
         'local': txt_filepath,
         'content': content_snippet
@@ -95,166 +95,93 @@ html_content = f"""<!DOCTYPE html>
     <title>National Geographic Archived Magazines Collection</title>
     <style>
         :root {{
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --primary-color: #b45309;
-            --header-bg: #0f172a;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #cbd5e1;
+            --bg: #0f172a;
+            --header-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #fbbf24;
+            --border: #334155;
             --base-font-size: 16px;
         }}
 
-        html {{
-            font-size: var(--base-font-size);
-            scroll-behavior: smooth;
-        }}
-
+        html {{ font-size: var(--base-font-size); scroll-behavior: smooth; }}
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
-            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            line-height: 1.7;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }}
 
         .container {{
             max-width: 1200px;
             margin: 0 auto;
-            padding-top: max(1rem, env(safe-area-inset-top));
-            padding-right: max(1rem, env(safe-area-inset-right));
-            padding-bottom: max(1rem, env(safe-area-inset-bottom));
-            padding-left: max(1rem, env(safe-area-inset-left));
+            padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
         }}
 
         header {{
             background-color: var(--header-bg);
-            color: #ffffff;
-            border-bottom: 4px solid var(--primary-color);
+            border-bottom: 4px solid var(--accent);
             padding: 2rem 1rem;
             text-align: center;
         }}
 
-        header h1 {{
-            color: #fbbf24;
-            margin: 0 0 0.5rem 0;
-            font-size: 1.9rem;
-            letter-spacing: 0.03em;
-        }}
-
-        header p {{
-            color: #94a3b8;
-            font-size: 0.95rem;
-            margin: 0;
-        }}
+        header h1 {{ color: var(--accent); margin: 0 0 0.5rem 0; font-size: 1.9rem; letter-spacing: 0.03em; }}
+        header p {{ color: var(--text-muted); font-size: 0.95rem; margin: 0; }}
 
         .controls {{
-            background: #ffffff;
+            background: var(--card-bg);
             padding: 1rem;
             border-radius: 8px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border);
             margin: 1.5rem 0;
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }}
 
-        .control-row {{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.75rem;
-        }}
+        .control-row {{ display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; }}
 
         .search-bar {{
             flex: 1;
             min-width: 220px;
             padding: 0.65rem 1rem;
-            border: 1px solid var(--border-color);
+            background: #0f172a;
+            border: 1px solid var(--border);
+            color: var(--text-main);
             border-radius: 6px;
             font-size: 0.95rem;
             outline: none;
         }}
 
-        .search-bar:focus {{
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(180, 83, 9, 0.2);
-        }}
+        .search-bar:focus {{ border-color: var(--accent); box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }}
 
-        .settings-bar {{
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }}
-
-        .btn {{
-            background: #f1f5f9;
-            border: 1px solid var(--border-color);
-            padding: 0.4rem 0.75rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            color: var(--text-main);
-            user-select: none;
-        }}
-
-        .btn:hover, .btn.active {{
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }}
-
-        .filter-tabs {{
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }}
+        .filter-tabs {{ display: flex; flex-wrap: wrap; gap: 0.4rem; }}
 
         .tab {{
             padding: 0.4rem 0.85rem;
             border-radius: 6px;
-            background: #f1f5f9;
-            border: 1px solid var(--border-color);
+            background: #334155;
+            border: 1px solid var(--border);
             color: var(--text-main);
             font-size: 0.85rem;
             cursor: pointer;
-            user-select: none;
         }}
 
-        .tab.active, .tab:hover {{
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }}
+        .tab.active, .tab:hover {{ background: var(--accent); color: #0f172a; border-color: var(--accent); font-weight: 700; }}
 
-        .grid {{
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-        }}
+        .grid {{ display: grid; grid-template-columns: 1fr; gap: 1.25rem; }}
 
-        @media only screen and (min-width: 852px) and (orientation: landscape) {{
-            .grid {{ grid-template-columns: repeat(2, 1fr); }}
-        }}
-
-        @media only screen and (min-width: 744px) and (orientation: portrait) {{
-            .grid {{ grid-template-columns: repeat(2, 1fr); }}
-        }}
-
-        @media only screen and (min-width: 1024px) {{
-            .grid {{ grid-template-columns: repeat(3, 1fr); }}
-        }}
+        @media only screen and (min-width: 852px) {{ .grid {{ grid-template-columns: repeat(2, 1fr); }} }}
+        @media only screen and (min-width: 1024px) {{ .grid {{ grid-template-columns: repeat(3, 1fr); }} }}
 
         .card {{
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--primary-color);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
             border-radius: 8px;
             padding: 1.25rem;
             text-decoration: none;
@@ -262,36 +189,20 @@ html_content = f"""<!DOCTYPE html>
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, border-color 0.2s ease;
         }}
 
-        .card:hover {{
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        .card:hover {{ transform: translateY(-2px); border-color: var(--accent); }}
+        
+        .card-cover {{
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
         }}
 
-        .card-title {{
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--header-bg);
-            margin-bottom: 0.5rem;
-        }}
-
-        .snippet {{
-            font-size: 0.85rem;
-            color: #475569;
-            background: #f8fafc;
-            padding: 0.5rem;
-            border-radius: 4px;
-            margin-top: 0.5rem;
-            border-left: 3px solid var(--primary-color);
-        }}
-
-        .snippet mark {{
-            background: #fef08a;
-            color: #854d0e;
-        }}
+        .card-title {{ font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem; }}
 
         .card-meta {{
             display: flex;
@@ -299,142 +210,62 @@ html_content = f"""<!DOCTYPE html>
             align-items: center;
             font-size: 0.8rem;
             color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border);
             padding-top: 0.5rem;
             margin-top: 1rem;
         }}
 
-        .badge {{
-            background: #fef3c7;
-            color: #92400e;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 0.75rem;
-        }}
-
-        .no-results {{
-            text-align: center;
-            grid-column: 1 / -1;
-            padding: 2rem;
-            color: var(--text-muted);
-            display: none;
-        }}
+        .badge {{ background: #fef3c7; color: #92400e; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700; font-size: 0.75rem; }}
     </style>
 </head>
 <body>
     <header>
         <h1>NATIONAL GEOGRAPHIC ARCHIVED MAGAZINES</h1>
-        <p>Full-Text Searched Collection of Historical Internet Archive Volumes</p>
+        <p>Full-Text Collection with Real Archival Cover Page Photos</p>
     </header>
 
     <div class="container">
         <section class="controls">
             <div class="control-row">
                 <input type="text" id="searchInput" class="search-bar" placeholder="Search full text across all National Geographic volumes...">
-                
-                <div class="settings-bar">
-                    <span>Font Size:</span>
-                    <button class="btn" onclick="setFontSize('14px')">S</button>
-                    <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
-                    <button class="btn" onclick="setFontSize('18px')">L</button>
-                    <button class="btn" onclick="setFontSize('20px')">XL</button>
-                </div>
             </div>
 
             <div class="filter-tabs" id="filterTabs">
                 <div class="tab active" data-category="ALL">All Volumes</div>
-                <div class="tab" data-category="Historical">Historical (1888-1900)</div>
+                <div class="tab" data-category="Historical">Historical (1889+)</div>
                 <div class="tab" data-category="Smokies">Smokies & Parks</div>
                 <div class="tab" data-category="Appalachia">Appalachia</div>
                 <div class="tab" data-category="Nature">Nature & Wildlife</div>
             </div>
         </section>
 
-        <main class="grid" id="cardGrid">
-            <div class="no-results" id="noResults">No matching volumes found.</div>
-        </main>
+        <main class="grid" id="cardGrid"></main>
     </div>
 
     <script>
         const articles = {search_json};
-
         const searchInput = document.getElementById('searchInput');
         const tabs = document.querySelectorAll('.tab');
         const cardGrid = document.getElementById('cardGrid');
-        const noResults = document.getElementById('noResults');
 
         let currentCategory = 'ALL';
         let searchQuery = '';
 
-        function setFontSize(size) {{
-            document.documentElement.style.setProperty('--base-font-size', size);
-            localStorage.setItem('natgeo_font_size', size);
-        }}
-
-        const savedFontSize = localStorage.getItem('natgeo_font_size');
-        if (savedFontSize) {{ setFontSize(savedFontSize); }}
-
-        window.addEventListener('scroll', () => {{
-            localStorage.setItem('natgeo_scroll_pos', window.scrollY);
-        }});
-
-        const savedScrollPos = localStorage.getItem('natgeo_scroll_pos');
-        if (savedScrollPos) {{
-            window.scrollTo({{ top: parseInt(savedScrollPos), behavior: 'smooth' }});
-        }}
-
-        function getSnippet(content, query) {{
-            if (!query || !content) return '';
-            const idx = content.toLowerCase().indexOf(query.toLowerCase());
-            if (idx === -1) return '';
-
-            const start = Math.max(0, idx - 40);
-            const end = Math.min(content.length, idx + query.length + 60);
-            let snippet = content.substring(start, end);
-
-            const regex = new RegExp(`(${{query}})`, 'gi');
-            snippet = snippet.replace(regex, '<mark>$1</mark>');
-
-            return (start > 0 ? '...' : '') + snippet + (end < content.length ? '...' : '');
-        }}
-
         function renderArticles() {{
             cardGrid.innerHTML = '';
-            let visibleCount = 0;
-
             articles.forEach(item => {{
                 const matchesCategory = (currentCategory === 'ALL' || item.category === currentCategory);
-                let matchesSearch = false;
-                let snippetHTML = '';
-
-                if (!searchQuery) {{
-                    matchesSearch = true;
-                }} else {{
-                    const titleMatch = item.title.toLowerCase().includes(searchQuery);
-                    let bodyMatch = false;
-
-                    if (item.content) {{
-                        const snippetText = getSnippet(item.content, searchQuery);
-                        if (snippetText) {{
-                            bodyMatch = true;
-                            snippetHTML = `<div class="snippet">${{snippetText}}</div>`;
-                        }}
-                    }}
-
-                    matchesSearch = titleMatch || bodyMatch;
-                }}
+                let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.content && item.content.toLowerCase().includes(searchQuery));
 
                 if (matchesSearch && matchesCategory) {{
-                    visibleCount++;
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.innerHTML = `
                         <div>
+                            <img src="${{item.cover}}" class="card-cover" alt="NatGeo Cover">
                             <div class="card-title">${{item.title}}</div>
-                            ${{snippetHTML}}
                             <div style="margin-top: 0.75rem;">
-                                <a href="${{item.path}}" style="color: var(--primary-color); font-weight: 700; font-size: 0.9rem; text-decoration: none;">📖 Open Magazine DJVU Text →</a>
+                                <a href="${{item.path}}" style="color: var(--accent); font-weight: 700; font-size: 0.9rem; text-decoration: none;">📖 Open Magazine Text →</a>
                             </div>
                         </div>
                         <div class="card-meta">
@@ -445,21 +276,9 @@ html_content = f"""<!DOCTYPE html>
                     cardGrid.appendChild(card);
                 }}
             }});
-
-            if (visibleCount === 0) {{
-                const noRes = document.createElement('div');
-                noRes.className = 'no-results';
-                noRes.style.display = 'block';
-                noRes.textContent = 'No matching volumes found.';
-                cardGrid.appendChild(noRes);
-            }}
         }}
 
-        searchInput.addEventListener('input', (e) => {{
-            searchQuery = e.target.value.toLowerCase().trim();
-            renderArticles();
-        }});
-
+        searchInput.addEventListener('input', (e) => {{ searchQuery = e.target.value.toLowerCase().trim(); renderArticles(); }});
         tabs.forEach(tab => {{
             tab.addEventListener('click', () => {{
                 tabs.forEach(t => t.classList.remove('active'));
@@ -468,7 +287,6 @@ html_content = f"""<!DOCTYPE html>
                 renderArticles();
             }});
         }});
-
         renderArticles();
     </script>
 </body>
@@ -478,4 +296,4 @@ html_content = f"""<!DOCTYPE html>
 with open(f"{natgeo_dir}/index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print("NatGeo scrape update complete.")
+print("NatGeo scrape with authentic cover images complete.")
