@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Southern Appalachian Regional Master Archive</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --primary-color: #0369a1;
+            --header-bg: #0f172a;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --base-font-size: 16px;
+        }
+
+        html {
+            font-size: var(--base-font-size);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body.scroll-locked {
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: max(1rem, env(safe-area-inset-top));
+            padding-right: max(1rem, env(safe-area-inset-right));
+            padding-bottom: max(1rem, env(safe-area-inset-bottom));
+            padding-left: max(1rem, env(safe-area-inset-left));
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: #ffffff;
+            border-bottom: 4px solid var(--primary-color);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            color: #38bdf8;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.9rem;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Controls Section */
+        .controls {
+            background: #ffffff;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .control-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-bar {
+            flex: 1;
+            min-width: 220px;
+            padding: 0.65rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-bar:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(3, 105, 161, 0.2);
+        }
+
+        .settings-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: var(--text-main);
+            user-select: none;
+        }
+
+        .btn:hover, .btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tab {
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .tab.active, .tab:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        @media only screen and (min-width: 852px) and (orientation: landscape) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media only screen and (min-width: 744px) and (orientation: portrait) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media only screen and (min-width: 1024px) {
+            .grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--header-bg);
+            margin-bottom: 0.5rem;
+        }
+
+        .snippet {
+            font-size: 0.85rem;
+            color: #475569;
+            background: #f8fafc;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .snippet mark {
+            background: #fef08a;
+            color: #854d0e;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 2rem;
+            color: var(--text-muted);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SOUTHERN APPALACHIAN REGIONAL MASTER ARCHIVE</h1>
+        <p>Pisgah, Nantahala, Shenandoah National Park & Blue Ridge Parkway</p>
+    </header>
+
+    <div class="container">
+        <section class="controls">
+            <div class="control-row">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search full text across all Southern Appalachian regional guides...">
+                
+                <div class="settings-bar">
+                    <span>Font Size:</span>
+                    <button class="btn" onclick="setFontSize('14px')">S</button>
+                    <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
+                    <button class="btn" onclick="setFontSize('18px')">L</button>
+                    <button class="btn" onclick="setFontSize('20px')">XL</button>
+                    <button class="btn" id="lockScrollBtn" onclick="toggleScrollLock()">🔒 Scroll Lock</button>
+                </div>
+            </div>
+
+            <div class="filter-tabs" id="filterTabs">
+                <div class="tab active" data-category="ALL">All Regions</div>
+                <div class="tab" data-category="Pisgah">Pisgah</div>
+                <div class="tab" data-category="Nantahala">Nantahala</div>
+                <div class="tab" data-category="Shenandoah">Shenandoah</div>
+                <div class="tab" data-category="Blue Ridge">Blue Ridge</div>
+            </div>
+        </section>
+
+        <main class="grid" id="cardGrid">
+            <div class="no-results" id="noResults">No matching regional guides found.</div>
+        </main>
+    </div>
+
+    <script>
+        const articles = [{"id": "pisgah_national_forest", "title": "Pisgah National Forest Wilderness & Trail Guide", "category": "Pisgah", "path": "texts/pisgah_national_forest.txt", "type": "REGIONAL GUIDE", "local": "regional_collection/texts/pisgah_national_forest.txt", "content": "# Pisgah National Forest Wilderness & Trail Guide\n\n## Key Wilderness Areas\n1. **Linville Gorge Wilderness (\"The Grand Canyon of the East\")**\n   - Elevation Range: 2,000 ft to 4,120 ft (Shortoff Mountain, Table Rock, Hawksbill).\n   - Terrain: Extremely rugged, steep terrain with unmaintained trail corridors.\n   - Key Routes: Linville Gorge Trail (39 miles), Babel Tower Trail, Chimneys Gap.\n2. **Looking Glass Rock & Davidson River Area**\n   - Massive granite pluton rising 3,969 ft. Popular for technical rock climbing and steep day hikes (6.5 miles round trip, 1,700 ft gain).\n3. **Cradle of Forestry in America**\n   - Historic site of the Biltmore Forest School founded by Dr. Carl A. Schenck in 1898. birthplace of scientific forestry in North America.\n"}, {"id": "nantahala_national_forest", "title": "Nantahala National Forest & Whitewater Wilderness", "category": "Nantahala", "path": "texts/nantahala_national_forest.txt", "type": "REGIONAL GUIDE", "local": "regional_collection/texts/nantahala_national_forest.txt", "content": "# Nantahala National Forest & Whitewater Wilderness\n\n## Key Features & Trails\n1. **Nantahala Gorge & River Corridor**\n   - World-famous class II-III whitewater kayaking & rafting corridor.\n   - Legend of Uw'ts\u00fb\u00f1'ta (Cherokee legend of the great serpent).\n2. **Joyce Kilmer Memorial Forest**\n   - One of the last remaining virgin old-growth forests in Eastern America.\n   - Features 400-year-old Poplar trees with trunks exceeding 20 feet in circumference.\n   - Joyce Kilmer Loop Trail: 2.0-mile easy loop through ancient hemlocks and poplars.\n3. **Whiteside Mountain**\n   - Highest sheer cliffs in Eastern North America (over 750 ft vertical drop).\n   - Critical nesting habitat for peregrine falcons.\n"}, {"id": "shenandoah_national_park", "title": "Shenandoah National Park & Skyline Drive Guide", "category": "Shenandoah", "path": "texts/shenandoah_national_park.txt", "type": "REGIONAL GUIDE", "local": "regional_collection/texts/shenandoah_national_park.txt", "content": "# Shenandoah National Park & Skyline Drive Guide\n\n## Key Highlights\n1. **Skyline Drive (105 Miles)**\n   - Traverses the crest of the Blue Ridge Mountains in Virginia from Front Royal to Waynesboro.\n   - 75 scenic overlooks providing vistas of the Shenandoah Valley and Piedmont.\n2. **Old Rag Mountain Trail**\n   - Most famous and challenging rock scramble in Shenandoah (9.4 miles round trip, 2,415 ft gain).\n   - Requires narrow fissure maneuvers and false-summit scrambles.\n3. **Appalachian Trail in Shenandoah (101 Miles)**\n   - Gentle, well-graded trail section frequently intersecting Skyline Drive.\n"}, {"id": "blue_ridge_parkway", "title": "Blue Ridge Parkway Crest & Highest Peaks", "category": "Blue Ridge", "path": "texts/blue_ridge_parkway.txt", "type": "REGIONAL GUIDE", "local": "regional_collection/texts/blue_ridge_parkway.txt", "content": "# Blue Ridge Parkway Crest & Highest Peaks\n\n## Key High Points\n1. **Mount Mitchell (6,684 ft)**\n   - Highest peak in North America east of the Mississippi River.\n   - Located at Parkway Milepost 355.4 in the Black Mountains range.\n   - Features balsam fir spruce forest summit trail.\n2. **Grandfather Mountain & Mile High Swinging Bridge**\n   - Milepost 305. Rugged terrain with backcountry ladder trails (Grandfather Trail).\n3. **Craggy Gardens & Pinnacle**\n   - Milepost 364. Famous for vast rhododendron blooms in June.\n"}];
+
+        const searchInput = document.getElementById('searchInput');
+        const tabs = document.querySelectorAll('.tab');
+        const cardGrid = document.getElementById('cardGrid');
+        const noResults = document.getElementById('noResults');
+        const lockScrollBtn = document.getElementById('lockScrollBtn');
+
+        let currentCategory = 'ALL';
+        let searchQuery = '';
+        let isScrollLocked = false;
+
+        function setFontSize(size) {
+            document.documentElement.style.setProperty('--base-font-size', size);
+            localStorage.setItem('reg_font_size', size);
+        }
+
+        const savedFontSize = localStorage.getItem('reg_font_size');
+        if (savedFontSize) { setFontSize(savedFontSize); }
+
+        window.addEventListener('scroll', () => {
+            if (!isScrollLocked) {
+                localStorage.setItem('reg_scroll_pos', window.scrollY);
+            }
+        });
+
+        const savedScrollPos = localStorage.getItem('reg_scroll_pos');
+        if (savedScrollPos) {
+            window.scrollTo({ top: parseInt(savedScrollPos), behavior: 'smooth' });
+        }
+
+        function toggleScrollLock() {
+            isScrollLocked = !isScrollLocked;
+            document.body.classList.toggle('scroll-locked', isScrollLocked);
+            lockScrollBtn.classList.toggle('active', isScrollLocked);
+            lockScrollBtn.textContent = isScrollLocked ? '🔓 Scroll Unlocked' : '🔒 Scroll Lock';
+        }
+
+        function getSnippet(content, query) {
+            if (!query || !content) return '';
+            const idx = content.toLowerCase().indexOf(query.toLowerCase());
+            if (idx === -1) return '';
+
+            const start = Math.max(0, idx - 40);
+            const end = Math.min(content.length, idx + query.length + 60);
+            let snippet = content.substring(start, end);
+
+            const regex = new RegExp(`(${query})`, 'gi');
+            snippet = snippet.replace(regex, '<mark>$1</mark>');
+
+            return (start > 0 ? '...' : '') + snippet + (end < content.length ? '...' : '');
+        }
+
+        function renderArticles() {
+            cardGrid.innerHTML = '';
+            let visibleCount = 0;
+
+            articles.forEach(item => {
+                const matchesCategory = (currentCategory === 'ALL' || item.category === currentCategory);
+                let matchesSearch = false;
+                let snippetHTML = '';
+
+                if (!searchQuery) {
+                    matchesSearch = true;
+                } else {
+                    const titleMatch = item.title.toLowerCase().includes(searchQuery);
+                    let bodyMatch = false;
+
+                    if (item.content) {
+                        const snippetText = getSnippet(item.content, searchQuery);
+                        if (snippetText) {
+                            bodyMatch = true;
+                            snippetHTML = `<div class="snippet">${snippetText}</div>`;
+                        }
+                    }
+
+                    matchesSearch = titleMatch || bodyMatch;
+                }
+
+                if (matchesSearch && matchesCategory) {
+                    visibleCount++;
+                    const card = document.createElement('a');
+                    card.className = 'card';
+                    card.href = item.path;
+                    card.innerHTML = `
+                        <div>
+                            <div class="card-title">${item.title}</div>
+                            ${snippetHTML}
+                        </div>
+                        <div class="card-meta">
+                            <span>Category: ${item.category}</span>
+                            <span class="badge">${item.type}</span>
+                        </div>
+                    `;
+                    cardGrid.appendChild(card);
+                }
+            });
+
+            if (visibleCount === 0) {
+                const noRes = document.createElement('div');
+                noRes.className = 'no-results';
+                noRes.style.display = 'block';
+                noRes.textContent = 'No matching regional guides found.';
+                cardGrid.appendChild(noRes);
+            }
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            renderArticles();
+        });
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentCategory = tab.getAttribute('data-category');
+                renderArticles();
+            });
+        });
+
+        renderArticles();
+    </script>
+</body>
+</html>
