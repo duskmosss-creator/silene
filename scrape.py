@@ -36,76 +36,219 @@ archive_ids = {
     'folksongsofengli00shar': ('Folk-songs of English Origin in the Appalachian Mountains', 'Culture', 'PDF'),
     'nurserysongsfrom00shar': ('Nursery Songs from the Appalachian Mountains', 'Culture', 'PDF'),
     'historyofwataug00arth': ('A History of Watauga County, North Carolina', 'History', 'PDF'),
-    'carologueaccesst00hoff': ('Carologue: Access to North Carolina', 'History', 'PDF'),
-    'Elkmont09-18-14': ('Elkmont Historical Audio Recording', 'Audio', 'AUDIO')
+    'carologueaccesst00hoff': ('Carologue: Access to North Carolina', 'History', 'PDF')
 }
 
 downloaded_items = []
 
 def download_file(url, filepath):
-    if os.path.exists(filepath):
+    if os.path.exists(filepath) and os.path.getsize(filepath) > 100:
         return True
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req, timeout=30) as response:
-            with open(filepath, 'wb') as f:
-                f.write(response.read())
-        return True
+            data = response.read()
+            if len(data) > 0:
+                with open(filepath, 'wb') as f:
+                    f.write(data)
+                return True
     except Exception as e:
         print(f"Notice: {e}")
-        return False
+    return False
 
-print("Downloading Gutenberg texts...")
+# 1. Download & Wrap Gutenberg Texts into Styled HTML Articles
+print("Processing Gutenberg texts into styled HTML articles...")
 for gid, (title, category) in gutenberg_ids.items():
-    filepath = f"content/texts/{gid}.txt"
+    raw_txt_path = f"content/texts/{gid}_raw.txt"
+    html_page_path = f"content/texts/{gid}.html"
     url = f"https://www.gutenberg.org/cache/epub/{gid}/pg{gid}.txt"
-    if download_file(url, filepath):
+    
+    download_file(url, raw_txt_path)
+    
+    raw_text = ""
+    if os.path.exists(raw_txt_path):
         try:
-            with open(filepath, 'r', encoding='utf-8', errors='ignore') as tf:
-                content_text = tf.read()
+            with open(raw_txt_path, 'r', encoding='utf-8', errors='ignore') as tf:
+                raw_text = tf.read()
         except:
-            content_text = ""
-            
-        downloaded_items.append({
-            'id': f"gutenberg-{gid}",
-            'title': title, 
-            'category': category, 
-            'path': f"texts/{gid}.txt", 
-            'type': 'TEXT', 
-            'local': filepath,
-            'content': content_text[:15000]
-        })
+            raw_text = title
 
-print("Downloading Internet Archive PDF & Audio items...")
+    # Format text into clean paragraphs
+    paragraphs = raw_text.split('\n\n')
+    formatted_p_html = "".join([f"<p>{p.strip()}</p>" for p in paragraphs if p.strip()])
+
+    article_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <style>
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+            line-height: 1.8;
+            color: #1e293b;
+            background-color: #ffffff;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }}
+        header {{
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }}
+        h1 {{ color: #0f172a; font-size: 1.8rem; margin: 0 0 0.5rem 0; }}
+        .meta {{ color: #64748b; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }}
+        p {{ margin-bottom: 1.25rem; word-wrap: break-word; white-space: pre-wrap; }}
+        a {{ color: #2563eb; text-decoration: none; }}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="meta">Category: {category}</div>
+        <h1>{title}</h1>
+        <a href="../index.html">← Back to Archive Index</a>
+    </header>
+    <main>
+        {formatted_p_html}
+    </main>
+</body>
+</html>
+"""
+    with open(html_page_path, 'w', encoding='utf-8') as hf:
+        hf.write(article_html)
+
+    downloaded_items.append({
+        'id': f"gutenberg-{gid}",
+        'title': title, 
+        'category': category, 
+        'path': f"texts/{gid}.html", 
+        'type': 'TEXT', 
+        'content': raw_text[:10000]
+    })
+
+# 2. Process PDFs with Low-Resource Web Viewer Wrapper
+print("Processing PDF documents into low-resource web viewers...")
 for aid, data in archive_ids.items():
-    title, category, item_kind = data[0], data[1], data[2]
+    title, category = data[0], data[1]
     
-    if item_kind == 'AUDIO':
-        filepath = f"content/audio/{aid}.mp3"
-        url = f"https://archive.org/download/{aid}/{aid}.mp3"
-        item_path = f"audio/{aid}.mp3"
-        item_type = 'AUDIO'
+    pdf_file_path = f"content/pdfs/{aid}.pdf"
+    pdf_html_path = f"content/pdfs/{aid}.html"
+    url = f"https://archive.org/download/{aid}/{aid}.pdf"
+    
+    has_pdf = download_file(url, pdf_file_path)
+
+    # Build low-resource PDF viewer page
+    if has_pdf:
+        viewer_content = f"""<iframe src="{aid}.pdf" style="width: 100%; height: 82vh; border: 1px solid #cbd5e1; border-radius: 8px;"></iframe>"""
     else:
-        filepath = f"content/pdfs/{aid}.pdf"
-        url = f"https://archive.org/download/{aid}/{aid}.pdf"
-        item_path = f"pdfs/{aid}.pdf"
-        item_type = 'PDF'
-        
-    download_file(url, filepath)
-    
+        viewer_content = f"""<div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 2rem; border-radius: 8px; text-align: center;">
+            <p>PDF Document Metadata & Text Summary for <strong>{title}</strong></p>
+            <p><a href="https://archive.org/details/{aid}" target="_blank" style="color: #2563eb;">View Original Document on Internet Archive ↗</a></p>
+        </div>"""
+
+    pdf_viewer_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <style>
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 1rem;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }}
+        .header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }}
+        h1 {{ font-size: 1.25rem; margin: 0; color: #1e3a8a; }}
+        a {{ color: #2563eb; text-decoration: none; font-weight: 600; font-size: 0.9rem; }}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{title}</h1>
+        <a href="../index.html">← Back to Archive Index</a>
+    </div>
+    {viewer_content}
+</body>
+</html>
+"""
+    with open(pdf_html_path, 'w', encoding='utf-8') as pf:
+        pf.write(pdf_viewer_html)
+
     downloaded_items.append({
         'id': f"archive-{aid}",
         'title': title, 
         'category': category, 
-        'path': item_path, 
-        'type': item_type, 
-        'local': filepath,
-        'content': f"{title} - {item_type} Resource"
+        'path': f"pdfs/{aid}.html", 
+        'type': 'PDF', 
+        'content': f"{title} PDF Document"
     })
+
+# 3. Add Working Audio Recording with Embedded Player Page
+audio_title = "Elkmont Historical Audio Recording"
+audio_html_path = "content/audio/elkmont_audio.html"
+
+audio_viewer_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{audio_title}</title>
+    <style>
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }}
+        h1 {{ font-size: 1.4rem; color: #0f172a; margin-bottom: 1.5rem; }}
+        audio {{ width: 100%; margin: 1.5rem 0; }}
+        a {{ color: #2563eb; text-decoration: none; font-weight: 600; }}
+    </style>
+</head>
+<body>
+    <h1>🎵 {audio_title}</h1>
+    <p>Historical oral record of Elkmont community & Appalachian heritage.</p>
+    <audio controls>
+        <source src="https://archive.org/download/Elkmont09-18-14/Elkmont09-18-14.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <br><br>
+    <a href="../index.html">← Back to Archive Index</a>
+</body>
+</html>
+"""
+with open(audio_html_path, 'w', encoding='utf-8') as af:
+    af.write(audio_viewer_html)
+
+downloaded_items.append({
+    'id': 'elkmont-audio',
+    'title': audio_title,
+    'category': 'Audio',
+    'path': 'audio/elkmont_audio.html',
+    'type': 'AUDIO',
+    'content': 'Elkmont Historical Audio Recording Oral History'
+})
 
 search_json = json.dumps(downloaded_items)
 
-# Generate Clean UI index.html (No scroll lock, proper PDF & Audio rendering, elegant typography)
+# Generate Main Index HTML
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,12 +273,12 @@ html_content = f"""<!DOCTYPE html>
         }}
 
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            line-height: 1.7;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }}
 
@@ -296,27 +439,6 @@ html_content = f"""<!DOCTYPE html>
             margin-bottom: 0.5rem;
         }}
 
-        .snippet {{
-            font-size: 0.85rem;
-            color: #475569;
-            background: #f8fafc;
-            padding: 0.5rem;
-            border-radius: 4px;
-            margin-top: 0.5rem;
-            border-left: 3px solid var(--secondary-color);
-        }}
-
-        .snippet mark {{
-            background: #fef08a;
-            color: #854d0e;
-        }}
-
-        audio {{
-            width: 100%;
-            margin-top: 0.5rem;
-            height: 36px;
-        }}
-
         .card-meta {{
             display: flex;
             justify-content: space-between;
@@ -403,7 +525,6 @@ html_content = f"""<!DOCTYPE html>
         const savedFontSize = localStorage.getItem('appalachian_font_size');
         if (savedFontSize) {{ setFontSize(savedFontSize); }}
 
-        // Scroll Position Saving
         window.addEventListener('scroll', () => {{
             localStorage.setItem('appalachian_index_scroll', window.scrollY);
         }});
@@ -413,21 +534,6 @@ html_content = f"""<!DOCTYPE html>
             window.scrollTo({{ top: parseInt(savedScrollPos), behavior: 'smooth' }});
         }}
 
-        function getSnippet(content, query) {{
-            if (!query || !content) return '';
-            const idx = content.toLowerCase().indexOf(query.toLowerCase());
-            if (idx === -1) return '';
-
-            const start = Math.max(0, idx - 40);
-            const end = Math.min(content.length, idx + query.length + 60);
-            let snippet = content.substring(start, end);
-
-            const regex = new RegExp(`(${{query}})`, 'gi');
-            snippet = snippet.replace(regex, '<mark>$1</mark>');
-
-            return (start > 0 ? '...' : '') + snippet + (end < content.length ? '...' : '');
-        }}
-
         function renderCards() {{
             cardGrid.innerHTML = '';
             let visibleCount = 0;
@@ -435,48 +541,35 @@ html_content = f"""<!DOCTYPE html>
             searchData.forEach(item => {{
                 const matchesCategory = (currentCategory === 'ALL' || item.category === currentCategory);
                 let matchesSearch = false;
-                let snippetHTML = '';
 
                 if (!searchQuery) {{
                     matchesSearch = true;
                 }} else {{
                     const titleMatch = item.title.toLowerCase().includes(searchQuery);
-                    let bodyMatch = false;
-
-                    if (item.content) {{
-                        const snippetText = getSnippet(item.content, searchQuery);
-                        if (snippetText) {{
-                            bodyMatch = true;
-                            snippetHTML = `<div class="snippet">${{snippetText}}</div>`;
-                        }}
-                    }}
-
+                    const bodyMatch = item.content && item.content.toLowerCase().includes(searchQuery);
                     matchesSearch = titleMatch || bodyMatch;
                 }}
 
                 if (matchesSearch && matchesCategory) {{
                     visibleCount++;
-                    const card = document.createElement('div');
+                    const card = document.createElement('a');
                     card.className = 'card';
+                    card.href = item.path;
 
                     let badgeClass = 'badge-text';
-                    if (item.type === 'PDF') badgeClass = 'badge-pdf';
-                    if (item.type === 'AUDIO') badgeClass = 'badge-audio';
-
-                    let mediaContent = '';
-                    if (item.type === 'AUDIO') {{
-                        mediaContent = `<audio controls preload="none" src="${{item.path}}"></audio>`;
-                    }} else if (item.type === 'PDF') {{
-                        mediaContent = `<a href="${{item.path}}" target="_blank" style="color: var(--secondary-color); font-weight: 600; font-size: 0.9rem; text-decoration: none;">📄 View PDF Document →</a>`;
-                    }} else {{
-                        mediaContent = `<a href="${{item.path}}" style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem; text-decoration: none;">📖 Read Text Document →</a>`;
+                    let linkText = '📖 Read Formatted Article →';
+                    if (item.type === 'PDF') {{
+                        badgeClass = 'badge-pdf';
+                        linkText = '📄 View PDF Document →';
+                    }} else if (item.type === 'AUDIO') {{
+                        badgeClass = 'badge-audio';
+                        linkText = '🎵 Play Audio Recording →';
                     }}
 
                     card.innerHTML = `
                         <div>
                             <div class="card-title">${{item.title}}</div>
-                            ${{snippetHTML}}
-                            <div style="margin-top: 0.75rem;">${{mediaContent}}</div>
+                            <div style="margin-top: 0.5rem; color: var(--secondary-color); font-weight: 600; font-size: 0.9rem;">${{linkText}}</div>
                         </div>
                         <div class="card-meta">
                             <span>Category: ${{item.category}}</span>
