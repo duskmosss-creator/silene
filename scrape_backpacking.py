@@ -5,7 +5,6 @@ backpacking_dir = "backpacking_guide"
 os.makedirs(f"{backpacking_dir}/texts", exist_ok=True)
 os.makedirs(f"{backpacking_dir}/pdfs", exist_ok=True)
 
-# Practical GSMNP & DuPont Backpacking Field Manual Entries
 guides = [
     {
         'id': 'shelter_directory',
@@ -135,7 +134,6 @@ guides = [
 
 downloaded_backpacking = []
 
-print("Building GSMNP & DuPont Backpacking Field Manual Repository...")
 for g in guides:
     filepath = f"{backpacking_dir}/texts/{g['id']}.txt"
     with open(filepath, 'w', encoding='utf-8') as f:
@@ -151,10 +149,8 @@ for g in guides:
         'content': g['content']
     })
 
-# JSON serialization for full-text search
 search_json = json.dumps(downloaded_backpacking)
 
-# Generate Clean Responsive Landing Page for Backpacking Guide
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,7 +161,7 @@ html_content = f"""<!DOCTYPE html>
         :root {{
             --bg-color: #f4f6f8;
             --card-bg: #ffffff;
-            --primary-color: #15803d; /* Appalachian Forest Green */
+            --primary-color: #15803d;
             --header-bg: #064e3b;
             --text-main: #0f172a;
             --text-muted: #475569;
@@ -179,17 +175,13 @@ html_content = f"""<!DOCTYPE html>
         }}
 
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
-        }}
-
-        body.scroll-locked {{
-            overflow: hidden;
         }}
 
         .container {{
@@ -221,7 +213,6 @@ html_content = f"""<!DOCTYPE html>
             margin: 0;
         }}
 
-        /* Controls Section */
         .controls {{
             background: #ffffff;
             padding: 1rem;
@@ -305,7 +296,6 @@ html_content = f"""<!DOCTYPE html>
             border-color: var(--primary-color);
         }}
 
-        /* Breakpoints for iPhone 15 Pro, Pro Max, iPad Mini 6 */
         .grid {{
             display: grid;
             grid-template-columns: 1fr;
@@ -412,7 +402,6 @@ html_content = f"""<!DOCTYPE html>
                     <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
                     <button class="btn" onclick="setFontSize('18px')">L</button>
                     <button class="btn" onclick="setFontSize('20px')">XL</button>
-                    <button class="btn" id="lockScrollBtn" onclick="toggleScrollLock()">🔒 Scroll Lock</button>
                 </div>
             </div>
 
@@ -438,11 +427,9 @@ html_content = f"""<!DOCTYPE html>
         const tabs = document.querySelectorAll('.tab');
         const cardGrid = document.getElementById('cardGrid');
         const noResults = document.getElementById('noResults');
-        const lockScrollBtn = document.getElementById('lockScrollBtn');
 
         let currentCategory = 'ALL';
         let searchQuery = '';
-        let isScrollLocked = false;
 
         function setFontSize(size) {{
             document.documentElement.style.setProperty('--base-font-size', size);
@@ -453,21 +440,12 @@ html_content = f"""<!DOCTYPE html>
         if (savedFontSize) {{ setFontSize(savedFontSize); }}
 
         window.addEventListener('scroll', () => {{
-            if (!isScrollLocked) {{
-                localStorage.setItem('backpack_scroll_pos', window.scrollY);
-            }}
+            localStorage.setItem('backpack_scroll_pos', window.scrollY);
         }});
 
         const savedScrollPos = localStorage.getItem('backpack_scroll_pos');
         if (savedScrollPos) {{
             window.scrollTo({{ top: parseInt(savedScrollPos), behavior: 'smooth' }});
-        }}
-
-        function toggleScrollLock() {{
-            isScrollLocked = !isScrollLocked;
-            document.body.classList.toggle('scroll-locked', isScrollLocked);
-            lockScrollBtn.classList.toggle('active', isScrollLocked);
-            lockScrollBtn.textContent = isScrollLocked ? '🔓 Scroll Unlocked' : '🔒 Scroll Lock';
         }}
 
         function getSnippet(content, query) {{
@@ -513,13 +491,15 @@ html_content = f"""<!DOCTYPE html>
 
                 if (matchesSearch && matchesCategory) {{
                     visibleCount++;
-                    const card = document.createElement('a');
+                    const card = document.createElement('div');
                     card.className = 'card';
-                    card.href = item.path;
                     card.innerHTML = `
                         <div>
                             <div class="card-title">${{item.title}}</div>
                             ${{snippetHTML}}
+                            <div style="margin-top: 0.75rem;">
+                                <a href="${{item.path}}" style="color: var(--primary-color); font-weight: 700; font-size: 0.9rem; text-decoration: none;">📋 Read Field Guide →</a>
+                            </div>
                         </div>
                         <div class="card-meta">
                             <span>Category: ${{item.category}}</span>
@@ -562,4 +542,4 @@ html_content = f"""<!DOCTYPE html>
 with open(f"{backpacking_dir}/index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print("Backpacking guide repository setup complete.")
+print("Backpacking scrape update complete.")

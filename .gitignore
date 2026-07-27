@@ -1,8 +1,13 @@
-# Python
+# Heavy ZIM Archives (Stored in local zim_downloads / GitHub Releases)
+*.zim
+zim_downloads/
+
+# Python & Temporary
 __pycache__/
 *.pyc
 *.tmp
 *.idx
-
-# Logs
 *.log
+
+# Large Binary Data
+content/pdfs/*.pdf

@@ -7,7 +7,6 @@ natgeo_dir = "natgeo_collection"
 os.makedirs(f"{natgeo_dir}/texts", exist_ok=True)
 os.makedirs(f"{natgeo_dir}/pdfs", exist_ok=True)
 
-# Real National Geographic Magazine Identifiers on Internet Archive
 real_natgeo_volumes = [
     {
         'id': 'nationalgeograph11889nati',
@@ -67,40 +66,8 @@ real_natgeo_volumes = [
 
 downloaded_natgeo = []
 
-def download_file(url, filepath):
-    if os.path.exists(filepath):
-        return True
-    try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=30) as response:
-            with open(filepath, 'wb') as f:
-                f.write(response.read())
-        return True
-    except Exception as e:
-        print(f"Notice: {e}")
-        return False
-
-print("Fetching real National Geographic magazine metadata & djvu texts from Internet Archive...")
-
 for item in real_natgeo_volumes:
-    filepath = f"{natgeo_dir}/pdfs/{item['id']}.json"
-    metadata_url = f"https://archive.org/metadata/{item['ia_id']}"
-    
-    print(f"Downloading IA metadata for {item['title']}...")
-    download_file(metadata_url, filepath)
-    
-    # Try fetching djvu text summary if available
     txt_filepath = f"{natgeo_dir}/texts/{item['id']}.txt"
-    djvu_url = f"https://archive.org/stream/{item['ia_id']}/{item['ia_id']}_djvu.txt"
-    
-    if not os.path.exists(txt_filepath):
-        print(f"Fetching DJVU full text for {item['id']}...")
-        if not download_file(djvu_url, txt_filepath):
-            # Fallback text if djvu endpoint differs
-            with open(txt_filepath, 'w', encoding='utf-8') as f:
-                f.write(f"Title: {item['title']}\nInternet Archive ID: {item['ia_id']}\n\nArchival National Geographic Volume metadata and text index.")
-
-    # Read snippet for index
     content_snippet = ""
     try:
         with open(txt_filepath, 'r', encoding='utf-8', errors='ignore') as tf:
@@ -113,15 +80,13 @@ for item in real_natgeo_volumes:
         'title': item['title'],
         'category': item['category'],
         'path': f"texts/{item['id']}.txt",
-        'type': 'NATGEO ARCHIVE',
+        'type': 'MAGAZINE',
         'local': txt_filepath,
         'content': content_snippet
     })
 
-# JSON serialization for client-side search
 search_json = json.dumps(downloaded_natgeo)
 
-# Generate clean, responsive, non-glass index.html
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -151,12 +116,8 @@ html_content = f"""<!DOCTYPE html>
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
-        }}
-
-        body.scroll-locked {{
-            overflow: hidden;
         }}
 
         .container {{
@@ -189,7 +150,6 @@ html_content = f"""<!DOCTYPE html>
             margin: 0;
         }}
 
-        /* Controls Section */
         .controls {{
             background: #ffffff;
             padding: 1rem;
@@ -273,7 +233,6 @@ html_content = f"""<!DOCTYPE html>
             border-color: var(--primary-color);
         }}
 
-        /* Grid Layout for iPhone 15 Pro, Pro Max, iPad Mini 6 */
         .grid {{
             display: grid;
             grid-template-columns: 1fr;
@@ -380,7 +339,6 @@ html_content = f"""<!DOCTYPE html>
                     <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
                     <button class="btn" onclick="setFontSize('18px')">L</button>
                     <button class="btn" onclick="setFontSize('20px')">XL</button>
-                    <button class="btn" id="lockScrollBtn" onclick="toggleScrollLock()">🔒 Scroll Lock</button>
                 </div>
             </div>
 
@@ -405,11 +363,9 @@ html_content = f"""<!DOCTYPE html>
         const tabs = document.querySelectorAll('.tab');
         const cardGrid = document.getElementById('cardGrid');
         const noResults = document.getElementById('noResults');
-        const lockScrollBtn = document.getElementById('lockScrollBtn');
 
         let currentCategory = 'ALL';
         let searchQuery = '';
-        let isScrollLocked = false;
 
         function setFontSize(size) {{
             document.documentElement.style.setProperty('--base-font-size', size);
@@ -420,21 +376,12 @@ html_content = f"""<!DOCTYPE html>
         if (savedFontSize) {{ setFontSize(savedFontSize); }}
 
         window.addEventListener('scroll', () => {{
-            if (!isScrollLocked) {{
-                localStorage.setItem('natgeo_scroll_pos', window.scrollY);
-            }}
+            localStorage.setItem('natgeo_scroll_pos', window.scrollY);
         }});
 
         const savedScrollPos = localStorage.getItem('natgeo_scroll_pos');
         if (savedScrollPos) {{
             window.scrollTo({{ top: parseInt(savedScrollPos), behavior: 'smooth' }});
-        }}
-
-        function toggleScrollLock() {{
-            isScrollLocked = !isScrollLocked;
-            document.body.classList.toggle('scroll-locked', isScrollLocked);
-            lockScrollBtn.classList.toggle('active', isScrollLocked);
-            lockScrollBtn.textContent = isScrollLocked ? '🔓 Scroll Unlocked' : '🔒 Scroll Lock';
         }}
 
         function getSnippet(content, query) {{
@@ -480,13 +427,15 @@ html_content = f"""<!DOCTYPE html>
 
                 if (matchesSearch && matchesCategory) {{
                     visibleCount++;
-                    const card = document.createElement('a');
+                    const card = document.createElement('div');
                     card.className = 'card';
-                    card.href = item.path;
                     card.innerHTML = `
                         <div>
                             <div class="card-title">${{item.title}}</div>
                             ${{snippetHTML}}
+                            <div style="margin-top: 0.75rem;">
+                                <a href="${{item.path}}" style="color: var(--primary-color); font-weight: 700; font-size: 0.9rem; text-decoration: none;">📖 Open Magazine DJVU Text →</a>
+                            </div>
                         </div>
                         <div class="card-meta">
                             <span>Category: ${{item.category}}</span>
@@ -529,4 +478,4 @@ html_content = f"""<!DOCTYPE html>
 with open(f"{natgeo_dir}/index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print("NatGeo Internet Archive scraping and indexing complete.")
+print("NatGeo scrape update complete.")

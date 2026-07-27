@@ -1,3 +1,3 @@
 # In-Progress Tasks
 
-- [ ] **Awaiting Plan Approval**: Waiting for user review of `implementation_plan.md` for project **`fen`** (iOS local VLM/Embedding RAG app + ZIM reader & hotspot API) and extended Southern Appalachian regional scraping.
+- [ ] **ZIM Rebuild & Deployment**: Regenerating all 4 ZIM files (removing scroll lock, adding native HTML5 audio players & PDF links, enhancing text typography) and copying to `zim_downloads/` and GitHub repository.

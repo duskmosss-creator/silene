@@ -80,7 +80,6 @@ regional_guides = [
 
 downloaded_reg = []
 
-print("Generating Southern Appalachian Regional Master Collection...")
 for g in regional_guides:
     filepath = f"{reg_dir}/texts/{g['id']}.txt"
     with open(filepath, 'w', encoding='utf-8') as f:
@@ -98,7 +97,6 @@ for g in regional_guides:
 
 search_json = json.dumps(downloaded_reg)
 
-# Generate Clean Landing Page
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,17 +121,13 @@ html_content = f"""<!DOCTYPE html>
         }}
 
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
-        }}
-
-        body.scroll-locked {{
-            overflow: hidden;
         }}
 
         .container {{
@@ -165,7 +159,6 @@ html_content = f"""<!DOCTYPE html>
             margin: 0;
         }}
 
-        /* Controls Section */
         .controls {{
             background: #ffffff;
             padding: 1rem;
@@ -355,7 +348,6 @@ html_content = f"""<!DOCTYPE html>
                     <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
                     <button class="btn" onclick="setFontSize('18px')">L</button>
                     <button class="btn" onclick="setFontSize('20px')">XL</button>
-                    <button class="btn" id="lockScrollBtn" onclick="toggleScrollLock()">🔒 Scroll Lock</button>
                 </div>
             </div>
 
@@ -380,11 +372,9 @@ html_content = f"""<!DOCTYPE html>
         const tabs = document.querySelectorAll('.tab');
         const cardGrid = document.getElementById('cardGrid');
         const noResults = document.getElementById('noResults');
-        const lockScrollBtn = document.getElementById('lockScrollBtn');
 
         let currentCategory = 'ALL';
         let searchQuery = '';
-        let isScrollLocked = false;
 
         function setFontSize(size) {{
             document.documentElement.style.setProperty('--base-font-size', size);
@@ -395,21 +385,12 @@ html_content = f"""<!DOCTYPE html>
         if (savedFontSize) {{ setFontSize(savedFontSize); }}
 
         window.addEventListener('scroll', () => {{
-            if (!isScrollLocked) {{
-                localStorage.setItem('reg_scroll_pos', window.scrollY);
-            }}
+            localStorage.setItem('reg_scroll_pos', window.scrollY);
         }});
 
         const savedScrollPos = localStorage.getItem('reg_scroll_pos');
         if (savedScrollPos) {{
             window.scrollTo({{ top: parseInt(savedScrollPos), behavior: 'smooth' }});
-        }}
-
-        function toggleScrollLock() {{
-            isScrollLocked = !isScrollLocked;
-            document.body.classList.toggle('scroll-locked', isScrollLocked);
-            lockScrollBtn.classList.toggle('active', isScrollLocked);
-            lockScrollBtn.textContent = isScrollLocked ? '🔓 Scroll Unlocked' : '🔒 Scroll Lock';
         }}
 
         function getSnippet(content, query) {{
@@ -455,13 +436,15 @@ html_content = f"""<!DOCTYPE html>
 
                 if (matchesSearch && matchesCategory) {{
                     visibleCount++;
-                    const card = document.createElement('a');
+                    const card = document.createElement('div');
                     card.className = 'card';
-                    card.href = item.path;
                     card.innerHTML = `
                         <div>
                             <div class="card-title">${{item.title}}</div>
                             ${{snippetHTML}}
+                            <div style="margin-top: 0.75rem;">
+                                <a href="${{item.path}}" style="color: var(--primary-color); font-weight: 700; font-size: 0.9rem; text-decoration: none;">🏔️ Open Regional Guide →</a>
+                            </div>
                         </div>
                         <div class="card-meta">
                             <span>Category: ${{item.category}}</span>
@@ -504,4 +487,4 @@ html_content = f"""<!DOCTYPE html>
 with open(f"{reg_dir}/index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print("Regional master repository setup complete.")
+print("Regional master scrape update complete.")
