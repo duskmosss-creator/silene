@@ -1,0 +1,24 @@
+# GSMNP Backcountry Shelter & Campsite Directory
+
+## Key AT Shelters & Water Source Reliability
+1. **Icewater Spring Shelter** (Elevation: 5,920 ft)
+   - Capacity: 12 hikers.
+   - Bear Cables: Yes (Mandatory food hanging).
+   - Water Source: Pipe spring 100 ft south of shelter. Extremely reliable year-round.
+2. **Mount LeConte Shelter** (Elevation: 6,400 ft)
+   - Capacity: 12 hikers (Permit required).
+   - Bear Cables: Yes.
+   - Water Source: Spring near lodge trail junction. Can slow to a drip in late October.
+3. **Spence Field Shelter** (Elevation: 4,900 ft)
+   - Capacity: 12 hikers.
+   - Bear Cables: Yes.
+   - Water Source: Spring down trail 0.1 miles. Reliable spring and summer; moderate autumn flow.
+4. **Mollies Ridge Shelter** (Elevation: 4,560 ft)
+   - Capacity: 12 hikers.
+   - Bear Cables: Yes.
+   - Water Source: Spring 0.2 miles down blue-blazed side trail.
+
+## Backcountry Campsites (Cades Cove & Little River Region)
+- **Campsite 18 (West Prong)**: Easy 2.1 mile hike in. Good water source from Little River.
+- **Campsite 24 (Rough Fork)**: Deep forest site along Cataloochee area.
+- **Campsite 30 (Three Forks)**: High elevation stream access near Hazel Creek.

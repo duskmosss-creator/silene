@@ -1,0 +1,288 @@
+{"alternate_locations":{"servers":[{"server":"dn720406.ca.archive.org","dir":"/0/items/riflemakingingre13nati"},{"server":"dn760103.eu.archive.org","dir":"/0/items/riflemakingingre13nati"}],"workable":[{"server":"dn720406.ca.archive.org","dir":"/0/items/riflemakingingre13nati"},{"server":"dn760103.eu.archive.org","dir":"/0/items/riflemakingingre13nati"}]},"created":1785192812,"d1":"ia601607.us.archive.org","d2":"ia801607.us.archive.org","dir":"/18/items/riflemakingingre13nati","files":[{"name":"__ia_thumb.jpg","source":"original","mtime":"1693169109","size":"11065","md5":"5879ee498f72d87e132699a6941369ee","crc32":"1937303f","sha1":"e9e7dcd7ff4e2c62f24758ce89969d4f2256eb13","format":"Item Tile","rotation":"0"},{"name":"riflemakingingre13nati.djvu","source":"derivative","format":"DjVu","original":"riflemakingingre13nati_djvu.xml","mtime":"1346952247","size":"5248711","md5":"b98cf46da826af12e9eacc13f225fb89","crc32":"7de87c57","sha1":"61dd99261007b4b3bf963fbf9a232579f1b7f87c"},{"name":"riflemakingingre13nati.epub","source":"derivative","original":"riflemakingingre13nati_abbyy.gz","mtime":"1712891083","size":"33020324","md5":"54b2dc5fe239a02085825b9c99f133ec","crc32":"4b68c683","sha1":"128f7f207c5a5a5f0575478f8476474993f33d8f","format":"EPUB"},{"name":"riflemakingingre13nati.gif","source":"derivative","format":"Animated GIF","original":"riflemakingingre13nati_jp2.zip","mtime":"1346951370","size":"351612","md5":"ccf64683e2f3550a3682ea34a3b8f122","crc32":"6ad2f23b","sha1":"a3b17e9b2dfd4311cea9d06685e31276d6b83afd"},{"name":"riflemakingingre13nati.pdf","source":"derivative","format":"Text PDF","original":"riflemakingingre13nati_page_numbers.json","mtime":"1702647362","size":"6690842","md5":"d104d7a47cc88315f521950058ca35e1","crc32":"c89c4827","sha1":"ff3e3cafdfeebde86da753e100ca062649eba76b"},{"name":"riflemakingingre13nati_abbyy.gz","source":"derivative","format":"Abbyy GZ","original":"riflemakingingre13nati_jp2.zip","mtime":"1346951937","size":"639797","md5":"1dba84e8662b0f84609e44844f0bf35e","crc32":"c956c662","sha1":"b142ef10e1c2de587f5e243cdba8f9ffb63cc4b6"},{"name":"riflemakingingre13nati_archive.torrent","source":"metadata","btih":"c95d0205952d3c4a5eb9941be6e0134488601f5d","mtime":"1722259876","size":"8174","md5":"baa8fa66e43b7fe898ca40844b0a5708","crc32":"fdcaded4","sha1":"8d27edd0852acf5359bdc42259fb10d72eab6a02","format":"Archive BitTorrent"},{"name":"riflemakingingre13nati_chocr.html.gz","source":"derivative","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","format":"chOCR","original":"riflemakingingre13nati_abbyy.gz","mtime":"1702647196","size":"545896","md5":"34f5f9e7b87879a1c420424ea14bd0d4","crc32":"4029522a","sha1":"f2d63717bbc5954898aab337a5da76f529a45527"},{"name":"riflemakingingre13nati_cloth_detection.log","source":"derivative","cloth_cover_detection_module_version":"2.1","format":"Cloth Cover Detection Log","original":"riflemakingingre13nati_scandata.xml","mtime":"1702647512","size":"1482","md5":"bbbdff48840b2067e65b66d022ace91a","crc32":"f0bda751","sha1":"11fff7a287510c3db9d05d14079a6b6efef9e401"},{"name":"riflemakingingre13nati_djvu.txt","source":"derivative","format":"DjVuTXT","original":"riflemakingingre13nati_djvu.xml","mtime":"1702647288","size":"48395","md5":"976be2fb56472a34667e74dfd688216c","crc32":"ebe89f18","sha1":"1f01a8126e9709bc35fe7b3fc480b4c4d5db97c0"},{"name":"riflemakingingre13nati_djvu.xml","source":"derivative","format":"Djvu XML","original":"riflemakingingre13nati_hocr.html","mtime":"1702647234","size":"581028","md5":"24771fc3af76827a8253ca2bbf086786","crc32":"8f6ba823","sha1":"5959124296df5c8c0528139ea86123b4290a0d5e"},{"name":"riflemakingingre13nati_files.xml","source":"original","format":"Metadata","md5":"2f11dde6448c3e6cdda172705eb82cd3","summation":"md5"},{"name":"riflemakingingre13nati_hocr.html","source":"derivative","hocr_char_to_word_module_version":"1.2.0","hocr_char_to_word_hocr_version":"1.1.45","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","format":"hOCR","original":"riflemakingingre13nati_chocr.html.gz","mtime":"1702647224","size":"1056975","md5":"9795e434f07cae3b1a07e16815079f52","crc32":"099a2b0c","sha1":"49d47d3568cc26f10aa11ede6c93c80abee76852"},{"name":"riflemakingingre13nati_hocr_pageindex.json.gz","source":"derivative","hocr_pageindex_module_version":"1.0.0","hocr_pageindex_hocr_version":"1.1.15","format":"OCR Page Index","original":"riflemakingingre13nati_hocr.html","mtime":"1702647244","size":"456","md5":"05015f92468f0bbfcb4ceffab9b9be79","crc32":"f1074cea","sha1":"d11bc35d9bcd4cb7e21c0683e763e482f9c44a28"},{"name":"riflemakingingre13nati_hocr_searchtext.txt.gz","source":"derivative","hocr_fts_text_module_version":"1.1.0","hocr_fts_text_hocr_version":"1.1.15","word_conf_0_10":"178","word_conf_11_20":"247","word_conf_21_30":"881","word_conf_31_40":"945","word_conf_41_50":"1499","word_conf_51_60":"1880","word_conf_61_70":"1082","word_conf_71_80":"330","word_conf_81_90":"110","word_conf_91_100":"132","format":"OCR Search Text","original":"riflemakingingre13nati_hocr.html","mtime":"1702647261","size":"16027","md5":"eebf1129d331bd3cfd2d591bcd1a9569","crc32":"e0c9f43a","sha1":"c095e8135b9e88c6a1c8c36db419ffa805b8b835"},{"name":"riflemakingingre13nati_jp2.zip","source":"derivative","format":"Single Page Processed JP2 ZIP","original":"riflemakingingre13nati_orig_jp2.tar","mtime":"1346951329","size":"41745907","md5":"d6fd6507f50e231b39a1fb296bc87277","crc32":"4b71759b","sha1":"8a6a1cebdd2bf3035af5e9d3f0fdcf88bdb09c0a","filecount":"42"},{"name":"riflemakingingre13nati_meta.sqlite","source":"original","mtime":"1466627584","size":"6144","format":"Metadata","md5":"8d7eaf4844e7d8b7030345de87df9d25","crc32":"8b0eb32d","sha1":"0629d56448eb7245acf10d180ca5b8ab9a057029"},{"name":"riflemakingingre13nati_meta.xml","source":"original","format":"Metadata","mtime":"1722259871","size":"1971","md5":"55653b5273688e739c24eb27b67beaf2","crc32":"6808b4cc","sha1":"4e64cb0439a0929814480aa17679a08294d3014e"},{"name":"riflemakingingre13nati_metasource.xml","source":"original","format":"MARC Source","mtime":"1346947441","size":"244","md5":"b294d129d45e320de2ccb1c73632d269","crc32":"1840191a","sha1":"af757d224a47b5b140089ad13422fc1c91033b11"},{"name":"riflemakingingre13nati_orig_jp2.tar","source":"original","format":"Single Page Original JP2 Tar","mtime":"1346950779","size":"49920000","md5":"c28972ef367672d49ec80439f1cf6c47","crc32":"a47da0ca","sha1":"32846755a894ed64eb93b00068e75ea88c382f00","filecount":"42"},{"name":"riflemakingingre13nati_page_numbers.json","source":"derivative","hocr_pagenumber_module_version":"1.0.3","hocr_pagenumber_hocr_version":"1.1.54","hocr_pagenumber_confidence":"82","format":"Page Numbers JSON","original":"riflemakingingre13nati_hocr.html","mtime":"1702647276","size":"6886","md5":"0375ccf320855076c980044e14072a50","crc32":"7f0f2bd8","sha1":"767ca2af94436fa6fa0c274b97e3d0b4fbee0bcf"},{"name":"riflemakingingre13nati_scandata.xml","source":"original","format":"Scandata","mtime":"1702647512","size":"55321","md5":"58ac91ee3ed78b4fa71960c13128b649","crc32":"7cf8eda0","sha1":"99598704bc8e8575fd15da15e9366fbbba58303f"}],"files_count":22,"item_last_updated":1722259876,"item_size":139957257,"metadata":{"title":"Rifle Making in the Great Smoky Mountains","creator":"National Park Service","language":"eng","page-progression":"lr","sponsor":"LYRASIS Members and Sloan Foundation","contributor":"Winthrop University","scanningcenter":"clemson","mediatype":"texts","collection":["clemson","americana"],"shiptracking":"WNU05001","call_number":"I29.45: 13","repub_state":"4","updatedate":"2012-09-06 16:04:01","updater":"associate-sarah-lohmann@archive.org","identifier":"riflemakingingre13nati","uploader":"associate-sarah-lohmann@archive.org","addeddate":"2012-09-06 16:04:03","publicdate":"2012-09-06 16:04:06","notes":"Physical item lacks a proper copyright page and table of contents.","repub_seconds":"64","ppi":"650","camera":"Canon EOS 5D Mark II","operator":"associate-sarah-lohmann@archive.org","scanner":"scribe2.clemson.archive.org","scandate":"20120906162614","republisher":"associate-sarah-lohmann@archive.org","imagecount":"42","foldoutcount":"0","identifier-access":"http://archive.org/details/riflemakingingre13nati","identifier-ark":"ark:/13960/t69322g23","scanfee":"100","sponsordate":"20120930","backup_location":"ia903907_6","republisher_operator":"associate-sarah-lohmann@archive.org","republisher_date":"20120906165836","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","page_number_confidence":"82","page_number_module_version":"1.0.3"},"page_numbers":{
+    "identifier": "riflemakingingre13nati",
+    "format-version": "2",
+    "archive-hocr-tools-version": "1.1.54",
+    "confidence": 82,
+    "pages": [
+        {
+            "leafNum": 1,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 2,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 3,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 4,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 5,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 6,
+            "confidence": 79,
+            "pageNumber": "(2)",
+            "pageProb": 69,
+            "wordConf": 7
+        },
+        {
+            "leafNum": 7,
+            "confidence": 100,
+            "pageNumber": "(3)",
+            "pageProb": 96,
+            "wordConf": 6
+        },
+        {
+            "leafNum": 8,
+            "confidence": 73,
+            "pageNumber": "(4)",
+            "pageProb": 63,
+            "wordConf": 2
+        },
+        {
+            "leafNum": 9,
+            "confidence": null,
+            "pageNumber": "(5)",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 10,
+            "confidence": 68,
+            "pageNumber": "(6)",
+            "pageProb": 58,
+            "wordConf": 12
+        },
+        {
+            "leafNum": 11,
+            "confidence": 65,
+            "pageNumber": "(7)",
+            "pageProb": 55,
+            "wordConf": 3
+        },
+        {
+            "leafNum": 12,
+            "confidence": null,
+            "pageNumber": "(8)",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 13,
+            "confidence": 100,
+            "pageNumber": "(9)",
+            "pageProb": 98,
+            "wordConf": 1
+        },
+        {
+            "leafNum": 14,
+            "confidence": 67,
+            "pageNumber": "(10)",
+            "pageProb": 57,
+            "wordConf": 43
+        },
+        {
+            "leafNum": 15,
+            "confidence": null,
+            "pageNumber": "(11)",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 16,
+            "confidence": 68,
+            "pageNumber": "(12)",
+            "pageProb": 58,
+            "wordConf": 23
+        },
+        {
+            "leafNum": 17,
+            "confidence": 100,
+            "pageNumber": "(13)",
+            "pageProb": 90,
+            "wordConf": 14
+        },
+        {
+            "leafNum": 18,
+            "confidence": 71,
+            "pageNumber": "(14)",
+            "pageProb": 61,
+            "wordConf": 17
+        },
+        {
+            "leafNum": 19,
+            "confidence": null,
+            "pageNumber": "(15)",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 20,
+            "confidence": 65,
+            "pageNumber": "(16)",
+            "pageProb": 55,
+            "wordConf": 27
+        },
+        {
+            "leafNum": 21,
+            "confidence": null,
+            "pageNumber": "(17)",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 22,
+            "confidence": 65,
+            "pageNumber": "(18)",
+            "pageProb": 55,
+            "wordConf": 19
+        },
+        {
+            "leafNum": 23,
+            "confidence": 100,
+            "pageNumber": "(19)",
+            "pageProb": 94,
+            "wordConf": 5
+        },
+        {
+            "leafNum": 24,
+            "confidence": 69,
+            "pageNumber": "(20)",
+            "pageProb": 59,
+            "wordConf": 28
+        },
+        {
+            "leafNum": 25,
+            "confidence": 100,
+            "pageNumber": "(21)",
+            "pageProb": 96,
+            "wordConf": 16
+        },
+        {
+            "leafNum": 26,
+            "confidence": 63,
+            "pageNumber": "(22)",
+            "pageProb": 53,
+            "wordConf": 14
+        },
+        {
+            "leafNum": 27,
+            "confidence": null,
+            "pageNumber": "(23)",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 28,
+            "confidence": 100,
+            "pageNumber": "(24)",
+            "pageProb": 96,
+            "wordConf": 3
+        },
+        {
+            "leafNum": 29,
+            "confidence": null,
+            "pageNumber": "(25)",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 30,
+            "confidence": 64,
+            "pageNumber": "(26)",
+            "pageProb": 54,
+            "wordConf": 18
+        },
+        {
+            "leafNum": 31,
+            "confidence": 100,
+            "pageNumber": "(27)",
+            "pageProb": 93,
+            "wordConf": 13
+        },
+        {
+            "leafNum": 32,
+            "confidence": 63,
+            "pageNumber": "(28)",
+            "pageProb": 53,
+            "wordConf": 9
+        },
+        {
+            "leafNum": 33,
+            "confidence": null,
+            "pageNumber": "(29)",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 34,
+            "confidence": 70,
+            "pageNumber": "(30)",
+            "pageProb": 60,
+            "wordConf": 15
+        },
+        {
+            "leafNum": 35,
+            "confidence": 100,
+            "pageNumber": "(31)",
+            "pageProb": 96,
+            "wordConf": 22
+        },
+        {
+            "leafNum": 36,
+            "confidence": 64,
+            "pageNumber": "(32)",
+            "pageProb": 54,
+            "wordConf": 11
+        },
+        {
+            "leafNum": 37,
+            "confidence": 100,
+            "pageNumber": "(33)",
+            "pageProb": 91,
+            "wordConf": 4
+        },
+        {
+            "leafNum": 38,
+            "confidence": 100,
+            "pageNumber": "(34)",
+            "pageProb": 96,
+            "wordConf": 13
+        },
+        {
+            "leafNum": 39,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 40,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        }
+    ]
+},"server":"ia801607.us.archive.org","uniq":332112024,"workable_servers":["ia801607.us.archive.org","ia601607.us.archive.org"]}

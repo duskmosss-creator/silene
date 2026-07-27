@@ -1,0 +1,22 @@
+# Appalachian Trail & Regional Segment Elevation Profiles
+
+## 1. Appalachian Trail (GSMNP Section: 71 Miles)
+- **Fontana Dam to Davenport Gap**
+- Total Elevation Gain: ~18,000 ft ascent / ~17,000 ft descent.
+- Highest Point: Kuwohi / Clingmans Dome (6,643 ft).
+- Key Segment Distances:
+  - Fontana Dam to Spence Field Shelter: 16.4 miles (+4,100 ft)
+  - Spence Field to Silers Bald Shelter: 14.1 miles
+  - Silers Bald to Clingmans Dome: 4.8 miles (+1,700 ft)
+  - Clingmans Dome to Newfound Gap: 7.9 miles (-1,600 ft)
+  - Newfound Gap to Icewater Spring: 3.0 miles (+900 ft)
+  - Icewater Spring to Tri-Corner Knob: 12.7 miles
+  - Tri-Corner Knob to Davenport Gap: 12.1 miles (-3,900 ft)
+
+## 2. Alum Cave & Boulevard Trails to Mt. LeConte
+- **Alum Cave Trail**: 5.5 miles one way (+2,760 ft gain). Features Arch Rock, Inspiration Point, Alum Cave Bluff.
+- **The Boulevard Trail**: 5.4 miles one way from AT junction (+1,500 ft aggregate gain along crest).
+
+## 3. DuPont State Forest Trail Network
+- **Triple Falls to High Falls Loop**: 2.2 miles, gentle 350 ft elevation gain.
+- **Bridal Veil Falls Trail**: 4.4 miles round trip, 400 ft gain.

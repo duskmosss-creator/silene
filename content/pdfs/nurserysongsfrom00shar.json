@@ -1,0 +1,344 @@
+{"alternate_locations":{"servers":[{"server":"dn760004.eu.archive.org","dir":"/0/items/nurserysongsfrom00shar"},{"server":"dn790002.ca.archive.org","dir":"/0/items/nurserysongsfrom00shar"}],"workable":[{"server":"dn760004.eu.archive.org","dir":"/0/items/nurserysongsfrom00shar"},{"server":"dn790002.ca.archive.org","dir":"/0/items/nurserysongsfrom00shar"}]},"created":1785181002,"d1":"ia600909.us.archive.org","d2":"ia800909.us.archive.org","dir":"/27/items/nurserysongsfrom00shar","events":{"checkin_0":["associate-chrisjie-cabardo",1652233297,""]},"files":[{"name":"__ia_thumb.jpg","source":"original","mtime":"1654827209","size":"21136","md5":"bc320d9c0271bf464e8a0c5afac062f7","crc32":"ed3091ce","sha1":"213ed38e9e53e3371e739e0f04ecd8e35d304fab","format":"Item Tile","rotation":"0"},{"name":"logs\/nurserysongsfrom00shar_iabdash_2022-05-0914:44:20.log","source":"original","mtime":"1652121862","size":"670","md5":"fc437e4b7f1b001d07791c2219a5507e","crc32":"72cba8c0","sha1":"d9e4bd21a67173b450487753c7fed1c6105ab3a8","format":"Log"},{"name":"logs\/nurserysongsfrom00shar_scanning_2022-05-0914:44:27.log","source":"original","mtime":"1652121869","size":"163771","md5":"506e2e8c16a841f9e86d077f722b51c4","crc32":"5d2aba54","sha1":"0add96e9051199e7ddb9188b70f286ef06d3a08e","format":"Log"},{"name":"logs\/nurserysongsfrom00shar_status_history_2022-05-0914:44:22.log","source":"original","mtime":"1652121866","size":"554","md5":"d860ea467c6dc8755d0558acd80fb952","crc32":"965dfcc7","sha1":"adea8783362da4c0a9651f8289f913ef10f0e7c0","format":"Log"},{"name":"nurserysongsfrom00shar.epub","source":"derivative","original":"nurserysongsfrom00shar_hocr.html","mtime":"1706631770","size":"32211","md5":"1eafd7d7024310ea2ee101cf71f1ebeb","crc32":"5b31d96d","sha1":"e4a1b047603bc7584c61de5e391d600ac81b2945","format":"EPUB"},{"name":"nurserysongsfrom00shar.pdf","source":"derivative","format":"Text PDF","original":"nurserysongsfrom00shar_page_numbers.json","mtime":"1718009353","size":"3039508","md5":"a03f557de86f99085f2f18d9d17a5fe9","crc32":"4a1de172","sha1":"ba9a24a509439ee6ca953e904bd9c60b4d912cf7"},{"name":"nurserysongsfrom00shar_archive.torrent","source":"metadata","btih":"f3079bc7f92edc544781b530d924232de572305a","mtime":"1776261824","size":"7764","md5":"6afb10409d9d7f7dedd0e83f63aff6fc","crc32":"7a87be78","sha1":"824c909f17805c50c7255697a420289d6ef96c60","format":"Archive BitTorrent"},{"name":"nurserysongsfrom00shar_chocr.html.gz","source":"derivative","ocr":"tesseract 5.0.0-1-g862e","ocr_parameters":"-l eng","ocr_module_version":"0.0.15","ocr_detected_script":"Latin","ocr_detected_script_conf":"1.0000","ocr_detected_lang":"en","ocr_detected_lang_conf":"1.0000","format":"chOCR","original":"nurserysongsfrom00shar_jp2.zip","mtime":"1652235021","size":"377865","md5":"733176417fc6ac732710835ecf945e98","crc32":"5738f547","sha1":"faae1a6890ae993978097aa072f891586cb29864"},{"name":"nurserysongsfrom00shar_cloth_detection.log","source":"derivative","cloth_cover_detection_module_version":"1.1","format":"Cloth Cover Detection Log","original":"nurserysongsfrom00shar_scandata.xml","mtime":"1652234565","size":"779","md5":"808756c4d37f2e95420dd034ea2f0bd5","crc32":"33d00921","sha1":"7fb547c32548d03b747b45d737cb900dccb3c4a7"},{"name":"nurserysongsfrom00shar_daisy.zip","source":"derivative","hocr_epub_module_version":"0.0.1","hocr_epub_hocr_version":"1.1.66","format":"Daisy","original":"nurserysongsfrom00shar_hocr.html","mtime":"1776261704","size":"61400","md5":"9a74dbc56b768fec6d3089ad5a09eabe","crc32":"0a4052c6","sha1":"890e8700ebd0d7cc732fec53aea4cc1b2f5f7346","filecount":"9"},{"name":"nurserysongsfrom00shar_dc.xml","source":"original","mtime":"1651606380","size":"1074","md5":"982882e233a6abb792cdc6593feb52b6","crc32":"d1f962a1","sha1":"508fed220bddb01fea2035d5b84f62a1ea2fad6d","format":"Dublin Core"},{"name":"nurserysongsfrom00shar_djvu.txt","source":"derivative","format":"DjVuTXT","original":"nurserysongsfrom00shar_djvu.xml","mtime":"1652235353","size":"25711","md5":"963d95c595f27ce9aafcd257491a36dd","crc32":"3cd0d8b2","sha1":"a656cdeae1186a503102197dbfe1d63891aebccd"},{"name":"nurserysongsfrom00shar_djvu.xml","source":"derivative","format":"Djvu XML","original":"nurserysongsfrom00shar_hocr.html","mtime":"1652235244","size":"525715","md5":"d8ed1d5ff1d7da1d8b9f42a5f5581dac","crc32":"5f721a6f","sha1":"25c3277087649d7c28b4d93bc2373ced5be90afa"},{"name":"nurserysongsfrom00shar_events.json","source":"original","mtime":"1652233298","size":"58","md5":"36b41db29536134e8c44b5949b9f4da5","crc32":"e85a33cc","sha1":"f347b41da1981195ec592dfccfb033247e722e9f","format":"JSON"},{"name":"nurserysongsfrom00shar_files.xml","source":"original","format":"Metadata","md5":"0f375603cb58c3c05cdb6ea7bcc1292e","summation":"md5"},{"name":"nurserysongsfrom00shar_hocr.html","source":"derivative","hocr_char_to_word_module_version":"1.1.0","hocr_char_to_word_hocr_version":"1.1.15","ocr_parameters":"-l eng","ocr_module_version":"0.0.15","ocr_detected_script":"Latin","ocr_detected_script_conf":"1.0000","ocr_detected_lang":"en","ocr_detected_lang_conf":"1.0000","format":"hOCR","original":"nurserysongsfrom00shar_chocr.html.gz","mtime":"1652235232","size":"1288234","md5":"55f9f5caee53bd74a79f95466a8683c2","crc32":"4df0d6b6","sha1":"59aa3a2c82947a084ef3d6e1dce218c3dc804aab"},{"name":"nurserysongsfrom00shar_hocr_pageindex.json.gz","source":"derivative","hocr_pageindex_module_version":"1.0.0","hocr_pageindex_hocr_version":"1.1.15","format":"OCR Page Index","original":"nurserysongsfrom00shar_hocr.html","mtime":"1652235302","size":"546","md5":"0395b89b78238e4cb34c1665c05080ce","crc32":"a8542622","sha1":"d420a3a8e36f92167e59f32cc8b2b2fc9ab8c37f"},{"name":"nurserysongsfrom00shar_hocr_searchtext.txt.gz","source":"derivative","hocr_fts_text_module_version":"1.1.0","hocr_fts_text_hocr_version":"1.1.15","word_conf_0_10":"212","word_conf_11_20":"134","word_conf_21_30":"224","word_conf_31_40":"233","word_conf_41_50":"160","word_conf_51_60":"123","word_conf_61_70":"95","word_conf_71_80":"86","word_conf_81_90":"194","word_conf_91_100":"4075","format":"OCR Search Text","original":"nurserysongsfrom00shar_hocr.html","mtime":"1652235337","size":"8905","md5":"edc6178b6994780b01e1e77935b88693","crc32":"c0ff044f","sha1":"d666bf87694e856bdb5c6187689708c51183a9ad"},{"name":"nurserysongsfrom00shar_jp2.zip","source":"derivative","format":"Single Page Processed JP2 ZIP","original":"nurserysongsfrom00shar_orig_jp2.tar","mtime":"1652234441","size":"24172785","md5":"357f067ecaa6b877511e78294365ae38","crc32":"31f836df","sha1":"c15096b9aed09e466a62f9eb19cebbbf3a563af7","filecount":"50"},{"name":"nurserysongsfrom00shar_marc.xml","source":"original","mtime":"1651606380","size":"4069","md5":"7022d88ca14fd186bf03574bfdef2d26","crc32":"85979f3a","sha1":"f76827c11d6dee1a0b0b13f73f1fb3d4eafddb63","format":"MARC"},{"name":"nurserysongsfrom00shar_meta.mrc","source":"original","mtime":"1651606380","size":"1110","md5":"b767c9791624f0ac5b5da46f28e7e3ad","crc32":"d0ffa553","sha1":"3e2ae2eacddaca0b5723a0715deec66a51f32e43","format":"MARC Binary"},{"name":"nurserysongsfrom00shar_meta.sqlite","source":"original","mtime":"1652233320","size":"32768","md5":"b01321999a0175ed18b1c2dd295981d4","crc32":"85ab6fe9","sha1":"a746e56d8456772377e00192e18022277f1e9889","format":"Metadata"},{"name":"nurserysongsfrom00shar_meta.xml","source":"original","mtime":"1776261821","size":"2802","md5":"aa1b030fb4021d568f32bb4ec4107cac","crc32":"84e6f7df","sha1":"d5f2e069cae323a227dfd3ee6ce2167223b9c29d","format":"Metadata"},{"name":"nurserysongsfrom00shar_metasource.xml","source":"original","mtime":"1651606380","size":"317","md5":"44a24143dcb493cb668c51fb1cc5c160","crc32":"c35ef401","sha1":"cc47c5445164200ac434fe66fa8d32d09791e4ae","format":"MARC Source"},{"name":"nurserysongsfrom00shar_orig_jp2.tar","source":"original","format":"Single Page Original JP2 Tar","original":"nurserysongsfrom00shar_preimage.zip","mtime":"1652233318","size":"75520000","md5":"b0ea3bcf768fa0ff67335c4012526443","crc32":"efa363fd","sha1":"aaf2123d14c001f208c49f7401086c9eb5d863b0","filecount":"50"},{"name":"nurserysongsfrom00shar_page_numbers.json","source":"derivative","hocr_pagenumber_module_version":"1.0.5","hocr_pagenumber_hocr_version":"1.1.54","hocr_pagenumber_confidence":"0","format":"Page Numbers JSON","original":"nurserysongsfrom00shar_hocr.html","mtime":"1718009353","size":"8262","md5":"25ea3abe0ab3d8fdc7b4c341e88d5059","crc32":"9bf4a5ba","sha1":"bc2bf18ebc85d054012cfa30573d6da8ecbcf44c"},{"name":"nurserysongsfrom00shar_repub_final.log","source":"derivative","republisher_deriver_version":"0.0.12","confidence_accurate":"False","crops_accurate":"False","initial_crop_confidence":"100","format":"RePublisher Final Processing Log","original":"nurserysongsfrom00shar_scandata.xml","mtime":"1652235194","size":"14191","md5":"0ac990f4374dab5b5c1b01b6eb8389b9","crc32":"bc70d9bf","sha1":"afb423f80abbd224aa07173758723debaba95b37"},{"name":"nurserysongsfrom00shar_repub_initial.log","source":"derivative","republisher_deriver_version":"0.0.12","format":"RePublisher Initial Processing Log","original":"nurserysongsfrom00shar_preimage.zip","mtime":"1652122804","size":"27","md5":"08ec62964ef5fd9ce32e032e552b9d58","crc32":"2960f426","sha1":"40d9163175b1d24f4b2d6c4c44067eb0bf6af787"},{"name":"nurserysongsfrom00shar_scandata.xml","source":"original","format":"Scandata","original":"nurserysongsfrom00shar_preimage.zip","mtime":"1652234565","size":"51777","md5":"f536f52a296d7059d7374958e1469f05","crc32":"fed391d7","sha1":"c850e37c4d60ce5c5aa9095e57709ff9bce25619"},{"name":"nurserysongsfrom00shar_thumb_avif.zip","source":"original","format":"AVIF Thumbnails ZIP","original":"nurserysongsfrom00shar_preimage.zip","mtime":"1652122804","size":"2925262","md5":"b1bcfec35d255e65757c99840b140f99","crc32":"b4e36332","sha1":"8a21a3fab3ebf6c100b4b51475fbc9182ca72c3e","filecount":"50"},{"name":"nurserysongsfrom00shar_toc.xml","source":"derivative","format":"Contents","original":"nurserysongsfrom00shar_djvu.xml","mtime":"1652235356","size":"5496","md5":"a511cae113731d0ea149d8ff962e4fc1","crc32":"451930dd","sha1":"d983958d64499a88b1c1a9611c24c334e1020d01"}],"files_count":31,"item_last_updated":1776261825,"item_size":108294767,"metadata":{"language":"eng","scanningcenter":"uoft","sponsor":"University of Toronto","contributor":"University of Toronto, Faculty of Music Library","date":"1921","subject":["Children's songs","Folk songs, American -- Southern States"],"title":"Nursery songs from the Appalachian mountains","creator":"Sharp, Cecil J. (Cecil James), 1859-1924","collection":["vocalmusic","facultyofmusic","toronto","university_of_toronto"],"shiptracking":"utmus13","call_number":"M1629 .S53 N7","description":"2 v","mms_id":"991106069124806196","barcode":"31761048680490","box_number":"UT MUS 13.4","publisher":"London, Novello","oclc-id":"1001939381","mediatype":"texts","repub_state":"19","page-progression":"lr","updatedate":"2022-05-03 19:33:00","updater":"associate-alex-white@archive.org","identifier":"nurserysongsfrom00shar","uploader":"associate-alex-white@archive.org","publicdate":"2022-05-03 19:33:02","camera":"Sony Alpha-A6300 (Control)","tts_version":"5.0-Initial-96-g81cbfb7a","scanner":"scribe1.toronto.archive.org","operator":"associate-mark-turnbull@archive.org","identifier-access":"http://archive.org/details/nurserysongsfrom00shar","identifier-ark":"ark:/13960/s2g3bqj1w91","scandate":"20220509190004","imagecount":"50","autocrop_version":"0.0.12_books-20220331-0.2","ppi":"350","republisher_operator":"associate-chrisjie-cabardo@archive.org","republisher_date":"20220511094135","republisher_time":"184","foldoutcount":"0","bookplateleaf":"0004","ocr":"tesseract 5.0.0-1-g862e","ocr_parameters":"-l eng","ocr_module_version":"0.0.15","ocr_detected_script":"Latin","ocr_detected_script_conf":"1.0000","ocr_detected_lang":"en","ocr_detected_lang_conf":"1.0000","pdf_module_version":"0.0.18","addeddate":"2022-05-11 02:31:08","scanfee":"300;15;240","invoice":"2086","sponsordate":"20220531","external-identifier":"urn:oclc:record:1435602469","page_number_confidence":"0","page_number_module_version":"1.0.5"},"page_numbers":{
+    "identifier": "nurserysongsfrom00shar",
+    "format-version": "2",
+    "archive-hocr-tools-version": "1.1.54",
+    "confidence": 0,
+    "pages": [
+        {
+            "leafNum": 1,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 2,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 3,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 4,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 5,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 6,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 7,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 8,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 9,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 10,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 11,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 12,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 13,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 14,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 15,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 16,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 17,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 18,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 19,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 20,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 21,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 22,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 23,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 24,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 25,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 26,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 27,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 28,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 29,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 30,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 31,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 32,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 33,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 34,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 35,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 36,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 37,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 38,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 39,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 40,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 41,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 42,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 43,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 44,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 45,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 46,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 47,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 48,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        }
+    ]
+},"server":"ia600909.us.archive.org","uniq":304838319,"workable_servers":["ia600909.us.archive.org","ia800909.us.archive.org"]}
