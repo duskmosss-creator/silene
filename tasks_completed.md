@@ -9,7 +9,8 @@
   - **Integration & Refactoring**:
     - [x] Integrate Kiwix ZIM archive generator scripts for all collections (Main, NatGeo, Backpacking, Regional).
     - [x] Resolve `mainPage` redirect bug preventing `.zim` loading in Kiwix Desktop.
-    - [x] Convert all `.txt` documents to static `.html` pre-rendered pages for instantaneous loading without JS fetch().
+    - [x] Convert all `.txt` documents to static `.html` pre-rendered document readers.
+    - [x] Pre-render all collection index magazine cards directly in static HTML to remove JS rendering dependencies and guarantee 100% card grid display on first page load.
     - [x] Standardize offline responsive headers (single-line, truncated text, fixed position, dynamic back navigation) across all viewers.
     - [x] Strip Archive.org boilerplate from scraped texts to fix card layout breaks.
     - [x] Regenerate all PDF viewer HTML wrappers with resilient, non-destructive `iframe`/`object` template to fix blank screens on Kiwix JS PWA.
