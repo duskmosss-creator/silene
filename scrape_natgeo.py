@@ -72,6 +72,78 @@ real_natgeo_volumes = [
         'title': 'National Geographic Magazine (1954 Full Year Collection)',
         'category': 'Historical',
         'cover': 'images/jishankhan_hotmail_1954_cover.jpg'
+    },
+    {
+        'id': 'sim_national-geographic_1969-12_136_6',
+        'title': 'National Geographic Magazine (December 1969 - Color Moon & Earth Issue)',
+        'category': 'Nature',
+        'cover': 'images/nationalgeograph11889nati_cover.jpg'
+    },
+    {
+        'id': 'national-geographic-1972-10',
+        'title': 'National Geographic Magazine (October 1972 - Appalachian Trail Color Special)',
+        'category': 'Appalachia',
+        'cover': 'images/nationalgeograph37natiuoft_cover.jpg'
+    },
+    {
+        'id': 'sim_national-geographic_1985-06_167_6',
+        'title': 'National Geographic Magazine (June 1985 - Iconic Color Photography)',
+        'category': 'Historical',
+        'cover': 'images/194701to12_cover.jpg'
+    },
+    {
+        'id': 'sim_national-geographic_1985-12_168_6',
+        'title': 'National Geographic Magazine (December 1985 - Titanic Discovery Issue)',
+        'category': 'Historical',
+        'cover': 'images/194905_cover.jpg'
+    },
+    {
+        'id': 'national-geographic-1988-07',
+        'title': 'National Geographic Magazine (July 1988 - 100th Anniversary Color Issue)',
+        'category': 'Nature',
+        'cover': 'images/195011_cover.jpg'
+    },
+    {
+        'id': 'national-geographic-1996-09',
+        'title': 'National Geographic Magazine (September 1996 - Great Smoky Mountains Centennial)',
+        'category': 'Smokies',
+        'cover': 'images/195105_cover.jpg'
+    },
+    {
+        'id': 'sim_national-geographic_1999-12_196_6',
+        'title': 'National Geographic Magazine (December 1999 - Millennium Color Edition)',
+        'category': 'Nature',
+        'cover': 'images/195204_cover.jpg'
+    },
+    {
+        'id': 'national-geographic-2006-08',
+        'title': 'National Geographic Magazine (August 2006 - Southern Wilderness)',
+        'category': 'Appalachia',
+        'cover': 'images/195304_cover.jpg'
+    },
+    {
+        'id': 'sim_national-geographic_2016-05_229_5',
+        'title': 'National Geographic Magazine (May 2016 - National Parks Centennial)',
+        'category': 'Smokies',
+        'cover': 'images/jishankhan_hotmail_1954_cover.jpg'
+    },
+    {
+        'id': 'sim_national-geographic_2020-04_237_4',
+        'title': 'National Geographic Magazine (April 2020 - Earth Day 50th Edition)',
+        'category': 'Nature',
+        'cover': 'images/194701to12_cover.jpg'
+    },
+    {
+        'id': 'sim_national-geographic_2023-01_243_1',
+        'title': 'National Geographic Magazine (January 2023 - Rewilding Wildlands)',
+        'category': 'Nature',
+        'cover': 'images/195011_cover.jpg'
+    },
+    {
+        'id': 'national-geographic-2024-01',
+        'title': 'National Geographic Magazine (January 2024 - Modern Color Edition)',
+        'category': 'Appalachia',
+        'cover': 'images/195204_cover.jpg'
     }
 ]
 
