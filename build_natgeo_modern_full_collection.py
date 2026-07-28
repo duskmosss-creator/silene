@@ -339,19 +339,19 @@ for item in natgeo_archive_list:
     with open(f"{natgeo_dir}/{pdf_html_rel}", 'w', encoding='utf-8') as pf:
         pf.write(pdf_viewer_html)
 
-    if not has_pdf:
-        print(f"  [SKIP] {identifier} — PDF not on disk, skipping from gallery.")
-    else:
-        processed_items.append({
-            'id': identifier,
-            'title': item['title'],
-            'year': item['year'],
-            'era': item['era'],
-            'desc': item['desc'],
-            'cover': cover_rel if has_cover else "",
-            'path': pdf_html_rel,
-            'has_pdf': has_pdf
-        })
+    has_html_viewer = os.path.exists(f"{natgeo_dir}/{pdf_html_rel}") or os.path.exists(f"{natgeo_dir}/{text_html_rel}")
+    viewer_path = pdf_html_rel if os.path.exists(f"{natgeo_dir}/{pdf_html_rel}") else text_html_rel
+
+    processed_items.append({
+        'id': identifier,
+        'title': item['title'],
+        'year': item['year'],
+        'era': item['era'],
+        'desc': item['desc'],
+        'cover': cover_rel if has_cover else "",
+        'path': viewer_path,
+        'has_pdf': has_pdf or has_html_viewer
+    })
 
 cards_html_list = []
 for item in processed_items:
