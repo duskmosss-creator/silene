@@ -220,8 +220,8 @@ for gid, (title, category) in gutenberg_ids.items():
         'content': raw_text[:10000]
     })
 
-# 4. High-Res Edge-to-Edge Continuous Vertical Scroll PDF Viewer
-print("Creating High-Res Edge-to-Edge Vertical Scroll PDF Viewers...")
+# 4. Zero-Distortion Natural Aspect-Ratio Continuous Vertical Scroll PDF Viewer
+print("Creating Zero-Distortion Natural Aspect-Ratio PDF Viewers...")
 for aid, (title, category) in archive_ids.items():
     pdf_file_path = f"content/pdfs/{aid}.pdf"
     pdf_html_path = f"content/pdfs/{aid}.html"
@@ -265,26 +265,28 @@ for aid, (title, category) in archive_ids.items():
         h1 {{ font-size: 1.1rem; margin: 0; color: var(--accent); }}
         .page-info {{ font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }}
         .scroll-container {{
-            max-width: 1050px;
+            max-width: 950px;
             margin: 0 auto;
-            padding: 1rem 0;
+            padding: 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1.5rem;
         }}
         .pdf-page-wrap {{
-            background: transparent;
-            width: 100%;
+            background: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+            overflow: hidden;
+            max-width: 100%;
             display: flex;
             justify-content: center;
         }}
         canvas {{
-            width: 100%;
-            height: auto;
             display: block;
-            border-radius: 4px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
         }}
         object, embed {{
             width: 100%;
@@ -301,7 +303,7 @@ for aid, (title, category) in archive_ids.items():
             <a href="../index.html">← Back to Archive Index</a>
         </div>
         <div>
-            <span class="page-info" id="statusText">Rendering High-Res Document...</span>
+            <span class="page-info" id="statusText">Rendering Document...</span>
         </div>
     </div>
     
@@ -318,10 +320,10 @@ for aid, (title, category) in archive_ids.items():
         const statusText = document.getElementById('statusText');
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {{
-            statusText.textContent = 'Document Pages: ' + pdfDoc.numPages + ' (High-Res Vertical Scroll)';
+            statusText.textContent = 'Document Pages: ' + pdfDoc.numPages + ' (Zero Distortion Vertical Scroll)';
             container.innerHTML = '';
 
-            // Render pages in high-resolution edge-to-edge canvas mode
+            // Render all pages in natural exact aspect ratio (Zero Distortion)
             for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {{
                 pdfDoc.getPage(pageNum).then(function(page) {{
                     const wrap = document.createElement('div');
@@ -333,16 +335,17 @@ for aid, (title, category) in archive_ids.items():
 
                     const ctx = canvas.getContext('2d');
                     
-                    // High DPI resolution scale (2.5x rendering for zero compression distortion)
-                    const outputScale = window.devicePixelRatio || 2.5;
-                    const unscaledViewport = page.getViewport({{ scale: 1.0 }});
-                    const containerWidth = Math.min(container.clientWidth || 1000, window.innerWidth);
-                    const cssScale = containerWidth / unscaledViewport.width;
-                    const viewport = page.getViewport({{ scale: cssScale * outputScale }});
+                    // High-DPI scale maintaining exact original aspect ratio
+                    const dpr = window.devicePixelRatio || 2.0;
+                    const scale = 1.8 * dpr;
+                    const viewport = page.getViewport({{ scale: scale }});
 
                     canvas.width = Math.floor(viewport.width);
                     canvas.height = Math.floor(viewport.height);
-                    canvas.style.width = '100%';
+                    
+                    // Display style matches exact aspect ratio without stretching
+                    canvas.style.width = Math.floor(viewport.width / dpr) + 'px';
+                    canvas.style.maxWidth = '100%';
                     canvas.style.height = 'auto';
 
                     const renderContext = {{
@@ -665,7 +668,7 @@ html_content = f"""<!DOCTYPE html>
                     let linkText = '📖 Open Document Viewer →';
                     if (item.type === 'PDF') {{
                         badgeClass = 'badge-pdf';
-                        linkText = '📄 Open High-Res Vertical PDF →';
+                        linkText = '📄 Open Zero-Distortion Vertical PDF →';
                     }} else if (item.type === 'AUDIO') {{
                         badgeClass = 'badge-audio';
                         linkText = '🎵 Play Offline Audio (WAV) →';
@@ -707,4 +710,4 @@ html_content = f"""<!DOCTYPE html>
 with open("content/index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print("High-res edge-to-edge PDF viewer setup complete.")
+print("Zero-distortion natural aspect-ratio PDF setup complete.")
