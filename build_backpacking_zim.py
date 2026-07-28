@@ -52,12 +52,8 @@ with Creator(zim_filename) as creator:
         html_content = f.read()
     creator.add_item(ZimItem("C/index.html", html_content, "text/html", is_file=False))
     
-    try:
-        creator.add_redirection("mainPage", "Main Page", "C/index.html", {})
-        creator.add_redirection("A/index.html", "Main Page", "C/index.html", {})
-        creator.add_redirection("index.html", "Main Page", "C/index.html", {})
-    except Exception:
-        pass
+    # set_mainpath handles main article entry cleanly
+    pass
     
     for root, dirs, files in os.walk(b_dir):
         for file in files:

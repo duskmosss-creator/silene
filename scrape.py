@@ -304,24 +304,27 @@ for aid, (title, category) in archive_ids.items():
         <div>
         </div>
     </div>
-    
-    <div class="scroll-container" id="pdfScrollContainer">
-        <object data="{aid}.pdf" type="application/pdf">
-            <embed src="{aid}.pdf" type="application/pdf" />
-        </object>
+      <div class="scroll-container" id="pdfScrollContainer">
+        <div style="width: 100%; text-align: center; margin-bottom: 1rem;">
+            <a href="{aid}.pdf" target="_blank" style="display: inline-block; background: var(--accent); color: #0f172a; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none;">📄 Open / Download Raw PDF Document Directly ({aid}.pdf)</a>
+        </div>
+        <iframe src="{aid}.pdf" style="width: 100%; height: 85vh; border: 1px solid var(--border); border-radius: 8px; background: #ffffff;"></iframe>
     </div>
 
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/pdf.worker.min.js';
         const pdfUrl = '{aid}.pdf';
         const container = document.getElementById('pdfScrollContainer');
-        const statusText = document.getElementById('statusText');
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {{
-            if (statusText) statusText.textContent = '';
-            container.innerHTML = '';
+            const canvasList = document.createElement('div');
+            canvasList.style.display = 'flex';
+            canvasList.style.flexDirection = 'column';
+            canvasList.style.gap = '1.5rem';
+            canvasList.style.alignItems = 'center';
+            canvasList.style.marginTop = '1.5rem';
+            container.appendChild(canvasList);
 
-            // Render all pages in natural exact aspect ratio (Zero Distortion)
             for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {{
                 pdfDoc.getPage(pageNum).then(function(page) {{
                     const wrap = document.createElement('div');
@@ -329,19 +332,15 @@ for aid, (title, category) in archive_ids.items():
                     
                     const canvas = document.createElement('canvas');
                     wrap.appendChild(canvas);
-                    container.appendChild(wrap);
+                    canvasList.appendChild(wrap);
 
                     const ctx = canvas.getContext('2d');
-                    
-                    // High-DPI scale maintaining exact original aspect ratio
                     const dpr = window.devicePixelRatio || 2.0;
                     const scale = 1.8 * dpr;
                     const viewport = page.getViewport({{ scale: scale }});
 
                     canvas.width = Math.floor(viewport.width);
                     canvas.height = Math.floor(viewport.height);
-                    
-                    // Display style matches exact aspect ratio without stretching
                     canvas.style.width = Math.floor(viewport.width / dpr) + 'px';
                     canvas.style.maxWidth = '100%';
                     canvas.style.height = 'auto';
@@ -354,7 +353,7 @@ for aid, (title, category) in archive_ids.items():
                 }});
             }}
         }}).catch(function(err) {{
-            console.log("PDF.js render fallback to native embed.");
+            console.log("PDF.js canvas rendering fallback to native iframe.");
         }});
     </script>
 </body>

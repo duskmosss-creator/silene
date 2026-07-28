@@ -69,12 +69,8 @@ with Creator(zim_filename) as creator:
     creator.set_mainpath("C/index.html")
     creator.add_item(ZimItem("C/index.html", html_content, "text/html", is_file=False))
     
-    try:
-        creator.add_redirection("mainPage", "Main Page", "C/index.html", {})
-        creator.add_redirection("A/index.html", "Main Page", "C/index.html", {})
-        creator.add_redirection("index.html", "Main Page", "C/index.html", {})
-    except Exception:
-        pass
+    # set_mainpath handles main article entry cleanly
+    pass
     
     item_count = 0
     skipped_count = 0
