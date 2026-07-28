@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>59522</title>
+    <title>Biltmore House and Gardens</title>
     <style>
         :root {
             --bg: #0f172a;
@@ -12,18 +12,19 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: #334155;
+            --font-size: 16px;
         }
-        html { scroll-behavior: smooth; }
+        html { font-size: var(--font-size); scroll-behavior: smooth; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
             background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
-            padding-top: 70px;
+            padding: 0;
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
-        .header {{
+        .header {
             background: var(--card-bg);
             border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
@@ -31,727 +32,74 @@
             top: 0; left: 0; right: 0;
             z-index: 1000;
             transition: transform 0.3s ease-in-out;
-        }}
-        .container { max-width: 900px; margin: 0 auto; padding: 1rem 0.5rem; overflow-x: hidden; }
-        .md-content {
+        }
+        .header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 { font-size: 1.2rem; margin: 0; color: var(--accent); }
+        .meta { color: var(--text-muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .text-box {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 1.25rem;
-            font-size: 0.95rem;
-            overflow-wrap: break-word;
-            word-break: break-word;
+            padding: 2rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1rem;
             line-height: 1.8;
             color: #e2e8f0;
         }
-        .md-content h1 { color: var(--accent); font-size: 1.6rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.4rem; margin-top: 1.5rem; }
-        .md-content h2 { color: var(--accent); font-size: 1.3rem; margin-top: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
-        .md-content h3 { color: #93c5fd; font-size: 1.1rem; margin-top: 1.2rem; }
-        .md-content ul { padding-left: 1.5rem; margin: 0.5rem 0; }
-        .md-content li { margin: 0.3rem 0; }
-        .md-content strong { color: #f8fafc; font-weight: 700; }
-        .md-content hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
-        .md-content code { background: #0f172a; padding: 0.1rem 0.4rem; border-radius: 4px; font-family: monospace; font-size: 0.9em; }
+        .btn-bar { display: flex; gap: 0.4rem; align-items: center; }
+        .btn {
+            background: #334155;
+            color: white;
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.65rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .btn:hover { background: var(--accent); color: #0f172a; }
+        a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
     </style>
 </head>
 <body>
     <div class="header">
-        <div style="max-width: 950px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">Document Viewer</h1>
-            <a href="../index.html" onclick="if(window.history.length>1){window.history.back();return false;}else{location.href='../index.html';return false;}" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
+        <div class="header-inner">
+            <div>
+                <div class="meta">Category: History</div>
+                <h1>Biltmore House and Gardens</h1>
+            </div>
+            <div class="btn-bar">
+                <button class="btn" onclick="setFontSize('14px')">S</button>
+                <button class="btn" onclick="setFontSize('16px')">M</button>
+                <button class="btn" onclick="setFontSize('18px')">L</button>
+                <a href="../index.html" style="margin-left: 1rem;">← Back to Index</a>
+            </div>
         </div>
     </div>
     
     <div class="container">
-        <div class="md-content">
-            <p>The Project Gutenberg eBook of Biltmore House and Gardens</p>
-<br>
-<p>This eBook is for the use of anyone anywhere in the United States and</p>
-<p>most other parts of the world at no cost and with almost no restrictions</p>
-<p>whatsoever. You may copy it, give it away or re-use it under the terms</p>
-<p>of the Project Gutenberg License included with this eBook or online</p>
-<p>at www.gutenberg.org. If you are not located in the United States,</p>
-<p>you will have to check the laws of the country where you are located</p>
-<p>before using this eBook.</p>
-<br>
-<p>Title: Biltmore House and Gardens</p>
-<br>
-<p>Author: Anonymous</p>
-<br>
-<br>
-<br>
-<p>Release date: May 16, 2019 [eBook #59522]</p>
-<br>
-<p>Language: English</p>
-<br>
-<p>Other information and formats: www.gutenberg.org/ebooks/59522</p>
-<br>
-<p>Credits: Produced by Stephen Hutcheson, Lisa Corcoran and the Online</p>
-<p>        Distributed Proofreading Team at http://www.pgdp.net</p>
-<br>
-<br>
-<p>*<strong> START OF THE PROJECT GUTENBERG EBOOK BILTMORE HOUSE AND GARDENS </strong>*</p>
-<br>
-<br>
-<br>
-<br>
-<p>Produced by Stephen Hutcheson, Lisa Corcoran and the Online</p>
-<p>Distributed Proofreading Team at http://www.pgdp.net</p>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<p>                      _Biltmore House and Gardens_</p>
-<br>
-<br>
-<p>                            BILTMORE ESTATE</p>
-<br>
-<p>                           Biltmore-Asheville</p>
-<p>                             North Carolina</p>
-<br>
-<p>                            OPEN TO VISITORS</p>
-<br>
-<p>    [Illustration: _Biltmore House From The Esplanade_]</p>
-<br>
-<p>    [Illustration: Decorative capital A]</p>
-<br>
-<p>Approached from the Biltmore Lodge Gate of Biltmore Estate, along a</p>
-<p>three-mile drive of paved roads which wind their way through plantations</p>
-<p>of flowering shrubs and forests of pine, hemlock and hardwood, Biltmore</p>
-<p>House, for nearly half a century unique among the great country houses</p>
-<p>of America, comes into view with almost startling suddenness. A sharp</p>
-<p>turn through the wrought iron gates of the north entrance gives one the</p>
-<p>first view of the magnificent mansion completed by George W. Vanderbilt</p>
-<p>in 1895.</p>
-<br>
-<p>    [Illustration: _Banquet Hall and Its Triple Fireplace_]</p>
-<br>
-<p>Following in many details the lines of French Renaissance chateaux,</p>
-<p>particularly those of Blois and Chambord, Biltmore House was designed by</p>
-<p>Richard M. Hunt, of New York. The landscape setting of the mansion and</p>
-<p>the estate was planned by Frederick Law Olmsted, designer of Central</p>
-<p>Park, New York, and executed under the direction of C. D. Beadle, for</p>
-<p>more than sixty years Superintendent of the Estate. By many, the great</p>
-<p>estate surrounding the mansion is believed to be the finest example of</p>
-<p>landscape design in America.</p>
-<br>
-<p>The visitor can profitably study the exterior of the mansion before</p>
-<p>passing through the main portal. The structure has a frontage of 780</p>
-<p>feet. The breadth of the house, from the main door to the west front, is</p>
-<p>150 feet. The facade rises in three distinct levels, graduated from</p>
-<p>portals to finials. The characteristic French peaked roof, with its</p>
-<p>dormer windows and lofty chimneys, relieves any tendency toward</p>
-<p>severity. The walls are of hand-tooled Indiana limestone; the roof is of</p>
-<p>slate.</p>
-<br>
-<p>Biltmore House, begun in 1890, was completed and opened in 1895 after</p>
-<p>five years of intensive construction. Special railroad tracks were laid</p>
-<p>from what is now Biltmore station to the site—three miles away—for the</p>
-<p>conveyance of the great mass of construction material required. Hundreds</p>
-<p>of skilled artisans from various parts of this country and Europe worked</p>
-<p>unremittingly, while other hundreds of laborers from the mountain</p>
-<p>sections of North Carolina were given steady employment during the</p>
-<p>period of construction.</p>
-<br>
-<p>The visitor gains the first impression of the mansion’s magnitude when</p>
-<p>passing through the main entrance door, flanked by sixteenth century</p>
-<p>lions of Italian marble, into the great hall which gives access to the</p>
-<p>main rooms. The self-supporting arches surrounding the Palm Court are</p>
-<p>ceiled with tiles especially made by the celebrated artist and</p>
-<p>architect, Rafael Guastavino, while the arches and dome of the broad</p>
-<p>circular stairway which spirals to the topmost floor from the left side</p>
-<p>of the hall are of Indiana limestone. Facing the entrance door from the</p>
-<p>rear of the hall is a ceremonial furnishing of Cardinal Richelieu,</p>
-<p>showing the Cardinal’s coat-of-arms, motto and hat; it is one of a pair,</p>
-<p>the other is hung on the wall of the second-floor corridor. The grand</p>
-<p>staircase, modeled after that of the Chateau Blois, winds its way around</p>
-<p>the massive wrought iron chandelier which extends downward from the roof</p>
-<p>to the Entrance Hall ceiling, and bears a light cluster for each</p>
-<p>landing.</p>
-<br>
-<p>While visitors are free to choose their own itinerary, the tour of the</p>
-<p>mansion usually begins at the Court of Palms, adjoining the Entrance</p>
-<p>Hall. This court is a sunken area, encircled with marble and, in almost</p>
-<p>every season, adorned with masses of flowers from the gardens and</p>
-<p>greenhouses. The central fountain is surmounted by a statue of a boy and</p>
-<p>swan, the work of Karl Bitter, the Austro-American sculptor. On the</p>
-<p>walls are copies of the Parthenon Reliefs, now in the British Museum.</p>
-<br>
-<p>From the Court of Palms the visitor enters the Oak Drawing Room,</p>
-<p>panelled in Norwegian oak. Most of the engravings hanging here are after</p>
-<p>paintings by Landseer. Heads of deer, buffalo, moose, and bear also</p>
-<p>adorn the walls. The three bronzes over the fireplace are by Barye,</p>
-<p>while on the bookcase at the left are four Chinese Celadon vases. The</p>
-<p>Spanish table in the center is of late eighteenth century origin, as is</p>
-<p>the writing desk facing the entrance.</p>
-<br>
-<p>From the Oak Drawing Room one enters the great Banquet Hall, one of the</p>
-<p>chief centers of attraction. Copied in large measure from an old Norman</p>
-<p>banquet hall, this room is 72 feet long; its ceiling reaches a height of</p>
-<p>75 feet. At one end a triple fireplace, extending almost across the</p>
-<p>entire width of the room, is surmounted by a frieze by Bitter, “The</p>
-<p>Return From The Chase.” High above the frieze are grouped the flags of</p>
-<p>the great powers of Europe at the time Columbus discovered America.</p>
-<br>
-<p>The outstanding objects of interest in the Banquet Hall are five</p>
-<p>sixteenth century tapestries depicting the story of Vulcan and the loves</p>
-<p>of Venus and Mars. It is the unconfirmed legend that these tapestries,</p>
-<p>woven of silk and gold, adorned the tent of the French King, Francis I,</p>
-<p>on the occasion of his historic meeting with Henry VIII of England on</p>
-<p>the Field of the Cloth of Gold. The various figures on the tapestries,</p>
-<p>which were made in Brussels after the cartoons of the Bolognese painter,</p>
-<p>Primaticcio, stand out in striking relief. Particularly does one note</p>
-<p>the beauty and naturalness of the four medallions, one at each corner.</p>
-<br>
-<p>On the walls are replicas of the flags of the thirteen original states,</p>
-<p>and the Biltmore Estate World War service flag, with its fifty-three</p>
-<p>stars—three of them gold—hangs proudly over the center arch. At the</p>
-<p>opposite end of the Banquet Hall from the fireplace, sets of shelves</p>
-<p>display brass and copper pieces of Dutch, Spanish and French origin</p>
-<p>which are attributed to artisans of the seventeenth century. The large</p>
-<p>pipes in the organ loft above are flanked by wood carved reliefs by Karl</p>
-<p>Bitter, depicting scenes from Wagner’s operas.</p>
-<br>
-<p>From the Banquet Hall the visitor proceeds to the Dining Room, the walls</p>
-<p>of which are wainscotted in red marble, surmounted by tooled Spanish</p>
-<p>leather; the upholstery is of Genoese velvet in red and gold. On the</p>
-<p>right is the fireplace by Wedgwood. Portraits of members of the</p>
-<p>Vanderbilt family hang from the walls. In this room are displayed</p>
-<p>beautiful ivory carvings and lustre-ware.</p>
-<br>
-<p>In the Print Room are rare engravings by Earlom, McArdell, Turner,</p>
-<p>Cousins, Ward and Cole. On the center pillar of the entrance is the</p>
-<p>remarkable engraving, “The Executioner,” by Prince Rupert, after</p>
-<p>Spagnoletto; underneath it is “The Virgin and Child,” engraved by</p>
-<p>Theodore Caspara Furstenbergh, after Correggio. The large reassembled</p>
-<p>engraving on the left wall shows the family pedigree of Maximilian the</p>
-<p>Great, by Albrecht Durer (1515); the six engravings on either side of</p>
-<p>this piece are also by Durer.</p>
-<br>
-<p>A Spanish cabinet of the sixteenth century is placed on the left of the</p>
-<p>large Durer engraving; on the right a Dutch cabinet of the late</p>
-<p>seventeenth century. On the right of the entrance, in the center of the</p>
-<p>end wall, is an Italian ebony dresser of the sixteen-seventeenth</p>
-<p>century; between the windows are a number of bronze busts by Meunier.</p>
-<br>
-<p>An antique that attracts much interest, especially among students of</p>
-<p>history, is found in the right hand corner of this room, near the</p>
-<p>entrance—the chess table and set of chessmen once owned by Napoleon</p>
-<p>Bonaparte, and used by him during the six years of his imprisonment on</p>
-<p>the island of St. Helena. Tradition has it that the emperor’s heart was</p>
-<p>placed in the drawer of this table, after being sealed in a silver box,</p>
-<p>following the autopsy performed by Antommarchi. Doctor O’Meara, a</p>
-<p>physician placed in attendance on Napoleon by the British government,</p>
-<p>says in his memoirs that Lady Holland, of England, presented the famous</p>
-<p>Corsican with a chess table, and it is probable that this is the table</p>
-<p>referred to by O’Meara.</p>
-<br>
-<p>From the Print Room visitors enter the Tapestry Gallery. Covering almost</p>
-<p>the entire 90-foot length of the walls are Flemish tapestries of the</p>
-<p>late fifteenth century, depicting Prudence, Faith and Charity. On the</p>
-<p>left of the first fireplace is a sofa in French tapestry of Henry III</p>
-<p>period, late sixteenth century; the six tapestry chairs in the center of</p>
-<p>the gallery are Louis XIV. Four chairs and the sofa under the middle</p>
-<p>tapestry are of Louis XIV period.</p>
-<br>
-<p>    [Illustration: _In The Tapestry Gallery_]</p>
-<br>
-<p>    [Illustration: _The Grand Spiral Stairway_]</p>
-<br>
-<p>In the center is a large refectory table from an old English monastery,</p>
-<p>probably removed from its original setting during the reign of Henry</p>
-<p>VIII. Twelve Dresden china figures of the Twelve Apostles, bearing</p>
-<p>imprint of the Imperial Arms of Austria, are believed to have come from</p>
-<p>a private chapel of the Hapsburgs. Over the door into the Library is a</p>
-<p>portrait of George W. Vanderbilt by Sargent; on the left a Sargent</p>
-<p>portrait of his mother, Mrs. William H. Vanderbilt, and on the right a</p>
-<p>portrait of Mrs. Peter Goelet Gerry (formerly Mrs. George W. Vanderbilt)</p>
-<p>by Boldini.</p>
-<br>
-<p>    [Illustration: _The Dining Room_]</p>
-<br>
-<p>Moving into the Library the visitor’s attention centers on the famous</p>
-<p>ceiling painted by Tiepolo, the last outstanding artist of the Venetian</p>
-<p>school, who died in 1770. The canvas, which covers the library ceiling,</p>
-<p>was obtained by Mr. Vanderbilt from an old Italian palace, on his pledge</p>
-<p>that the name of the former owner should never be revealed.</p>
-<br>
-<p>The unique library, panelled in Circassian walnut, contains more than</p>
-<p>20,000 volumes, among them rare works on art, architecture and landscape</p>
-<p>gardens. Over the fireplace hangs an Italian tapestry, of the late</p>
-<p>seventeenth century. Two white porcelain vases of eighteenth century,</p>
-<p>three large Chinese goldfish bowls, credited to the Ming dynasty, and a</p>
-<p>piece of sixteenth century Spanish embroidery on the long table at the</p>
-<p>end of the room, are other rare objects of interest. The carved black</p>
-<p>marble fireplace on the left is nine feet wide and six feet high; the</p>
-<p>figures on the andirons are by Bitter.</p>
-<br>
-<p>Leaving the Library one mounts the grand staircase to the second floor</p>
-<p>and enters the First Hall, a room 72 by 35 feet. Here are hung many</p>
-<p>valuable paintings, among them Sargent’s life-size portraits of Richard</p>
-<p>Morris Hunt and Frederick Law Olmsted, designers of the house and the</p>
-<p>estate respectively. Here also is seen a large Persian palace or temple</p>
-<p>rug, middle sixteenth century, 33 by 25 feet. The furniture here is</p>
-<p>Venetian, late eighteenth century. Another object of interest is a</p>
-<p>Spanish Wedding Vestment Chest. Above is an Italian mirror, nineteenth</p>
-<p>century.</p>
-<br>
-<p>Opening from the hall is the Louis XVI Bedroom with furniture of that</p>
-<p>period. The South Bedroom, once occupied by Mr. Vanderbilt, commands</p>
-<p>from its windows views of rarely excelled scenic splendor. In this room</p>
-<p>the carving and panelling are of walnut; the furniture is Spanish,</p>
-<p>Italian and Portuguese of the early eighteenth century. The bed, hung in</p>
-<p>red and gold, is Spanish.</p>
-<br>
-<p>The North Bedroom is upholstered in purple and gold Genoese velvet. The</p>
-<p>Oak Sitting Room, between the North and South Bedrooms, contains several</p>
-<p>large and beautiful bronzes by Barye, Meunier and Mene. There also is a</p>
-<p>Maria di Medici settee bearing the private monogram of that tempestuous</p>
-<p>queen, and on the wall are displayed Sargent’s portraits of Mrs. Kissam</p>
-<p>and Mrs. Bacon.</p>
-<br>
-<p>The visitor emerging from the mansion looks down upon a grassy</p>
-<p>Esplanade, in the center of which are a fountain and pool, with</p>
-<p>driveways on either side. Beyond the Esplanade is a magnificent</p>
-<p>structure of stone, the “Rampe Douce,” with its three turtle founts,</p>
-<p>erected to enable one, whether mounted or afoot, to reach the bridle</p>
-<p>paths and glades above and beyond. Below the level of the Library</p>
-<p>Terrace and the Esplanade, surrounded by boxwood and holly hedges, are</p>
-<p>the Swimming Pool and Italian Garden. The holly hedge is studded at</p>
-<p>regular intervals with Italian sculptured urns. Here is the wall with</p>
-<p>ivy from Kenilworth Castle, and a veritable forest of old Wistaria vine</p>
-<p>greets the visitor in the Pergola. Here, as in almost every other part</p>
-<p>of the grounds adjacent to the mansion, are rare examples of beautiful</p>
-<p>statuary procured by Mr. Vanderbilt on his travels abroad.</p>
-<br>
-<p>Beyond the Library Terrace are the Italian Garden, the Shrub Garden, the</p>
-<p>Walled Garden, the Spring Garden and the Azalea Garden, in the aggregate</p>
-<p>containing about thirty-five acres of rare and beautiful plants and</p>
-<p>flowers in almost endless variety, which bloom in seasonal succession.</p>
-<br>
-<p>The greenhouses at the end of the Walled Garden are devoted to the</p>
-<p>cultivation of plants and flowers used in the adornment of the mansion.</p>
-<p>The giant palms and ferns of many varieties present a truly tropical</p>
-<p>scene.</p>
-<br>
-<p>An estate of some 12,000 acres surrounds Biltmore House; formerly it</p>
-<p>comprised more than 100,000 acres, but a large portion of the forest</p>
-<p>area was granted to the government by Mrs. Vanderbilt after Mr.</p>
-<p>Vanderbilt’s death, as the nucleus of Pisgah National Forest, and 1,500</p>
-<p>acres were allotted for development of the Biltmore Forest Country Club</p>
-<p>and the Town of Biltmore Forest. The estate, with its 17 miles of paved</p>
-<p>and macadam roads, and 120 miles of equestrian trails and earth roads,</p>
-<p>gives employment to more than 500 people, the greater number of these</p>
-<p>being engaged in the operation of the Biltmore Dairy Farms and kindred</p>
-<p>activities. The Biltmore herd of some 1200 pure-bred Jerseys is one of</p>
-<p>the largest, and is recognized as one of the finest, in the country.</p>
-<br>
-<p>As a result of the efforts on behalf of the Asheville Chamber of</p>
-<p>Commerce, Biltmore House was opened to the public March 15, 1930,</p>
-<p>sixteen years after Mr. Vanderbilt’s death. Admission tickets are on</p>
-<p>sale at the Biltmore Estate office on the Plaza in Biltmore, and at the</p>
-<p>Asheville Chamber of Commerce.</p>
-<br>
-<p>    [Illustration: _A Section of The Library_]</p>
-<br>
-<br>
-<br>
-<br>
-<p>                          Transcriber’s Notes</p>
-<br>
-<br>
-<p>—Silently corrected a few typos.</p>
-<br>
-<p>—There was no publication information in the printed edition: this eBook</p>
-<p>  is believed public-domain in the country of publication.</p>
-<br>
-<p>—In the text versions only, text in italics is delimited by</p>
-<p>  _underscores_.</p>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<p>*<strong> END OF THE PROJECT GUTENBERG EBOOK BILTMORE HOUSE AND GARDENS </strong>*</p>
-<br>
-<br>
-<br>
-<br>
-<p>Updated editions will replace the previous one—the old editions will</p>
-<p>be renamed.</p>
-<br>
-<p>Creating the works from print editions not protected by U.S. copyright</p>
-<p>law means that no one owns a United States copyright in these works,</p>
-<p>so the Foundation (and you!) can copy and distribute it in the United</p>
-<p>States without permission and without paying copyright</p>
-<p>royalties. Special rules, set forth in the General Terms of Use part</p>
-<p>of this license, apply to copying and distributing Project</p>
-<p>Gutenberg™ electronic works to protect the PROJECT GUTENBERG™</p>
-<p>concept and trademark. Project Gutenberg is a registered trademark,</p>
-<p>and may not be used if you charge for an eBook, except by following</p>
-<p>the terms of the trademark license, including paying royalties for use</p>
-<p>of the Project Gutenberg trademark. If you do not charge anything for</p>
-<p>copies of this eBook, complying with the trademark license is very</p>
-<p>easy. You may use this eBook for nearly any purpose such as creation</p>
-<p>of derivative works, reports, performances and research. Project</p>
-<p>Gutenberg eBooks may be modified and printed and given away—you may</p>
-<p>do practically ANYTHING in the United States with eBooks not protected</p>
-<p>by U.S. copyright law. Redistribution is subject to the trademark</p>
-<p>license, especially commercial redistribution.</p>
-<br>
-<br>
-<p>START: FULL LICENSE</p>
-<br>
-<p>THE FULL PROJECT GUTENBERG™ LICENSE</p>
-<br>
-<p>PLEASE READ THIS BEFORE YOU DISTRIBUTE OR USE THIS WORK</p>
-<br>
-<p>To protect the Project Gutenberg™ mission of promoting the free</p>
-<p>distribution of electronic works, by using or distributing this work</p>
-<p>(or any other work associated in any way with the phrase “Project</p>
-<p>Gutenberg”), you agree to comply with all the terms of the Full</p>
-<p>Project Gutenberg License available with this file or online at</p>
-<p>www.gutenberg.org/license.</p>
-<br>
-<p>Section 1. General Terms of Use and Redistributing Project Gutenberg</p>
-<p>electronic works</p>
-<br>
-<p>1.A. By reading or using any part of this Project Gutenberg</p>
-<p>electronic work, you indicate that you have read, understand, agree to</p>
-<p>and accept all the terms of this license and intellectual property</p>
-<p>(trademark/copyright) agreement. If you do not agree to abide by all</p>
-<p>the terms of this agreement, you must cease using and return or</p>
-<p>destroy all copies of Project Gutenberg electronic works in your</p>
-<p>possession. If you paid a fee for obtaining a copy of or access to a</p>
-<p>Project Gutenberg electronic work and you do not agree to be bound</p>
-<p>by the terms of this agreement, you may obtain a refund from the person</p>
-<p>or entity to whom you paid the fee as set forth in paragraph 1.E.8.</p>
-<br>
-<p>1.B. “Project Gutenberg” is a registered trademark. It may only be</p>
-<p>used on or associated in any way with an electronic work by people who</p>
-<p>agree to be bound by the terms of this agreement. There are a few</p>
-<p>things that you can do with most Project Gutenberg electronic works</p>
-<p>even without complying with the full terms of this agreement. See</p>
-<p>paragraph 1.C below. There are a lot of things you can do with Project</p>
-<p>Gutenberg electronic works if you follow the terms of this</p>
-<p>agreement and help preserve free future access to Project Gutenberg</p>
-<p>electronic works. See paragraph 1.E below.</p>
-<br>
-<p>1.C. The Project Gutenberg Literary Archive Foundation (“the</p>
-<p>Foundation” or PGLAF), owns a compilation copyright in the collection</p>
-<p>of Project Gutenberg electronic works. Nearly all the individual</p>
-<p>works in the collection are in the public domain in the United</p>
-<p>States. If an individual work is unprotected by copyright law in the</p>
-<p>United States and you are located in the United States, we do not</p>
-<p>claim a right to prevent you from copying, distributing, performing,</p>
-<p>displaying or creating derivative works based on the work as long as</p>
-<p>all references to Project Gutenberg are removed. Of course, we hope</p>
-<p>that you will support the Project Gutenberg mission of promoting</p>
-<p>free access to electronic works by freely sharing Project Gutenberg</p>
-<p>works in compliance with the terms of this agreement for keeping the</p>
-<p>Project Gutenberg name associated with the work. You can easily</p>
-<p>comply with the terms of this agreement by keeping this work in the</p>
-<p>same format with its attached full Project Gutenberg License when</p>
-<p>you share it without charge with others.</p>
-<br>
-<p>1.D. The copyright laws of the place where you are located also govern</p>
-<p>what you can do with this work. Copyright laws in most countries are</p>
-<p>in a constant state of change. If you are outside the United States,</p>
-<p>check the laws of your country in addition to the terms of this</p>
-<p>agreement before downloading, copying, displaying, performing,</p>
-<p>distributing or creating derivative works based on this work or any</p>
-<p>other Project Gutenberg work. The Foundation makes no</p>
-<p>representations concerning the copyright status of any work in any</p>
-<p>country other than the United States.</p>
-<br>
-<p>1.E. Unless you have removed all references to Project Gutenberg:</p>
-<br>
-<p>1.E.1. The following sentence, with active links to, or other</p>
-<p>immediate access to, the full Project Gutenberg License must appear</p>
-<p>prominently whenever any copy of a Project Gutenberg work (any work</p>
-<p>on which the phrase “Project Gutenberg” appears, or with which the</p>
-<p>phrase “Project Gutenberg” is associated) is accessed, displayed,</p>
-<p>performed, viewed, copied or distributed:</p>
-<br>
-<p>    This eBook is for the use of anyone anywhere in the United States and most</p>
-<p>    other parts of the world at no cost and with almost no restrictions</p>
-<p>    whatsoever. You may copy it, give it away or re-use it under the terms</p>
-<p>    of the Project Gutenberg™ License included with this eBook or online</p>
-<p>    at www.gutenberg.org. If you</p>
-<p>    are not located in the United States, you will have to check the laws</p>
-<p>    of the country where you are located before using this eBook.</p>
-<br>
-<p>1.E.2. If an individual Project Gutenberg electronic work is</p>
-<p>derived from texts not protected by U.S. copyright law (does not</p>
-<p>contain a notice indicating that it is posted with permission of the</p>
-<p>copyright holder), the work can be copied and distributed to anyone in</p>
-<p>the United States without paying any fees or charges. If you are</p>
-<p>redistributing or providing access to a work with the phrase “Project</p>
-<p>Gutenberg” associated with or appearing on the work, you must comply</p>
-<p>either with the requirements of paragraphs 1.E.1 through 1.E.7 or</p>
-<p>obtain permission for the use of the work and the Project Gutenberg</p>
-<p>trademark as set forth in paragraphs 1.E.8 or 1.E.9.</p>
-<br>
-<p>1.E.3. If an individual Project Gutenberg electronic work is posted</p>
-<p>with the permission of the copyright holder, your use and distribution</p>
-<p>must comply with both paragraphs 1.E.1 through 1.E.7 and any</p>
-<p>additional terms imposed by the copyright holder. Additional terms</p>
-<p>will be linked to the Project Gutenberg License for all works</p>
-<p>posted with the permission of the copyright holder found at the</p>
-<p>beginning of this work.</p>
-<br>
-<p>1.E.4. Do not unlink or detach or remove the full Project Gutenberg</p>
-<p>License terms from this work, or any files containing a part of this</p>
-<p>work or any other work associated with Project Gutenberg.</p>
-<br>
-<p>1.E.5. Do not copy, display, perform, distribute or redistribute this</p>
-<p>electronic work, or any part of this electronic work, without</p>
-<p>prominently displaying the sentence set forth in paragraph 1.E.1 with</p>
-<p>active links or immediate access to the full terms of the Project</p>
-<p>Gutenberg License.</p>
-<br>
-<p>1.E.6. You may convert to and distribute this work in any binary,</p>
-<p>compressed, marked up, nonproprietary or proprietary form, including</p>
-<p>any word processing or hypertext form. However, if you provide access</p>
-<p>to or distribute copies of a Project Gutenberg work in a format</p>
-<p>other than “Plain Vanilla ASCII” or other format used in the official</p>
-<p>version posted on the official Project Gutenberg website</p>
-<p>(www.gutenberg.org), you must, at no additional cost, fee or expense</p>
-<p>to the user, provide a copy, a means of exporting a copy, or a means</p>
-<p>of obtaining a copy upon request, of the work in its original “Plain</p>
-<p>Vanilla ASCII” or other form. Any alternate format must include the</p>
-<p>full Project Gutenberg License as specified in paragraph 1.E.1.</p>
-<br>
-<p>1.E.7. Do not charge a fee for access to, viewing, displaying,</p>
-<p>performing, copying or distributing any Project Gutenberg works</p>
-<p>unless you comply with paragraph 1.E.8 or 1.E.9.</p>
-<br>
-<p>1.E.8. You may charge a reasonable fee for copies of or providing</p>
-<p>access to or distributing Project Gutenberg electronic works</p>
-<p>provided that:</p>
-<br>
-<p>    • You pay a royalty fee of 20% of the gross profits you derive from</p>
-<p>        the use of Project Gutenberg works calculated using the method</p>
-<p>        you already use to calculate your applicable taxes. The fee is owed</p>
-<p>        to the owner of the Project Gutenberg trademark, but he has</p>
-<p>        agreed to donate royalties under this paragraph to the Project</p>
-<p>        Gutenberg Literary Archive Foundation. Royalty payments must be paid</p>
-<p>        within 60 days following each date on which you prepare (or are</p>
-<p>        legally required to prepare) your periodic tax returns. Royalty</p>
-<p>        payments should be clearly marked as such and sent to the Project</p>
-<p>        Gutenberg Literary Archive Foundation at the address specified in</p>
-<p>        Section 4, “Information about donations to the Project Gutenberg</p>
-<p>        Literary Archive Foundation.”</p>
-<br>
-<p>    • You provide a full refund of any money paid by a user who notifies</p>
-<p>        you in writing (or by e-mail) within 30 days of receipt that s/he</p>
-<p>        does not agree to the terms of the full Project Gutenberg™</p>
-<p>        License. You must require such a user to return or destroy all</p>
-<p>        copies of the works possessed in a physical medium and discontinue</p>
-<p>        all use of and all access to other copies of Project Gutenberg™</p>
-<p>        works.</p>
-<br>
-<p>    • You provide, in accordance with paragraph 1.F.3, a full refund of</p>
-<p>        any money paid for a work or a replacement copy, if a defect in the</p>
-<p>        electronic work is discovered and reported to you within 90 days of</p>
-<p>        receipt of the work.</p>
-<br>
-<p>    • You comply with all other terms of this agreement for free</p>
-<p>        distribution of Project Gutenberg™ works.</p>
-<br>
-<br>
-<p>1.E.9. If you wish to charge a fee or distribute a Project</p>
-<p>Gutenberg™ electronic work or group of works on different terms than</p>
-<p>are set forth in this agreement, you must obtain permission in writing</p>
-<p>from the Project Gutenberg Literary Archive Foundation, the manager of</p>
-<p>the Project Gutenberg™ trademark. Contact the Foundation as set</p>
-<p>forth in Section 3 below.</p>
-<br>
-<p>1.F.</p>
-<br>
-<p>1.F.1. Project Gutenberg volunteers and employees expend considerable</p>
-<p>effort to identify, do copyright research on, transcribe and proofread</p>
-<p>works not protected by U.S. copyright law in creating the Project</p>
-<p>Gutenberg™ collection. Despite these efforts, Project Gutenberg™</p>
-<p>electronic works, and the medium on which they may be stored, may</p>
-<p>contain “Defects,” such as, but not limited to, incomplete, inaccurate</p>
-<p>or corrupt data, transcription errors, a copyright or other</p>
-<p>intellectual property infringement, a defective or damaged disk or</p>
-<p>other medium, a computer virus, or computer codes that damage or</p>
-<p>cannot be read by your equipment.</p>
-<br>
-<p>1.F.2. LIMITED WARRANTY, DISCLAIMER OF DAMAGES - Except for the “Right</p>
-<p>of Replacement or Refund” described in paragraph 1.F.3, the Project</p>
-<p>Gutenberg Literary Archive Foundation, the owner of the Project</p>
-<p>Gutenberg™ trademark, and any other party distributing a Project</p>
-<p>Gutenberg™ electronic work under this agreement, disclaim all</p>
-<p>liability to you for damages, costs and expenses, including legal</p>
-<p>fees. YOU AGREE THAT YOU HAVE NO REMEDIES FOR NEGLIGENCE, STRICT</p>
-<p>LIABILITY, BREACH OF WARRANTY OR BREACH OF CONTRACT EXCEPT THOSE</p>
-<p>PROVIDED IN PARAGRAPH 1.F.3. YOU AGREE THAT THE FOUNDATION, THE</p>
-<p>TRADEMARK OWNER, AND ANY DISTRIBUTOR UNDER THIS AGREEMENT WILL NOT BE</p>
-<p>LIABLE TO YOU FOR ACTUAL, DIRECT, INDIRECT, CONSEQUENTIAL, PUNITIVE OR</p>
-<p>INCIDENTAL DAMAGES EVEN IF YOU GIVE NOTICE OF THE POSSIBILITY OF SUCH</p>
-<p>DAMAGE.</p>
-<br>
-<p>1.F.3. LIMITED RIGHT OF REPLACEMENT OR REFUND - If you discover a</p>
-<p>defect in this electronic work within 90 days of receiving it, you can</p>
-<p>receive a refund of the money (if any) you paid for it by sending a</p>
-<p>written explanation to the person you received the work from. If you</p>
-<p>received the work on a physical medium, you must return the medium</p>
-<p>with your written explanation. The person or entity that provided you</p>
-<p>with the defective work may elect to provide a replacement copy in</p>
-<p>lieu of a refund. If you received the work electronically, the person</p>
-<p>or entity providing it to you may choose to give you a second</p>
-<p>opportunity to receive the work electronically in lieu of a refund. If</p>
-<p>the second copy is also defective, you may demand a refund in writing</p>
-<p>without further opportunities to fix the problem.</p>
-<br>
-<p>1.F.4. Except for the limited right of replacement or refund set forth</p>
-<p>in paragraph 1.F.3, this work is provided to you ‘AS-IS’, WITH NO</p>
-<p>OTHER WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT</p>
-<p>LIMITED TO WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PURPOSE.</p>
-<br>
-<p>1.F.5. Some states do not allow disclaimers of certain implied</p>
-<p>warranties or the exclusion or limitation of certain types of</p>
-<p>damages. If any disclaimer or limitation set forth in this agreement</p>
-<p>violates the law of the state applicable to this agreement, the</p>
-<p>agreement shall be interpreted to make the maximum disclaimer or</p>
-<p>limitation permitted by the applicable state law. The invalidity or</p>
-<p>unenforceability of any provision of this agreement shall not void the</p>
-<p>remaining provisions.</p>
-<br>
-<p>1.F.6. INDEMNITY - You agree to indemnify and hold the Foundation, the</p>
-<p>trademark owner, any agent or employee of the Foundation, anyone</p>
-<p>providing copies of Project Gutenberg™ electronic works in</p>
-<p>accordance with this agreement, and any volunteers associated with the</p>
-<p>production, promotion and distribution of Project Gutenberg™</p>
-<p>electronic works, harmless from all liability, costs and expenses,</p>
-<p>including legal fees, that arise directly or indirectly from any of</p>
-<p>the following which you do or cause to occur: (a) distribution of this</p>
-<p>or any Project Gutenberg work, (b) alteration, modification, or</p>
-<p>additions or deletions to any Project Gutenberg work, and (c) any</p>
-<p>Defect you cause.</p>
-<br>
-<p>Section 2. Information about the Mission of Project Gutenberg</p>
-<br>
-<p>Project Gutenberg is synonymous with the free distribution of</p>
-<p>electronic works in formats readable by the widest variety of</p>
-<p>computers including obsolete, old, middle-aged and new computers. It</p>
-<p>exists because of the efforts of hundreds of volunteers and donations</p>
-<p>from people in all walks of life.</p>
-<br>
-<p>Volunteers and financial support to provide volunteers with the</p>
-<p>assistance they need are critical to reaching Project Gutenberg’s</p>
-<p>goals and ensuring that the Project Gutenberg collection will</p>
-<p>remain freely available for generations to come. In 2001, the Project</p>
-<p>Gutenberg Literary Archive Foundation was created to provide a secure</p>
-<p>and permanent future for Project Gutenberg and future</p>
-<p>generations. To learn more about the Project Gutenberg Literary</p>
-<p>Archive Foundation and how your efforts and donations can help, see</p>
-<p>Sections 3 and 4 and the Foundation information page at www.gutenberg.org.</p>
-<br>
-<p>Section 3. Information about the Project Gutenberg Literary Archive Foundation</p>
-<br>
-<p>The Project Gutenberg Literary Archive Foundation is a non-profit</p>
-<p>501(c)(3) educational corporation organized under the laws of the</p>
-<p>state of Mississippi and granted tax exempt status by the Internal</p>
-<p>Revenue Service. The Foundation’s EIN or federal tax identification</p>
-<p>number is 64-6221541. Contributions to the Project Gutenberg Literary</p>
-<p>Archive Foundation are tax deductible to the full extent permitted by</p>
-<p>U.S. federal laws and your state’s laws.</p>
-<br>
-<p>The Foundation’s business office is located at 41 Watchung Plaza #516,</p>
-<p>Montclair NJ 07042, USA, +1 (862) 621-9288. Email contact links and up</p>
-<p>to date contact information can be found at the Foundation’s website</p>
-<p>and official page at www.gutenberg.org/contact</p>
-<br>
-<p>Section 4. Information about Donations to the Project Gutenberg</p>
-<p>Literary Archive Foundation</p>
-<br>
-<p>Project Gutenberg™ depends upon and cannot survive without widespread</p>
-<p>public support and donations to carry out its mission of</p>
-<p>increasing the number of public domain and licensed works that can be</p>
-<p>freely distributed in machine-readable form accessible by the widest</p>
-<p>array of equipment including outdated equipment. Many small donations</p>
-<p>($1 to $5,000) are particularly important to maintaining tax exempt</p>
-<p>status with the IRS.</p>
-<br>
-<p>The Foundation is committed to complying with the laws regulating</p>
-<p>charities and charitable donations in all 50 states of the United</p>
-<p>States. Compliance requirements are not uniform and it takes a</p>
-<p>considerable effort, much paperwork and many fees to meet and keep up</p>
-<p>with these requirements. We do not solicit donations in locations</p>
-<p>where we have not received written confirmation of compliance. To SEND</p>
-<p>DONATIONS or determine the status of compliance for any particular state</p>
-<p>visit www.gutenberg.org/donate.</p>
-<br>
-<p>While we cannot and do not solicit contributions from states where we</p>
-<p>have not met the solicitation requirements, we know of no prohibition</p>
-<p>against accepting unsolicited donations from donors in such states who</p>
-<p>approach us with offers to donate.</p>
-<br>
-<p>International donations are gratefully accepted, but we cannot make</p>
-<p>any statements concerning tax treatment of donations received from</p>
-<p>outside the United States. U.S. laws alone swamp our small staff.</p>
-<br>
-<p>Please check the Project Gutenberg web pages for current donation</p>
-<p>methods and addresses. Donations are accepted in a number of other</p>
-<p>ways including checks, online payments and credit card donations. To</p>
-<p>donate, please visit: www.gutenberg.org/donate.</p>
-<br>
-<p>Section 5. General Information About Project Gutenberg electronic works</p>
-<br>
-<p>Professor Michael S. Hart was the originator of the Project</p>
-<p>Gutenberg concept of a library of electronic works that could be</p>
-<p>freely shared with anyone. For forty years, he produced and</p>
-<p>distributed Project Gutenberg eBooks with only a loose network of</p>
-<p>volunteer support.</p>
-<br>
-<p>Project Gutenberg eBooks are often created from several printed</p>
-<p>editions, all of which are confirmed as not protected by copyright in</p>
-<p>the U.S. unless a copyright notice is included. Thus, we do not</p>
-<p>necessarily keep eBooks in compliance with any particular paper</p>
-<p>edition.</p>
-<br>
-<p>Most people start at our website which has the main PG search</p>
-<p>facility: www.gutenberg.org.</p>
-<br>
-<p>This website includes information about Project Gutenberg,</p>
-<p>including how to make donations to the Project Gutenberg Literary</p>
-<p>Archive Foundation, how to help produce our new eBooks, and how to</p>
-<p>subscribe to our email newsletter to hear about new eBooks.</p>
-<br>
-<br>
-<br>
-        </div>
+        <div class="text-box" id="textContent">Loading text file...</div>
     </div>
 
     <script>
-        (function() {
-            let lastScrollTop = 0;
-            window.addEventListener("scroll", function() {
-                let st = window.pageYOffset || document.documentElement.scrollTop;
-                let header = document.querySelector(".header");
-                if (header) {
-                    if (st > lastScrollTop && st > 60) {
-                        header.style.transform = "translateY(-100%)";
-                    } else {
-                        header.style.transform = "translateY(0)";
-                    }
-                }
-                lastScrollTop = st <= 0 ? 0 : st;
-            });
-        })();
+        function setFontSize(size) {
+            document.documentElement.style.setProperty('--font-size', size);
+            localStorage.setItem('doc_font_size', size);
+        }
+        const savedSize = localStorage.getItem('doc_font_size');
+        if (savedSize) setFontSize(savedSize);
+
+        fetch('59522.txt')
+            .then(res => res.text())
+            .then(text => { document.getElementById('textContent').textContent = text; })
+            .catch(err => { document.getElementById('textContent').textContent = "Biltmore House and Gardens"; });
     </script>
 </body>
 </html>

@@ -21,7 +21,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0; padding-top: 80px;
+            margin: 0;
         }
         .card {
             max-width: 500px;
@@ -52,31 +52,5 @@
         <br>
         <a href="../index.html">← Back to Archive Index</a>
     </div>
-
-<script>
-    (function() {
-        let lastScrollTop = 0;
-        window.addEventListener("scroll", function() {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-            let header = document.querySelector("header");
-            if (!header) header = document.querySelector(".header");
-            if (header) {
-                if (st > lastScrollTop && st > 60) {
-                    header.style.transform = "translateY(-100%)";
-                } else {
-                    header.style.transform = "translateY(0)";
-                }
-            }
-            lastScrollTop = st <= 0 ? 0 : st;
-        });
-        
-        // Fix PDF and Link zimcheck bypasses
-        document.querySelectorAll('object[data-pdf-src]').forEach(el => el.data = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('embed[data-pdf-src]').forEach(el => el.src = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('iframe[data-pdf-src]').forEach(el => el.src = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('a[data-href]').forEach(el => el.href = el.getAttribute('data-href'));
-    })();
-</script>
 </body>
-
 </html>

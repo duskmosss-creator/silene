@@ -128,7 +128,7 @@ for gid, (title, category) in gutenberg_ids.items():
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }}
-        .header {
+        .header {{
             background: var(--card-bg);
             border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
@@ -218,7 +218,7 @@ for gid, (title, category) in gutenberg_ids.items():
         'path': f"texts/{gid}.html", 
         'cover': "",
         'type': 'TEXT', 
-        'content': raw_text[:10000]
+        'content': title
     })
 
 # 4. Zero-Distortion Natural Aspect-Ratio Continuous Vertical Scroll PDF Viewer
@@ -252,7 +252,7 @@ for aid, (title, category) in archive_ids.items():
             background-color: var(--bg);
             color: var(--text-main);
         }}
-        .header {
+        .header {{
             background: var(--card-bg);
             border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
