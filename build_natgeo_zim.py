@@ -1,7 +1,8 @@
 import os
+import re
 from libzim.writer import Creator, Item, StringProvider, FileProvider, Hint
 
-print("Building National Geographic ZIM file (bundling all cover photos and DJVU text)...")
+print("Building National Geographic ZIM file (bundling active gallery magazine issues)...")
 
 class ZimItem(Item):
     def __init__(self, path, content_or_path, mimetype, is_file=True):
@@ -41,17 +42,23 @@ mimetype_map = {
     ".png": "image/png",
     ".webp": "image/webp",
     ".js": "application/javascript",
-    ".css": "text/css"
+    ".css": "text/css",
+    ".pdf": "application/pdf"
 }
+
+with open(f"{natgeo_dir}/index.html", "r", encoding="utf-8") as f:
+    html_content = f.read()
+
+# Collect all referenced paths from index.html
+referenced_paths = set(re.findall(r'["\']((?:images|pdfs|texts|js)/[^"\']+)["\']', html_content))
 
 with Creator(zim_filename) as creator:
     creator.set_mainpath("index.html")
-    
-    with open(f"{natgeo_dir}/index.html", "r", encoding="utf-8") as f:
-        html_content = f.read()
     creator.add_item(ZimItem("index.html", html_content, "text/html", is_file=False))
     
     item_count = 0
+    skipped_count = 0
+
     for root, dirs, files in os.walk(natgeo_dir):
         for file in files:
             if file == "index.html":
@@ -61,9 +68,18 @@ with Creator(zim_filename) as creator:
             zim_path = os.path.relpath(local_path, natgeo_dir).replace("\\", "/")
             
             ext = os.path.splitext(file)[1].lower()
+            
+            # If it's a PDF, only include it if it's referenced in index.html or has a matching .html viewer
+            if ext == ".pdf":
+                stem = os.path.splitext(file)[0]
+                matching_html = os.path.join(natgeo_dir, "pdfs", f"{stem}.html")
+                if not os.path.exists(matching_html) and zim_path not in referenced_paths:
+                    print(f"  [SKIP ORPHAN PDF] {zim_path}")
+                    skipped_count += 1
+                    continue
+
             mimetype = mimetype_map.get(ext, "application/octet-stream")
-                
             creator.add_item(ZimItem(zim_path, local_path, mimetype, is_file=True))
             item_count += 1
 
-print(f"ZIM file {zim_filename} created successfully with {item_count} bundled items.")
+print(f"ZIM file {zim_filename} created successfully with {item_count} bundled items ({skipped_count} orphan PDFs skipped).")
