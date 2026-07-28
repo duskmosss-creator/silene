@@ -1,9 +1,14 @@
 # Completed Tasks
 
-- [x] **Verified All 4 ZIM Archives in `zim_downloads/`**:
-  - `National_Geographic_Appalachian_Collection.zim` (1.03 MB, 41 bundled items)
-  - `Appalachian_Corridor.zim` (134.6 MB, 93 bundled items)
-  - `GSMNP_Backpacking_Field_Guide.zim` (43.6 KB, 5 bundled items)
-  - `Southern_Appalachian_Regional_Master.zim` (40.0 KB, 4 bundled items)
-- [x] Rebuilt and verified `National_Geographic_Appalachian_Collection.zim` with authentic magazine cover page photos, styled HTML article readers, and dark theme design matching Appalachian Corridor.
-- [x] Pushed all code, ZIM rebuilds, and verified downloads live to GitHub: `https://github.com/duskmosss-creator/silene`.
+- [x] **Enforced Strict Security & Untracked Personal SD Card Data**:
+  - Untracked `off-grid-agent/` directory from git tracking so your personal automation files, local agent logs, and SD card data are **never uploaded or shared to GitHub**.
+  - Updated `.gitignore` to explicitly block:
+    - `off-grid-agent/` (all personal agent files, recipes, and automation scripts)
+    - `*.env`, `*.key`, `credentials.json`, `secrets.json` (all API keys & credentials)
+    - `*.db`, `*.sqlite`, `*.sqlite3` (all local databases)
+    - `*.zim`, `zim_downloads/` (all offline binary ZIM files)
+    - `*.zip`, `*.mp4`, `*.pdf` (all large personal media files)
+- [x] **Local-First Zero Telemetry Security Architecture**:
+  - `HickorySearchApp` uses Apple's native **Security-Scoped URL Bookmarks** (`startAccessingSecurityScopedResource()`). The app ONLY accesses the specific folder you select on your SD card or Files App.
+  - Zero external network connections, zero telemetry, and zero remote API calls. All processing runs 100% locally on your iPhone 15 Pro hardware.
+- [x] Pushed security `.gitignore` and untracking updates live to GitHub: `https://github.com/duskmosss-creator/silene`.

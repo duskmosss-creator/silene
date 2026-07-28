@@ -1,14 +1,36 @@
-# Ignore compiled binary ZIM files
+# Ignore binary ZIM files and downloaded archives
 *.zim
 zim_downloads/
 *.zim_title.idx
 *.zim_title.idx.tmp/
 
-# Ignore large downloaded PDFs in source directories (keep code, JS viewers, and images)
-content/pdfs/*.pdf
-natgeo_collection/pdfs/*.pdf
+# Security & Privacy: Exclude personal SD card folders, archives & credentials
+off-grid-agent/
+*.env
+*.key
+*.pem
+*.pfx
+*.cert
+credentials.json
+secrets.json
+config.json
 
-# Local Python & Vector DB
+# Local Python & Vector DBs
 *.db
+*.sqlite
+*.sqlite3
 __pycache__/
 .venv/
+*.log
+
+# Ignore large downloaded PDFs and raw media
+content/pdfs/*.pdf
+natgeo_collection/pdfs/*.pdf
+*.zip
+*.mp4
+
+# OS / IDE metadata
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

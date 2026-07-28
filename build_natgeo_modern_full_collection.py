@@ -18,11 +18,11 @@ try:
 except Exception as e:
     print(f"Notice NatGeo PDF.js: {e}")
 
-# Complete Expanded National Geographic Archive List (1889 to 2024)
+# Complete Expanded & Notable National Geographic Archive List (1889 to 2024)
 natgeo_archive_list = [
     {
         'id': 'nationalgeograph11889nati',
-        'title': 'National Geographic Magazine (Vol. 1, 1889 - Founding Issue)',
+        'title': 'National Geographic Magazine (Vol. 1, 1889 - Founding Premiere Issue)',
         'year': 1889,
         'era': '1880s-1910s',
         'desc': 'Original premiere issue of National Geographic Society featuring early Appalachian geological surveys.'
@@ -84,11 +84,32 @@ natgeo_archive_list = [
         'desc': 'Mid-century wildlife conservation, black bear habitats, and forest management.'
     },
     {
+        'id': 'sim_national-geographic_1969-12_136_6',
+        'title': 'National Geographic (Dec 1969 - Man on the Moon Historic Issue)',
+        'year': 1969,
+        'era': '1950s-1970s',
+        'desc': '★ NOTABLE: Apollo 11 lunar landing special issue with historic moonwalk photos.'
+    },
+    {
         'id': 'national-geographic-1972-10',
         'title': 'National Geographic Magazine (October 1972 Issue)',
         'year': 1972,
         'era': '1950s-1970s',
         'desc': 'Appalachian Trail wilderness preservation and eastern national forests survey.'
+    },
+    {
+        'id': 'sim_national-geographic_1985-06_167_6',
+        'title': 'National Geographic (June 1985 - Iconic Afghan Girl Issue)',
+        'year': 1985,
+        'era': '1980s-1990s',
+        'desc': '★ NOTABLE: World-famous cover portrait by Steve McCurry and global refugee report.'
+    },
+    {
+        'id': 'sim_national-geographic_1985-12_168_6',
+        'title': 'National Geographic (Dec 1985 - Discovery of RMS Titanic)',
+        'year': 1985,
+        'era': '1980s-1990s',
+        'desc': '★ NOTABLE: Dr. Robert Ballard historic underwater expedition locating the RMS Titanic wreck.'
     },
     {
         'id': 'national-geographic-1988-07',
@@ -105,6 +126,13 @@ natgeo_archive_list = [
         'desc': 'Special report on ancient mountain ecosystems, red spruce forests, and black bear corridors.'
     },
     {
+        'id': 'sim_national-geographic_1999-12_196_6',
+        'title': 'National Geographic (Dec 1999 - Millennium Special Collector Issue)',
+        'year': 1999,
+        'era': '1980s-1990s',
+        'desc': '★ NOTABLE: Turn-of-the-century special issue on global exploration and Earth mapping.'
+    },
+    {
         'id': 'national-geographic-2006-08',
         'title': 'National Geographic Magazine (August 2006 Issue)',
         'year': 2006,
@@ -112,18 +140,32 @@ natgeo_archive_list = [
         'desc': 'Modern biodiversity indexing in GSMNP and synchronous firefly photobiology.'
     },
     {
-        'id': 'national-geographic-2016-05',
-        'title': 'National Geographic Magazine (May 2016 - National Parks Centennial)',
+        'id': 'sim_national-geographic_2016-05_229_5',
+        'title': 'National Geographic (May 2016 - National Parks Centennial Issue)',
         'year': 2016,
         'era': '2000s-2010s',
-        'desc': '100th Anniversary of the National Park Service featuring Great Smoky Mountains.'
+        'desc': '★ NOTABLE: 100th Anniversary of America National Parks featuring Great Smoky Mountains.'
+    },
+    {
+        'id': 'sim_national-geographic_2020-04_237_4',
+        'title': 'National Geographic (April 2020 - Earth Day 50th Anniversary Issue)',
+        'year': 2020,
+        'era': '2020s-Present',
+        'desc': '★ NOTABLE: 50 Years of Earth Day special issue on global climate resilience.'
+    },
+    {
+        'id': 'sim_national-geographic_2023-01_243_1',
+        'title': 'National Geographic (Jan 2023 - Wild Rewilding & Conservation Issue)',
+        'year': 2023,
+        'era': '2020s-Present',
+        'desc': '★ RECENT: Modern rewilding features, elk species recovery, and Appalachian forest protection.'
     },
     {
         'id': 'national-geographic-2024-01',
         'title': 'National Geographic Magazine (2024 Modern Special Edition)',
         'year': 2024,
         'era': '2020s-Present',
-        'desc': 'Recent 2024 field report on Southern Appalachian climate resilience and elk reintroduction.'
+        'desc': '★ RECENT: 2024 field report on Southern Appalachian climate resilience and mountain conservation.'
     }
 ]
 
@@ -151,7 +193,7 @@ for item in natgeo_archive_list:
     # 2. Fetch Text metadata fallback
     if not os.path.exists(txt_file):
         with open(txt_file, 'w', encoding='utf-8') as tf:
-            tf.write(f"{item['title']}\n\nYear: {item['year']}\n\nDescription: {item['desc']}\n\nThis volume is part of the National Geographic Society historical collection.")
+            tf.write(f"{item['title']}\n\nYear: {item['year']}\n\nDescription: {item['desc']}\n\nThis volume is part of the National Geographic Society collection.")
 
 # Build HTML Readers for Text & PDF Viewers
 processed_items = []
@@ -427,7 +469,7 @@ gallery_index_html = f"""<!DOCTYPE html>
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.25 ease, box-shadow 0.25s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
             position: relative;
         }}
 
@@ -489,14 +531,14 @@ gallery_index_html = f"""<!DOCTYPE html>
 <body>
     <header>
         <div class="natgeo-border-logo">NATIONAL GEOGRAPHIC</div>
-        <h1>ARCHIVED MAGAZINE GALLERY (1889 - 2024)</h1>
-        <p>Full Multi-Page Magazine Issues with Prominent Covers, Expedition Archives & Southern Appalachian Features</p>
+        <h1>NOTABLE & RECENT MAGAZINE GALLERY (1889 - 2024)</h1>
+        <p>Full Issues: Moon Landing (1969), Afghan Girl (1985), Titanic (1985), Millennium (1999), National Parks (2016), Earth Day (2020), Rewilding (2023), Modern (2024)</p>
     </header>
 
     <div class="container">
         <section class="controls">
             <div class="control-row">
-                <input type="text" id="searchInput" class="search-bar" placeholder="Search full text, years, or topics (e.g. 1920, Smokies, Fireflies, 2024)...">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search notable issues, years, topics (e.g. Moon, Titanic, Afghan Girl, 2024)...">
             </div>
 
             <div class="filter-tabs" id="filterTabs">
@@ -571,4 +613,4 @@ gallery_index_html = f"""<!DOCTYPE html>
 with open(f"{natgeo_dir}/index.html", "w", encoding="utf-8") as f:
     f.write(gallery_index_html)
 
-print("NatGeo modern expanded collection build complete.")
+print("NatGeo notable & recent collection index built.")
