@@ -74,76 +74,52 @@ real_natgeo_volumes = [
         'cover': 'images/jishankhan_hotmail_1954_cover.jpg'
     },
     {
-        'id': 'sim_national-geographic_1969-12_136_6',
-        'title': 'National Geographic Magazine (December 1969 - Color Moon & Earth Issue)',
+        'id': 'nationalgeograph2009unse',
+        'title': 'National Geographic Magazine (2009 Modern Color Issue)',
         'category': 'Nature',
-        'cover': 'images/nationalgeograph11889nati_cover.jpg'
+        'cover': 'images/195011_cover.jpg'
     },
     {
-        'id': 'national-geographic-1972-10',
-        'title': 'National Geographic Magazine (October 1972 - Appalachian Trail Color Special)',
-        'category': 'Appalachia',
-        'cover': 'images/nationalgeograph37natiuoft_cover.jpg'
-    },
-    {
-        'id': 'sim_national-geographic_1985-06_167_6',
-        'title': 'National Geographic Magazine (June 1985 - Iconic Color Photography)',
+        'id': 'nationalgeograp421922nati',
+        'title': 'National Geographic Magazine (Volume 42 - 1922 Edition)',
         'category': 'Historical',
         'cover': 'images/194701to12_cover.jpg'
     },
     {
-        'id': 'sim_national-geographic_1985-12_168_6',
-        'title': 'National Geographic Magazine (December 1985 - Titanic Discovery Issue)',
+        'id': 'nationalgeograp401921nati',
+        'title': 'National Geographic Magazine (Volume 40 - 1921 Edition)',
         'category': 'Historical',
         'cover': 'images/194905_cover.jpg'
     },
     {
-        'id': 'national-geographic-1988-07',
-        'title': 'National Geographic Magazine (July 1988 - 100th Anniversary Color Issue)',
-        'category': 'Nature',
-        'cover': 'images/195011_cover.jpg'
+        'id': 'nationalgeograp371920nati',
+        'title': 'National Geographic Magazine (Volume 37 - 1920 Edition)',
+        'category': 'Smokies',
+        'cover': 'images/nationalgeograph37natiuoft_cover.jpg'
     },
     {
-        'id': 'national-geographic-1996-09',
-        'title': 'National Geographic Magazine (September 1996 - Great Smoky Mountains Centennial)',
-        'category': 'Smokies',
+        'id': 'nationalgeograp331918nati',
+        'title': 'National Geographic Magazine (Volume 33 - 1918 Edition)',
+        'category': 'Nature',
         'cover': 'images/195105_cover.jpg'
     },
     {
-        'id': 'sim_national-geographic_1999-12_196_6',
-        'title': 'National Geographic Magazine (December 1999 - Millennium Color Edition)',
+        'id': 'nationalgeograp321917nati',
+        'title': 'National Geographic Magazine (Volume 32 - 1917 Edition)',
         'category': 'Nature',
         'cover': 'images/195204_cover.jpg'
     },
     {
-        'id': 'national-geographic-2006-08',
-        'title': 'National Geographic Magazine (August 2006 - Southern Wilderness)',
-        'category': 'Appalachia',
+        'id': 'nationalgeograp301916nati',
+        'title': 'National Geographic Magazine (Volume 30 - 1916 Edition)',
+        'category': 'Historical',
         'cover': 'images/195304_cover.jpg'
     },
     {
-        'id': 'sim_national-geographic_2016-05_229_5',
-        'title': 'National Geographic Magazine (May 2016 - National Parks Centennial)',
-        'category': 'Smokies',
-        'cover': 'images/jishankhan_hotmail_1954_cover.jpg'
-    },
-    {
-        'id': 'sim_national-geographic_2020-04_237_4',
-        'title': 'National Geographic Magazine (April 2020 - Earth Day 50th Edition)',
-        'category': 'Nature',
-        'cover': 'images/194701to12_cover.jpg'
-    },
-    {
-        'id': 'sim_national-geographic_2023-01_243_1',
-        'title': 'National Geographic Magazine (January 2023 - Rewilding Wildlands)',
-        'category': 'Nature',
-        'cover': 'images/195011_cover.jpg'
-    },
-    {
-        'id': 'national-geographic-2024-01',
-        'title': 'National Geographic Magazine (January 2024 - Modern Color Edition)',
+        'id': 'nationalgeograph271915nati',
+        'title': 'National Geographic Magazine (Volume 27 - 1915 Edition)',
         'category': 'Appalachia',
-        'cover': 'images/195204_cover.jpg'
+        'cover': 'images/jishankhan_hotmail_1954_cover.jpg'
     }
 ]
 
