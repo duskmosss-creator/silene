@@ -410,7 +410,28 @@ for item in real_natgeo_volumes:
             'content': item['title']
         })
 
-search_json = json.dumps(downloaded_natgeo)
+cards_html_list = []
+for item in downloaded_natgeo:
+    badge_class = 'badge-pdf' if item['has_pdf'] else ''
+    link_text = '📄 Open High-Res Full NatGeo PDF →' if item['has_pdf'] else '📖 Open Magazine Article Viewer →'
+    cover_html = f'<img src="{item["cover"]}" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">' if item.get('cover') else ''
+    title_escaped = item['title'].replace('"', '&quot;')
+    
+    card_h = f"""
+        <a class="card" href="{item['path']}" data-category="{item['category']}" data-title="{title_escaped.lower()}">
+            <div>
+                {cover_html}
+                <div class="card-title">{item['title']}</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">{link_text}</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: {item['category']}</span>
+                <span class="badge {badge_class}">{item['type']}</span>
+            </div>
+        </a>"""
+    cards_html_list.append(card_h)
+
+static_cards_html = "\n".join(cards_html_list)
 
 # Unified Dark Theme Index for NatGeo
 html_content = f"""<!DOCTYPE html>
@@ -518,31 +539,50 @@ html_content = f"""<!DOCTYPE html>
             transition: transform 0.2s ease, border-color 0.2s ease;
         }}
 
-        .card:hover {{ transform: translateY(-2px); border-color: var(--accent); }}
-        
+        .card.hidden {{ display: none !important; }}
+
+        .card:hover {{
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }}
+
         .card-cover {{
             width: 100%;
-            height: 200px;
+            max-height: 280px;
             object-fit: cover;
             border-radius: 6px;
             margin-bottom: 0.75rem;
+            background: #0f172a;
         }}
 
-        .card-title {{ font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem; }}
+        .card-title {{
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.4;
+        }}
 
         .card-meta {{
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.8rem;
             color: var(--text-muted);
-            border-top: 1px solid var(--border);
-            padding-top: 0.5rem;
-            margin-top: 1rem;
         }}
 
-        .badge {{ background: #fef3c7; color: #92400e; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700; font-size: 0.75rem; }}
-        .badge-pdf {{ background: #991b1b; color: #fee2e2; }}
+        .badge {{
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            background: #334155;
+            color: var(--text-main);
+        }}
+
+        .badge-pdf {{ background: #991b1b; color: #fecaca; }}
     </style>
 </head>
 <body>
@@ -566,59 +606,49 @@ html_content = f"""<!DOCTYPE html>
             </div>
         </section>
 
-        <main class="grid" id="cardGrid"></main>
+        <main class="grid" id="cardGrid">
+{static_cards_html}
+        </main>
     </div>
 
     <script>
-        const articles = {search_json};
         const searchInput = document.getElementById('searchInput');
         const tabs = document.querySelectorAll('.tab');
-        const cardGrid = document.getElementById('cardGrid');
+        const cards = document.querySelectorAll('.card');
 
         let currentCategory = 'ALL';
         let searchQuery = '';
 
-        function renderArticles() {{
-            cardGrid.innerHTML = '';
-            articles.forEach(item => {{
-                const matchesCategory = (currentCategory === 'ALL' || item.category === currentCategory);
-                let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.content && item.content.toLowerCase().includes(searchQuery));
+        function filterCards() {{
+            cards.forEach(card => {{
+                const cat = card.getAttribute('data-category');
+                const title = card.getAttribute('data-title') || '';
+                const matchesCategory = (currentCategory === 'ALL' || cat === currentCategory);
+                const matchesSearch = !searchQuery || title.includes(searchQuery);
 
-                if (matchesSearch && matchesCategory) {{
-                    const card = document.createElement('a');
-                    card.className = 'card';
-                    card.href = item.path;
-
-                    let badgeClass = item.has_pdf ? 'badge-pdf' : '';
-                    let linkText = item.has_pdf ? '📄 Open High-Res Full NatGeo PDF →' : '📖 Open Magazine Article Viewer →';
-
-                    card.innerHTML = `
-                        <div>
-                            <img data-cover-src="${{item.cover}}" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                            <div class="card-title">${{item.title}}</div>
-                            <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">${{linkText}}</div>
-                        </div>
-                        <div class="card-meta">
-                            <span>Category: ${{item.category}}</span>
-                            <span class="badge ${{badgeClass}}">${{item.type}}</span>
-                        </div>
-                    `;
-                    cardGrid.appendChild(card);
-                    card.querySelectorAll('img[data-cover-src]').forEach(img => {{ img.src = img.getAttribute('data-cover-src'); img.removeAttribute('data-cover-src'); }});
+                if (matchesCategory && matchesSearch) {{
+                    card.classList.remove('hidden');
+                }} else {{
+                    card.classList.add('hidden');
                 }}
             }});
         }}
 
-        searchInput.addEventListener('input', (e) => {{ searchQuery = e.target.value.toLowerCase().trim(); renderArticles(); }});
+        if (searchInput) {{
+            searchInput.addEventListener('input', (e) => {{
+                searchQuery = e.target.value.toLowerCase().trim();
+                filterCards();
+            }});
+        }}
+
         tabs.forEach(tab => {{
             tab.addEventListener('click', () => {{
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentCategory = tab.getAttribute('data-category');
-                renderArticles();
+                filterCards();
             }});
         }});
-        renderArticles();
     </script>
 </body>
 </html>

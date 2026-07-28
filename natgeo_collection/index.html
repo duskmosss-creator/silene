@@ -103,31 +103,50 @@
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
-        .card:hover { transform: translateY(-2px); border-color: var(--accent); }
-        
+        .card.hidden { display: none !important; }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
         .card-cover {
             width: 100%;
-            height: 200px;
+            max-height: 280px;
             object-fit: cover;
             border-radius: 6px;
             margin-bottom: 0.75rem;
+            background: #0f172a;
         }
 
-        .card-title { font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem; }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
 
         .card-meta {
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.8rem;
             color: var(--text-muted);
-            border-top: 1px solid var(--border);
-            padding-top: 0.5rem;
-            margin-top: 1rem;
         }
 
-        .badge { background: #fef3c7; color: #92400e; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700; font-size: 0.75rem; }
-        .badge-pdf { background: #991b1b; color: #fee2e2; }
+        .badge {
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            background: #334155;
+            color: var(--text-main);
+        }
+
+        .badge-pdf { background: #991b1b; color: #fecaca; }
     </style>
 </head>
 <body>
@@ -151,59 +170,240 @@
             </div>
         </section>
 
-        <main class="grid" id="cardGrid"></main>
+        <main class="grid" id="cardGrid">
+
+        <a class="card" href="pdfs/nationalgeograph11889nati.html" data-category="Historical" data-title="national geographic magazine (volume 1 - 1889 historical archive)">
+            <div>
+                <img src="images/nationalgeograph11889nati_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (Volume 1 - 1889 Historical Archive)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Historical</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/nationalgeograph37natiuoft.html" data-category="Smokies" data-title="national geographic magazine (volume 37 - 1920 expedition archive)">
+            <div>
+                <img src="images/nationalgeograph37natiuoft_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (Volume 37 - 1920 Expedition Archive)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Smokies</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/194701to12.html" data-category="Appalachia" data-title="national geographic magazine (1947 full year collection)">
+            <div>
+                <img src="images/194701to12_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (1947 Full Year Collection)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Appalachia</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/194905.html" data-category="Nature" data-title="national geographic magazine (1949 full year collection)">
+            <div>
+                <img src="images/194905_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (1949 Full Year Collection)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Nature</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/195011.html" data-category="Appalachia" data-title="national geographic magazine (1950 full year collection)">
+            <div>
+                <img src="images/195011_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (1950 Full Year Collection)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Appalachia</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/195105.html" data-category="Historical" data-title="national geographic magazine (1951 full year collection)">
+            <div>
+                <img src="images/195105_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (1951 Full Year Collection)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Historical</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/195204.html" data-category="Nature" data-title="national geographic magazine (1952 full year collection)">
+            <div>
+                <img src="images/195204_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (1952 Full Year Collection)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Nature</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/195304.html" data-category="Historical" data-title="national geographic magazine (1953 full year collection)">
+            <div>
+                <img src="images/195304_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (1953 Full Year Collection)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Historical</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/nationalgeograph2009unse.html" data-category="Nature" data-title="national geographic magazine (2009 modern color issue)">
+            <div>
+                <img src="images/195011_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (2009 Modern Color Issue)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Nature</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/nationalgeograp421922nati.html" data-category="Historical" data-title="national geographic magazine (volume 42 - 1922 edition)">
+            <div>
+                <img src="images/194701to12_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (Volume 42 - 1922 Edition)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Historical</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/nationalgeograp401921nati.html" data-category="Historical" data-title="national geographic magazine (volume 40 - 1921 edition)">
+            <div>
+                <img src="images/194905_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (Volume 40 - 1921 Edition)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Historical</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/nationalgeograp371920nati.html" data-category="Smokies" data-title="national geographic magazine (volume 37 - 1920 edition)">
+            <div>
+                <img src="images/nationalgeograph37natiuoft_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (Volume 37 - 1920 Edition)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Smokies</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/nationalgeograp331918nati.html" data-category="Nature" data-title="national geographic magazine (volume 33 - 1918 edition)">
+            <div>
+                <img src="images/195105_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (Volume 33 - 1918 Edition)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Nature</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/nationalgeograp321917nati.html" data-category="Nature" data-title="national geographic magazine (volume 32 - 1917 edition)">
+            <div>
+                <img src="images/195204_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (Volume 32 - 1917 Edition)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Nature</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/nationalgeograp301916nati.html" data-category="Historical" data-title="national geographic magazine (volume 30 - 1916 edition)">
+            <div>
+                <img src="images/195304_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (Volume 30 - 1916 Edition)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Historical</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+
+        <a class="card" href="pdfs/nationalgeograph271915nati.html" data-category="Appalachia" data-title="national geographic magazine (volume 27 - 1915 edition)">
+            <div>
+                <img src="images/jishankhan_hotmail_1954_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
+                <div class="card-title">National Geographic Magazine (Volume 27 - 1915 Edition)</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: Appalachia</span>
+                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            </div>
+        </a>
+        </main>
     </div>
 
     <script>
-        const articles = [{"id": "nationalgeograph11889nati", "title": "National Geographic Magazine (Volume 1 - 1889 Historical Archive)", "category": "Historical", "path": "pdfs/nationalgeograph11889nati.html", "cover": "images/nationalgeograph11889nati_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (Volume 1 - 1889 Historical Archive)"}, {"id": "nationalgeograph37natiuoft", "title": "National Geographic Magazine (Volume 37 - 1920 Expedition Archive)", "category": "Smokies", "path": "pdfs/nationalgeograph37natiuoft.html", "cover": "images/nationalgeograph37natiuoft_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (Volume 37 - 1920 Expedition Archive)"}, {"id": "194701to12", "title": "National Geographic Magazine (1947 Full Year Collection)", "category": "Appalachia", "path": "pdfs/194701to12.html", "cover": "images/194701to12_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (1947 Full Year Collection)"}, {"id": "194905", "title": "National Geographic Magazine (1949 Full Year Collection)", "category": "Nature", "path": "pdfs/194905.html", "cover": "images/194905_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (1949 Full Year Collection)"}, {"id": "195011", "title": "National Geographic Magazine (1950 Full Year Collection)", "category": "Appalachia", "path": "pdfs/195011.html", "cover": "images/195011_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (1950 Full Year Collection)"}, {"id": "195105", "title": "National Geographic Magazine (1951 Full Year Collection)", "category": "Historical", "path": "pdfs/195105.html", "cover": "images/195105_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (1951 Full Year Collection)"}, {"id": "195204", "title": "National Geographic Magazine (1952 Full Year Collection)", "category": "Nature", "path": "pdfs/195204.html", "cover": "images/195204_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (1952 Full Year Collection)"}, {"id": "195304", "title": "National Geographic Magazine (1953 Full Year Collection)", "category": "Historical", "path": "pdfs/195304.html", "cover": "images/195304_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (1953 Full Year Collection)"}, {"id": "nationalgeograph2009unse", "title": "National Geographic Magazine (2009 Modern Color Issue)", "category": "Nature", "path": "pdfs/nationalgeograph2009unse.html", "cover": "images/195011_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (2009 Modern Color Issue)"}, {"id": "nationalgeograp421922nati", "title": "National Geographic Magazine (Volume 42 - 1922 Edition)", "category": "Historical", "path": "pdfs/nationalgeograp421922nati.html", "cover": "images/194701to12_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (Volume 42 - 1922 Edition)"}, {"id": "nationalgeograp401921nati", "title": "National Geographic Magazine (Volume 40 - 1921 Edition)", "category": "Historical", "path": "pdfs/nationalgeograp401921nati.html", "cover": "images/194905_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (Volume 40 - 1921 Edition)"}, {"id": "nationalgeograp371920nati", "title": "National Geographic Magazine (Volume 37 - 1920 Edition)", "category": "Smokies", "path": "pdfs/nationalgeograp371920nati.html", "cover": "images/nationalgeograph37natiuoft_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (Volume 37 - 1920 Edition)"}, {"id": "nationalgeograp331918nati", "title": "National Geographic Magazine (Volume 33 - 1918 Edition)", "category": "Nature", "path": "pdfs/nationalgeograp331918nati.html", "cover": "images/195105_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (Volume 33 - 1918 Edition)"}, {"id": "nationalgeograp321917nati", "title": "National Geographic Magazine (Volume 32 - 1917 Edition)", "category": "Nature", "path": "pdfs/nationalgeograp321917nati.html", "cover": "images/195204_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (Volume 32 - 1917 Edition)"}, {"id": "nationalgeograp301916nati", "title": "National Geographic Magazine (Volume 30 - 1916 Edition)", "category": "Historical", "path": "pdfs/nationalgeograp301916nati.html", "cover": "images/195304_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (Volume 30 - 1916 Edition)"}, {"id": "nationalgeograph271915nati", "title": "National Geographic Magazine (Volume 27 - 1915 Edition)", "category": "Appalachia", "path": "pdfs/nationalgeograph271915nati.html", "cover": "images/jishankhan_hotmail_1954_cover.jpg", "type": "PDF MAGAZINE", "has_pdf": true, "content": "National Geographic Magazine (Volume 27 - 1915 Edition)"}];
         const searchInput = document.getElementById('searchInput');
         const tabs = document.querySelectorAll('.tab');
-        const cardGrid = document.getElementById('cardGrid');
+        const cards = document.querySelectorAll('.card');
 
         let currentCategory = 'ALL';
         let searchQuery = '';
 
-        function renderArticles() {
-            cardGrid.innerHTML = '';
-            articles.forEach(item => {
-                const matchesCategory = (currentCategory === 'ALL' || item.category === currentCategory);
-                let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.content && item.content.toLowerCase().includes(searchQuery));
+        function filterCards() {
+            cards.forEach(card => {
+                const cat = card.getAttribute('data-category');
+                const title = card.getAttribute('data-title') || '';
+                const matchesCategory = (currentCategory === 'ALL' || cat === currentCategory);
+                const matchesSearch = !searchQuery || title.includes(searchQuery);
 
-                if (matchesSearch && matchesCategory) {
-                    const card = document.createElement('a');
-                    card.className = 'card';
-                    card.href = item.path;
-
-                    let badgeClass = item.has_pdf ? 'badge-pdf' : '';
-                    let linkText = item.has_pdf ? '📄 Open High-Res Full NatGeo PDF →' : '📖 Open Magazine Article Viewer →';
-
-                    card.innerHTML = `
-                        <div>
-                            <img data-cover-src="${item.cover}" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                            <div class="card-title">${item.title}</div>
-                            <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">${linkText}</div>
-                        </div>
-                        <div class="card-meta">
-                            <span>Category: ${item.category}</span>
-                            <span class="badge ${badgeClass}">${item.type}</span>
-                        </div>
-                    `;
-                    cardGrid.appendChild(card);
-                    card.querySelectorAll('img[data-cover-src]').forEach(img => { img.src = img.getAttribute('data-cover-src'); img.removeAttribute('data-cover-src'); });
+                if (matchesCategory && matchesSearch) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
                 }
             });
         }
 
-        searchInput.addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase().trim(); renderArticles(); });
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase().trim();
+                filterCards();
+            });
+        }
+
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentCategory = tab.getAttribute('data-category');
-                renderArticles();
+                filterCards();
             });
         });
-        renderArticles();
     </script>
 </body>
 </html>

@@ -637,70 +637,286 @@ html_content = f"""<!DOCTYPE html>
     <script>
         const searchData = {search_json};
         const searchInput = document.getElementById('searchInput');
+cards_html_list = []
+for item in downloaded_items:
+    badge_class = 'badge-text'
+    link_text = '📖 Open Document Viewer →'
+    if item['type'] == 'PDF':
+        badge_class = 'badge-pdf'
+        link_text = '📄 Open Zero-Distortion Vertical PDF →'
+    elif item['type'] == 'AUDIO':
+        badge_class = 'badge-audio'
+        link_text = '🎵 Play Offline Audio (WAV) →'
+    
+    cover_html = f'<img src="{item["cover"]}" class="card-cover" alt="Cover" loading="lazy" decoding="async">' if item.get('cover') else ''
+    title_escaped = item['title'].replace('"', '&quot;')
+    
+    card_h = f"""
+        <a class="card" href="{item['path']}" data-category="{item['category']}" data-title="{title_escaped.lower()}">
+            <div>
+                {cover_html}
+                <div class="card-title">{item['title']}</div>
+                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">{link_text}</div>
+            </div>
+            <div class="card-meta">
+                <span>Category: {item['category']}</span>
+                <span class="badge {badge_class}">{item['type']}</span>
+            </div>
+        </a>"""
+    cards_html_list.append(card_h)
+
+static_cards_html = "\n".join(cards_html_list)
+
+# Search JSON for main
+search_json = json.dumps(downloaded_items)
+
+html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Appalachian Corridor Offline Library</title>
+    <style>
+        :root {{
+            --bg: #0f172a;
+            --header-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --border: #334155;
+            --base-font-size: 16px;
+        }}
+
+        html {{ font-size: var(--base-font-size); scroll-behavior: smooth; }}
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }}
+
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+        }}
+
+        header {{
+            background-color: var(--header-bg);
+            border-bottom: 4px solid var(--accent);
+            padding: 2rem 1rem;
+            text-align: center;
+        }}
+
+        header h1 {{ color: var(--accent); margin: 0 0 0.5rem 0; font-size: 1.9rem; letter-spacing: 0.03em; }}
+        header p {{ color: var(--text-muted); font-size: 0.95rem; margin: 0; }}
+
+        .controls {{
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }}
+
+        .control-row {{ display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; }}
+
+        .search-bar {{
+            flex: 1;
+            min-width: 220px;
+            padding: 0.65rem 1rem;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+        }}
+
+        .search-bar:focus {{ border-color: var(--accent); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }}
+
+        .settings-bar {{ display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.85rem; }}
+        .btn {{
+            background: #334155;
+            color: white;
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.65rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }}
+        .btn.active, .btn:hover {{ background: var(--accent); color: #0f172a; font-weight: 700; }}
+
+        .filter-tabs {{ display: flex; flex-wrap: wrap; gap: 0.4rem; }}
+
+        .tab {{
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+            background: #334155;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            cursor: pointer;
+        }}
+
+        .tab.active, .tab:hover {{ background: var(--accent); color: #0f172a; border-color: var(--accent); font-weight: 700; }}
+
+        .grid {{ display: grid; grid-template-columns: 1fr; gap: 1.25rem; }}
+
+        @media only screen and (min-width: 852px) {{ .grid {{ grid-template-columns: repeat(2, 1fr); }} }}
+        @media only screen and (min-width: 1024px) {{ .grid {{ grid-template-columns: repeat(3, 1fr); }} }}
+
+        .card {{
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }}
+
+        .card.hidden {{ display: none !important; }}
+
+        .card:hover {{
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }}
+
+        .card-cover {{
+            width: 100%;
+            max-height: 280px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            background: #0f172a;
+        }}
+
+        .card-title {{
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.4;
+        }}
+
+        .card-meta {{
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }}
+
+        .badge {{
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            background: #334155;
+            color: var(--text-main);
+        }}
+
+        .badge-pdf {{ background: #991b1b; color: #fecaca; }}
+        .badge-text {{ background: #075985; color: #bae6fd; }}
+        .badge-audio {{ background: #166534; color: #bbf7d0; }}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Appalachian Corridor Archive</h1>
+        <p>Great Smoky Mountains National Park to DuPont State Recreational Forest</p>
+    </header>
+
+    <div class="container">
+        <section class="controls">
+            <div class="control-row">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search full text across all books, PDFs, and audio...">
+                <div class="settings-bar">
+                    <span>Font Size:</span>
+                    <button class="btn" onclick="setFontSize('14px')">S</button>
+                    <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
+                    <button class="btn" onclick="setFontSize('18px')">L</button>
+                </div>
+            </div>
+
+            <div class="filter-tabs" id="filterTabs">
+                <div class="tab active" data-category="ALL">All</div>
+                <div class="tab" data-category="History">History</div>
+                <div class="tab" data-category="Cherokee">Cherokee</div>
+                <div class="tab" data-category="Culture">Culture</div>
+                <div class="tab" data-category="Nature">Nature</div>
+                <div class="tab" data-category="Travel">Travel</div>
+                <div class="tab" data-category="Audio">Audio</div>
+            </div>
+        </section>
+
+        <main class="grid" id="cardGrid">
+{static_cards_html}
+        </main>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
         const tabs = document.querySelectorAll('.tab');
-        const cardGrid = document.getElementById('cardGrid');
+        const cards = document.querySelectorAll('.card');
 
         let currentCategory = 'ALL';
         let searchQuery = '';
 
         function setFontSize(size) {{
             document.documentElement.style.setProperty('--base-font-size', size);
-            localStorage.setItem('appalachian_font_size', size);
+            try {{ localStorage.setItem('appalachian_font_size', size); }} catch(e) {{}}
         }}
 
-        const savedFontSize = localStorage.getItem('appalachian_font_size');
-        if (savedFontSize) {{ setFontSize(savedFontSize); }}
+        try {{
+            const savedFontSize = localStorage.getItem('appalachian_font_size');
+            if (savedFontSize) setFontSize(savedFontSize);
+        }} catch(e) {{}}
 
-        function renderCards() {{
-            cardGrid.innerHTML = '';
-            searchData.forEach(item => {{
-                const matchesCategory = (currentCategory === 'ALL' || item.category === currentCategory);
-                let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.content && item.content.toLowerCase().includes(searchQuery));
+        function filterCards() {{
+            cards.forEach(card => {{
+                const cat = card.getAttribute('data-category');
+                const title = card.getAttribute('data-title') || '';
+                const matchesCategory = (currentCategory === 'ALL' || cat === currentCategory);
+                const matchesSearch = !searchQuery || title.includes(searchQuery);
 
-                if (matchesSearch && matchesCategory) {{
-                    const card = document.createElement('a');
-                    card.className = 'card';
-                    card.href = item.path;
-
-                    let badgeClass = 'badge-text';
-                    let linkText = '📖 Open Document Viewer →';
-                    if (item.type === 'PDF') {{
-                        badgeClass = 'badge-pdf';
-                        linkText = '📄 Open Zero-Distortion Vertical PDF →';
-                    }} else if (item.type === 'AUDIO') {{
-                        badgeClass = 'badge-audio';
-                        linkText = '🎵 Play Offline Audio (WAV) →';
-                    }}
-
-                    let coverHTML = item.cover ? `<img data-cover-src="${{item.cover}}" class="card-cover" alt="Cover" loading="lazy" decoding="async">` : '';
-
-                    card.innerHTML = `
-                        <div>
-                            ${{coverHTML}}
-                            <div class="card-title">${{item.title}}</div>
-                            <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">${{linkText}}</div>
-                        </div>
-                        <div class="card-meta">
-                            <span>Category: ${{item.category}}</span>
-                            <span class="badge ${{badgeClass}}">${{item.type}}</span>
-                        </div>
-                    `;
-                    cardGrid.appendChild(card);
-                    card.querySelectorAll('img[data-cover-src]').forEach(img => {{ img.src = img.getAttribute('data-cover-src'); img.removeAttribute('data-cover-src'); }});
+                if (matchesCategory && matchesSearch) {{
+                    card.classList.remove('hidden');
+                }} else {{
+                    card.classList.add('hidden');
                 }}
             }});
         }}
 
-        searchInput.addEventListener('input', (e) => {{ searchQuery = e.target.value.toLowerCase().trim(); renderCards(); }});
+        if (searchInput) {{
+            searchInput.addEventListener('input', (e) => {{
+                searchQuery = e.target.value.toLowerCase().trim();
+                filterCards();
+            }});
+        }}
+
         tabs.forEach(tab => {{
             tab.addEventListener('click', () => {{
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentCategory = tab.getAttribute('data-category');
-                renderCards();
+                filterCards();
             }});
         }});
-        renderCards();
     </script>
 </body>
 </html>

@@ -405,7 +405,25 @@ for g in guides:
         'content': g['content']
     })
 
-search_json = json.dumps(downloaded_backpacking)
+cards_html_list = []
+for item in downloaded_backpacking:
+    title_escaped = item['title'].replace('"', '&quot;')
+    card_h = f"""
+        <a class="card" href="{item['path']}" data-category="{item['category']}" data-title="{title_escaped.lower()}">
+            <div>
+                <div class="card-title">{item['title']}</div>
+                <div style="margin-top: 0.75rem; color: var(--accent); font-weight: 700; font-size: 0.9rem;">
+                    📋 Read Field Manual →
+                </div>
+            </div>
+            <div class="card-meta">
+                <span>Category: {item['category']}</span>
+                <span class="badge">{item['type']}</span>
+            </div>
+        </a>"""
+    cards_html_list.append(card_h)
+
+static_cards_html = "\n".join(cards_html_list)
 
 # Unified Dark Theme Index for Backpacking Field Guide
 html_content = f"""<!DOCTYPE html>
@@ -421,7 +439,7 @@ html_content = f"""<!DOCTYPE html>
             --card-bg: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --accent: #22c55e;
+            --accent: #10b981;
             --border: #334155;
             --base-font-size: 16px;
         }}
@@ -450,7 +468,7 @@ html_content = f"""<!DOCTYPE html>
             text-align: center;
         }}
 
-        header h1 {{ color: var(--accent); margin: 0 0 0.5rem 0; font-size: 1.9rem; }}
+        header h1 {{ color: var(--accent); margin: 0 0 0.5rem 0; font-size: 1.9rem; letter-spacing: 0.03em; }}
         header p {{ color: var(--text-muted); font-size: 0.95rem; margin: 0; }}
 
         .controls {{
@@ -478,7 +496,7 @@ html_content = f"""<!DOCTYPE html>
             outline: none;
         }}
 
-        .search-bar:focus {{ border-color: var(--accent); box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2); }}
+        .search-bar:focus {{ border-color: var(--accent); box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2); }}
 
         .filter-tabs {{ display: flex; flex-wrap: wrap; gap: 0.4rem; }}
 
@@ -511,38 +529,37 @@ html_content = f"""<!DOCTYPE html>
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.2s ease, border-color 0.2s ease;
-            content-visibility: auto;
-            contain-intrinsic-size: 1px 200px;
         }}
 
-        .card:hover {{ transform: translateY(-2px); border-color: var(--accent); }}
+        .card.hidden {{ display: none !important; }}
 
-        .card-title {{ font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem; }}
+        .card:hover {{ transform: translateY(-2px); border-color: var(--accent); }}
+        .card-title {{ font-size: 1.1rem; font-weight: 700; color: var(--text-main); line-height: 1.4; }}
 
         .card-meta {{
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.8rem;
             color: var(--text-muted);
-            border-top: 1px solid var(--border);
-            padding-top: 0.5rem;
-            margin-top: 1rem;
         }}
 
-        .badge {{ background: #dcfce7; color: #15803d; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700; font-size: 0.75rem; }}
+        .badge {{ padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700; font-size: 0.7rem; background: #065f46; color: #a7f3d0; }}
     </style>
 </head>
 <body>
     <header>
         <h1>GSMNP & DUPONT BACKPACKING FIELD MANUAL</h1>
-        <p>Offline Shelter Database, Elevation Profiles, Weather & Field Safety</p>
+        <p>Offline Wilderness Shelters, Water, Bear Safety & Emergency Protocols</p>
     </header>
 
     <div class="container">
         <section class="controls">
             <div class="control-row">
-                <input type="text" id="searchInput" class="search-bar" placeholder="Search shelters, trail mileages, water sources, bear safety...">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search shelters, trail profiles, weather, emergency contacts...">
             </div>
 
             <div class="filter-tabs" id="filterTabs">
@@ -555,55 +572,49 @@ html_content = f"""<!DOCTYPE html>
             </div>
         </section>
 
-        <main class="grid" id="cardGrid"></main>
+        <main class="grid" id="cardGrid">
+{static_cards_html}
+        </main>
     </div>
 
     <script>
-        const articles = {search_json};
         const searchInput = document.getElementById('searchInput');
         const tabs = document.querySelectorAll('.tab');
-        const cardGrid = document.getElementById('cardGrid');
+        const cards = document.querySelectorAll('.card');
 
         let currentCategory = 'ALL';
         let searchQuery = '';
 
-        function renderArticles() {{
-            cardGrid.innerHTML = '';
-            articles.forEach(item => {{
-                const matchesCategory = (currentCategory === 'ALL' || item.category === currentCategory);
-                let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.content && item.content.toLowerCase().includes(searchQuery));
+        function filterCards() {{
+            cards.forEach(card => {{
+                const cat = card.getAttribute('data-category');
+                const title = card.getAttribute('data-title') || '';
+                const matchesCategory = (currentCategory === 'ALL' || cat === currentCategory);
+                const matchesSearch = !searchQuery || title.includes(searchQuery);
 
-                if (matchesSearch && matchesCategory) {{
-                    const card = document.createElement('a');
-                    card.className = 'card';
-                    card.href = item.path;
-                    card.innerHTML = `
-                        <div>
-                            <div class="card-title">${{item.title}}</div>
-                            <div style="margin-top: 0.75rem; color: var(--accent); font-weight: 700; font-size: 0.9rem;">
-                                📋 Read Field Manual →
-                            </div>
-                        </div>
-                        <div class="card-meta">
-                            <span>Category: ${{item.category}}</span>
-                            <span class="badge">${{item.type}}</span>
-                        </div>
-                    `;
-                    cardGrid.appendChild(card);
+                if (matchesCategory && matchesSearch) {{
+                    card.classList.remove('hidden');
+                }} else {{
+                    card.classList.add('hidden');
                 }}
             }});
         }}
 
-        searchInput.addEventListener('input', (e) => {{ searchQuery = e.target.value.toLowerCase().trim(); renderArticles(); }});
+        if (searchInput) {{
+            searchInput.addEventListener('input', (e) => {{
+                searchQuery = e.target.value.toLowerCase().trim();
+                filterCards();
+            }});
+        }}
+
         tabs.forEach(tab => {{
             tab.addEventListener('click', () => {{
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentCategory = tab.getAttribute('data-category');
-                renderArticles();
+                filterCards();
             }});
         }});
-        renderArticles();
     </script>
 </body>
 </html>
