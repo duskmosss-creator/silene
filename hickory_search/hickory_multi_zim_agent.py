@@ -130,7 +130,7 @@ def search_multi_zim_tool(query):
         zim_name, archive = zim_item
         try:
             entry = None
-            for candidate in ['index.html', 'mainPage', clean_query, f"A/{clean_query}"]:
+            for candidate in ['index.html', 'mainPage', clean_query, f"A/{clean_query}", f"C/{clean_query}", f"C/{clean_query}.html", f"A/{clean_query}.html"]:
                 if archive.has_entry_by_path(candidate):
                     entry = archive.get_entry_by_path(candidate)
                     break

@@ -94,7 +94,7 @@ class HickoryTerminalAgent:
                 # Prefer index.html — it has clean readable content.
                 # mainPage redirects to index.html but has CSS dumped first.
                 entry = None
-                for candidate in ['index.html', 'mainPage']:
+                for candidate in ['C/index.html', 'index.html', 'mainPage']:
                     if archive.has_entry_by_path(candidate):
                         entry = archive.get_entry_by_path(candidate)
                         break
