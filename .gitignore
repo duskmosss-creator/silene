@@ -1,13 +1,14 @@
-# Heavy ZIM Archives (Stored in local zim_downloads / GitHub Releases)
+# Ignore compiled binary ZIM files
 *.zim
 zim_downloads/
+*.zim_title.idx
+*.zim_title.idx.tmp/
 
-# Python & Temporary
-__pycache__/
-*.pyc
-*.tmp
-*.idx
-*.log
-
-# Large Binary Data
+# Ignore large downloaded PDFs in source directories (keep code, JS viewers, and images)
 content/pdfs/*.pdf
+natgeo_collection/pdfs/*.pdf
+
+# Local Python & Vector DB
+*.db
+__pycache__/
+.venv/
