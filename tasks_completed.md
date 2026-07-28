@@ -6,6 +6,13 @@
   - **Lemonade & Local Model Integration**: Automatically connects to Lemonade / LMStudio local IPC endpoint (`http://127.0.0.1:11434/v1/chat/completions`) when active, or falls back to direct AMD NPU / libzim execution.
   - **Sub-5 Second Performance**: Searches across all 40+ ZIM files on SD card in under **2.21 seconds**.
 - [x] **ZIM Archive & RAG Viewer Fixes**:
+  - **Integration & Refactoring**:
+    - [x] Integrate Kiwix ZIM archive generator scripts for all collections (Main, NatGeo, Backpacking, Regional).
+    - [x] Resolve `mainPage` redirect bug preventing `.zim` loading in Kiwix Desktop.
+    - [x] Convert all `.txt` documents to static `.html` pre-rendered pages for instantaneous loading without JS fetch().
+    - [x] Standardize offline responsive headers (single-line, truncated text, fixed position, dynamic back navigation) across all viewers.
+    - [x] Strip Archive.org boilerplate from scraped texts to fix card layout breaks.
+    - [x] Regenerate all PDF viewer HTML wrappers with resilient, non-destructive `iframe`/`object` template to fix blank screens on Kiwix JS PWA.
   - **NatGeo ZIM**: Filtered gallery generation to only include verified, full-issue PDFs present on disk (8 complete issues), preventing broken viewer links.
   - **GSMNP Backpacking Guide**: Built native inline Markdown renderer for guide articles, replacing plain-text pre-wrap dumps with formatted headings, lists, bold text, and rules.
   - **Appalachian Corridor ZIM**: Refined header control bar layout, removing duplicate XL font size button and fixing scroll parameters.

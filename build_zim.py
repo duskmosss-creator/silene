@@ -33,7 +33,7 @@ class ZimItem(Item):
 from datetime import datetime
 
 content_dir = "content"
-zim_filename = os.path.join("zim_downloads", "Appalachian_Corridor.zim")
+zim_filename = os.path.join("zim_downloads", "Appalachian_Corridor_v2.zim")
 
 mimetype_map = {
     ".html": "text/html",
@@ -51,12 +51,12 @@ mimetype_map = {
 }
 
 with Creator(zim_filename) as creator:
-    creator.add_metadata("Title", "Appalachian Corridor")
+    creator.add_metadata("Title", "Appalachian Corridor v2")
     creator.add_metadata("Language", "eng")
     creator.add_metadata("Creator", "Custom ZIM Builder")
     creator.add_metadata("Publisher", "Hickory Search")
     creator.add_metadata("Description", "Offline Appalachian Corridor collection for iOS and Kiwix")
-    creator.add_metadata("Name", "appalachian_corridor")
+    creator.add_metadata("Name", "appalachian_corridor_v2")
     creator.add_metadata("Date", datetime.now().strftime("%Y-%m-%d"))
     
     favicon_b64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAA8Bw1AAAEVv+wMAAAAAElFTkSuQmCC"
