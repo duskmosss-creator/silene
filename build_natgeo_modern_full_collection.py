@@ -353,7 +353,29 @@ for item in natgeo_archive_list:
             'has_pdf': has_pdf
         })
 
-search_json = json.dumps(processed_items)
+cards_html_list = []
+for item in processed_items:
+    cover_src = item['cover'] if item.get('cover') else 'images/nationalgeograph11889nati_cover.jpg'
+    title_escaped = item['title'].replace('"', '&quot;')
+    desc_escaped = item['desc'].replace('"', '&quot;')
+    
+    card_h = f"""
+        <a class="magazine-card" href="{item['path']}" data-era="{item['era']}" data-title="{title_escaped.lower()}" data-year="{item['year']}" data-desc="{desc_escaped.lower()}">
+            <div>
+                <div class="cover-hero-wrap">
+                    <img src="{cover_src}" alt="{item['title']} Cover" loading="lazy" decoding="async">
+                    <div class="year-badge">{item['year']}</div>
+                </div>
+                <div class="mag-title">{item['title']}</div>
+                <div class="mag-desc">{item['desc']}</div>
+            </div>
+            <div class="action-btn">
+                📄 Read Full Magazine PDF →
+            </div>
+        </a>"""
+    cards_html_list.append(card_h)
+
+static_cards_html = "\n".join(cards_html_list)
 
 # Gallery Index with Hero Yellow-Border Cover Cards
 gallery_index_html = f"""<!DOCTYPE html>
@@ -473,9 +495,9 @@ gallery_index_html = f"""<!DOCTYPE html>
             justify-content: space-between;
             transition: transform 0.25s ease, box-shadow 0.25s ease;
             position: relative;
-            content-visibility: auto;
-            contain-intrinsic-size: 1px 400px;
         }}
+
+        .magazine-card.hidden {{ display: none !important; }}
 
         .magazine-card:hover {{
             transform: translateY(-4px);
@@ -556,60 +578,52 @@ gallery_index_html = f"""<!DOCTYPE html>
             </div>
         </section>
 
-        <main class="grid" id="cardGrid"></main>
+        <main class="grid" id="cardGrid">
+{static_cards_html}
+        </main>
     </div>
 
     <script>
-        const magazines = {search_json};
         const searchInput = document.getElementById('searchInput');
         const tabs = document.querySelectorAll('.tab');
-        const cardGrid = document.getElementById('cardGrid');
+        const cards = document.querySelectorAll('.magazine-card');
 
         let currentEra = 'ALL';
         let searchQuery = '';
 
-        function renderMagazines() {{
-            cardGrid.innerHTML = '';
-            magazines.forEach(item => {{
-                const matchesEra = (currentEra === 'ALL' || item.era === currentEra);
-                let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || item.desc.toLowerCase().includes(searchQuery) || item.year.toString().includes(searchQuery);
+        function filterMagazines() {{
+            cards.forEach(card => {{
+                const era = card.getAttribute('data-era');
+                const title = card.getAttribute('data-title') || '';
+                const desc = card.getAttribute('data-desc') || '';
+                const year = card.getAttribute('data-year') || '';
 
-                if (matchesSearch && matchesEra) {{
-                    const card = document.createElement('a');
-                    card.className = 'magazine-card';
-                    card.href = item.path;
+                const matchesEra = (currentEra === 'ALL' || era === currentEra);
+                const matchesSearch = !searchQuery || title.includes(searchQuery) || desc.includes(searchQuery) || year.includes(searchQuery);
 
-                    let coverSrc = item.cover ? item.cover : 'images/nationalgeograph11889nati_cover.jpg';
-
-                    card.innerHTML = `
-                        <div>
-                            <div class="cover-hero-wrap">
-                                <img data-cover-src="${{coverSrc}}" alt="${{item.title}} Cover" loading="lazy" decoding="async">
-                                <div class="year-badge">${{item.year}}</div>
-                            </div>
-                            <div class="mag-title">${{item.title}}</div>
-                            <div class="mag-desc">${{item.desc}}</div>
-                        </div>
-                        <div class="action-btn">
-                            📄 Read Full Magazine PDF →
-                        </div>
-                    `;
-                    cardGrid.appendChild(card);
-                    card.querySelectorAll('img[data-cover-src]').forEach(img => {{ img.src = img.getAttribute('data-cover-src'); img.removeAttribute('data-cover-src'); }});
+                if (matchesEra && matchesSearch) {{
+                    card.classList.remove('hidden');
+                }} else {{
+                    card.classList.add('hidden');
                 }}
             }});
         }}
 
-        searchInput.addEventListener('input', (e) => {{ searchQuery = e.target.value.toLowerCase().trim(); renderMagazines(); }});
+        if (searchInput) {{
+            searchInput.addEventListener('input', (e) => {{
+                searchQuery = e.target.value.toLowerCase().trim();
+                filterMagazines();
+            }});
+        }}
+
         tabs.forEach(tab => {{
             tab.addEventListener('click', () => {{
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentEra = tab.getAttribute('data-era');
-                renderMagazines();
+                filterMagazines();
             }});
         }});
-        renderMagazines();
     </script>
 </body>
 </html>

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>National Geographic Archived Magazines Collection</title>
+    <title>National Geographic Archived Magazines (1889 - 2024)</title>
     <style>
         :root {
-            --bg: #0f172a;
+            --bg: #0b1329;
             --header-bg: #1e293b;
             --card-bg: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --accent: #fbbf24;
+            --natgeo-yellow: #fbbf24;
             --border: #334155;
             --base-font-size: 16px;
         }
@@ -28,27 +28,39 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+            padding: max(1.5rem, env(safe-area-inset-top)) max(1.5rem, env(safe-area-inset-right)) max(1.5rem, env(safe-area-inset-bottom)) max(1.5rem, env(safe-area-inset-left));
         }
 
         header {
-            background-color: var(--header-bg);
-            border-bottom: 4px solid var(--accent);
-            padding: 2rem 1rem;
+            background: linear-gradient(180deg, #1e293b 0%, #0b1329 100%);
+            border-bottom: 5px solid var(--natgeo-yellow);
+            padding: 2.5rem 1rem;
             text-align: center;
         }
 
-        header h1 { color: var(--accent); margin: 0 0 0.5rem 0; font-size: 1.9rem; letter-spacing: 0.03em; }
-        header p { color: var(--text-muted); font-size: 0.95rem; margin: 0; }
+        .natgeo-border-logo {
+            display: inline-block;
+            border: 4px solid var(--natgeo-yellow);
+            padding: 0.4rem 1.2rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        header h1 { color: #ffffff; margin: 0 0 0.5rem 0; font-size: 2.2rem; letter-spacing: 0.02em; font-weight: 800; }
+        header p { color: var(--text-muted); font-size: 1.05rem; margin: 0; max-width: 750px; margin: 0 auto; }
 
         .controls {
             background: var(--card-bg);
-            padding: 1rem;
-            border-radius: 8px;
+            padding: 1.25rem;
+            border-radius: 12px;
             border: 1px solid var(--border);
-            margin: 1.5rem 0;
+            margin: 2rem 0;
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -58,309 +70,245 @@
 
         .search-bar {
             flex: 1;
-            min-width: 220px;
-            padding: 0.65rem 1rem;
-            background: #0f172a;
+            min-width: 260px;
+            padding: 0.75rem 1.2rem;
+            background: #0b1329;
             border: 1px solid var(--border);
             color: var(--text-main);
-            border-radius: 6px;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            font-size: 1rem;
             outline: none;
         }
 
-        .search-bar:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
+        .search-bar:focus { border-color: var(--natgeo-yellow); box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25); }
 
-        .filter-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .filter-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
         .tab {
-            padding: 0.4rem 0.85rem;
-            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             background: #334155;
             border: 1px solid var(--border);
             color: var(--text-main);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
         }
 
-        .tab.active, .tab:hover { background: var(--accent); color: #0f172a; border-color: var(--accent); font-weight: 700; }
+        .tab.active, .tab:hover { background: var(--natgeo-yellow); color: #0b1329; border-color: var(--natgeo-yellow); font-weight: 800; }
 
-        .grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
 
-        @media only screen and (min-width: 852px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        @media only screen and (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
         @media only screen and (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+        @media only screen and (min-width: 1280px) { .grid { grid-template-columns: repeat(4, 1fr); } }
 
-        .card {
+        .magazine-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-left: 4px solid var(--accent);
-            border-radius: 8px;
-            padding: 1.25rem;
+            border-radius: 12px;
+            padding: 1rem;
             text-decoration: none;
             color: inherit;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
         }
 
-        .card.hidden { display: none !important; }
+        .magazine-card.hidden { display: none !important; }
 
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent);
+        .magazine-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(251, 191, 36, 0.15);
+            border-color: var(--natgeo-yellow);
         }
 
-        .card-cover {
+        .cover-hero-wrap {
+            position: relative;
             width: 100%;
-            max-height: 280px;
+            padding-top: 140%; /* 1:1.4 aspect ratio for magazine cover */
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+            border: 4px solid var(--natgeo-yellow);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+            margin-bottom: 1rem;
+        }
+
+        .cover-hero-wrap img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+        }
+
+        .year-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(11, 19, 41, 0.9);
+            color: var(--natgeo-yellow);
+            border: 1px solid var(--natgeo-yellow);
+            padding: 0.25rem 0.6rem;
             border-radius: 6px;
-            margin-bottom: 0.75rem;
-            background: #0f172a;
-        }
-
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-main);
-            line-height: 1.4;
-        }
-
-        .card-meta {
-            margin-top: 1rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             font-size: 0.8rem;
-            color: var(--text-muted);
+            font-weight: 800;
         }
 
-        .badge {
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 0.7rem;
-            background: #334155;
-            color: var(--text-main);
-        }
+        .mag-title { font-size: 1.05rem; font-weight: 800; color: #ffffff; line-height: 1.35; margin-bottom: 0.5rem; }
+        .mag-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; }
 
-        .badge-pdf { background: #991b1b; color: #fecaca; }
+        .action-btn {
+            background: var(--natgeo-yellow);
+            color: #0b1329;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.88rem;
+            margin-top: auto;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>NATIONAL GEOGRAPHIC ARCHIVED MAGAZINES</h1>
-        <p>Full Multi-Megabyte PDF Volumes & Text Collection</p>
+        <div class="natgeo-border-logo">NATIONAL GEOGRAPHIC</div>
+        <h1>NOTABLE & RECENT MAGAZINE GALLERY (1889 - 2024)</h1>
+        <p>Full Issues: Moon Landing (1969), Afghan Girl (1985), Titanic (1985), Millennium (1999), National Parks (2016), Earth Day (2020), Rewilding (2023), Modern (2024)</p>
     </header>
 
     <div class="container">
         <section class="controls">
             <div class="control-row">
-                <input type="text" id="searchInput" class="search-bar" placeholder="Search full text across all National Geographic volumes...">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search notable issues, years, topics (e.g. Moon, Titanic, Afghan Girl, 2024)...">
             </div>
 
             <div class="filter-tabs" id="filterTabs">
-                <div class="tab active" data-category="ALL">All Volumes</div>
-                <div class="tab" data-category="Historical">Historical (1889+)</div>
-                <div class="tab" data-category="Smokies">Smokies & Parks</div>
-                <div class="tab" data-category="Appalachia">Appalachia</div>
-                <div class="tab" data-category="Nature">Nature & Wildlife</div>
+                <div class="tab active" data-era="ALL">All Eras</div>
+                <div class="tab" data-era="1880s-1910s">1880s - 1910s</div>
+                <div class="tab" data-era="1920s-1940s">1920s - 1940s</div>
+                <div class="tab" data-era="1950s-1970s">1950s - 1970s</div>
+                <div class="tab" data-era="1980s-1990s">1980s - 1990s</div>
+                <div class="tab" data-era="2000s-2010s">2000s - 2010s</div>
+                <div class="tab" data-era="2020s-Present">2020s - Present</div>
             </div>
         </section>
 
         <main class="grid" id="cardGrid">
 
-        <a class="card" href="pdfs/nationalgeograph11889nati.html" data-category="Historical" data-title="national geographic magazine (volume 1 - 1889 historical archive)">
+        <a class="magazine-card" href="pdfs/nationalgeograph11889nati.html" data-era="1880s-1910s" data-title="national geographic magazine (vol. 1, 1889 - founding premiere issue)" data-year="1889" data-desc="original premiere issue of national geographic society featuring early appalachian geological surveys.">
             <div>
-                <img src="images/nationalgeograph11889nati_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (Volume 1 - 1889 Historical Archive)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+                <div class="cover-hero-wrap">
+                    <img src="images/nationalgeograph11889nati_cover.jpg" alt="National Geographic Magazine (Vol. 1, 1889 - Founding Premiere Issue) Cover" loading="lazy" decoding="async">
+                    <div class="year-badge">1889</div>
+                </div>
+                <div class="mag-title">National Geographic Magazine (Vol. 1, 1889 - Founding Premiere Issue)</div>
+                <div class="mag-desc">Original premiere issue of National Geographic Society featuring early Appalachian geological surveys.</div>
             </div>
-            <div class="card-meta">
-                <span>Category: Historical</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            <div class="action-btn">
+                📄 Read Full Magazine PDF →
             </div>
         </a>
 
-        <a class="card" href="pdfs/nationalgeograph37natiuoft.html" data-category="Smokies" data-title="national geographic magazine (volume 37 - 1920 expedition archive)">
+        <a class="magazine-card" href="pdfs/nationalgeograph37natiuoft.html" data-era="1920s-1940s" data-title="national geographic magazine (vol. 37, 1920 - great smokies expedition)" data-year="1920" data-desc="early expedition coverage of the southern appalachian mountain ranges and wilderness crests.">
             <div>
-                <img src="images/nationalgeograph37natiuoft_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (Volume 37 - 1920 Expedition Archive)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+                <div class="cover-hero-wrap">
+                    <img src="images/nationalgeograph37natiuoft_cover.jpg" alt="National Geographic Magazine (Vol. 37, 1920 - Great Smokies Expedition) Cover" loading="lazy" decoding="async">
+                    <div class="year-badge">1920</div>
+                </div>
+                <div class="mag-title">National Geographic Magazine (Vol. 37, 1920 - Great Smokies Expedition)</div>
+                <div class="mag-desc">Early expedition coverage of the Southern Appalachian mountain ranges and wilderness crests.</div>
             </div>
-            <div class="card-meta">
-                <span>Category: Smokies</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            <div class="action-btn">
+                📄 Read Full Magazine PDF →
             </div>
         </a>
 
-        <a class="card" href="pdfs/194701to12.html" data-category="Appalachia" data-title="national geographic magazine (1947 full year collection)">
+        <a class="magazine-card" href="pdfs/194701to12.html" data-era="1920s-1940s" data-title="national geographic magazine (1947 full year collection)" data-year="1947" data-desc="post-war appalachian wilderness exploration, park development, and wildlife conservation.">
             <div>
-                <img src="images/194701to12_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (1947 Full Year Collection)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+                <div class="cover-hero-wrap">
+                    <img src="images/194701to12_cover.jpg" alt="National Geographic Magazine (1947 Full Year Collection) Cover" loading="lazy" decoding="async">
+                    <div class="year-badge">1947</div>
+                </div>
+                <div class="mag-title">National Geographic Magazine (1947 Full Year Collection)</div>
+                <div class="mag-desc">Post-war Appalachian wilderness exploration, park development, and wildlife conservation.</div>
             </div>
-            <div class="card-meta">
-                <span>Category: Appalachia</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            <div class="action-btn">
+                📄 Read Full Magazine PDF →
             </div>
         </a>
 
-        <a class="card" href="pdfs/194905.html" data-category="Nature" data-title="national geographic magazine (1949 full year collection)">
+        <a class="magazine-card" href="pdfs/194905.html" data-era="1920s-1940s" data-title="national geographic magazine (may 1949 edition)" data-year="1949" data-desc="highland forestry, river basin maps, and appalachian flora documentation.">
             <div>
-                <img src="images/194905_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (1949 Full Year Collection)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+                <div class="cover-hero-wrap">
+                    <img src="images/194905_cover.jpg" alt="National Geographic Magazine (May 1949 Edition) Cover" loading="lazy" decoding="async">
+                    <div class="year-badge">1949</div>
+                </div>
+                <div class="mag-title">National Geographic Magazine (May 1949 Edition)</div>
+                <div class="mag-desc">Highland forestry, river basin maps, and Appalachian flora documentation.</div>
             </div>
-            <div class="card-meta">
-                <span>Category: Nature</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            <div class="action-btn">
+                📄 Read Full Magazine PDF →
             </div>
         </a>
 
-        <a class="card" href="pdfs/195011.html" data-category="Appalachia" data-title="national geographic magazine (1950 full year collection)">
+        <a class="magazine-card" href="pdfs/195011.html" data-era="1950s-1970s" data-title="national geographic magazine (november 1950 issue)" data-year="1950" data-desc="great smoky mountains national park autumn color survey and blue ridge parkway photography.">
             <div>
-                <img src="images/195011_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (1950 Full Year Collection)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+                <div class="cover-hero-wrap">
+                    <img src="images/195011_cover.jpg" alt="National Geographic Magazine (November 1950 Issue) Cover" loading="lazy" decoding="async">
+                    <div class="year-badge">1950</div>
+                </div>
+                <div class="mag-title">National Geographic Magazine (November 1950 Issue)</div>
+                <div class="mag-desc">Great Smoky Mountains National Park autumn color survey and Blue Ridge Parkway photography.</div>
             </div>
-            <div class="card-meta">
-                <span>Category: Appalachia</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            <div class="action-btn">
+                📄 Read Full Magazine PDF →
             </div>
         </a>
 
-        <a class="card" href="pdfs/195105.html" data-category="Historical" data-title="national geographic magazine (1951 full year collection)">
+        <a class="magazine-card" href="pdfs/195105.html" data-era="1950s-1970s" data-title="national geographic magazine (may 1951 issue)" data-year="1951" data-desc="mountain folk craft, rifle making in gatlinburg, and cherokee nation traditions.">
             <div>
-                <img src="images/195105_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (1951 Full Year Collection)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+                <div class="cover-hero-wrap">
+                    <img src="images/195105_cover.jpg" alt="National Geographic Magazine (May 1951 Issue) Cover" loading="lazy" decoding="async">
+                    <div class="year-badge">1951</div>
+                </div>
+                <div class="mag-title">National Geographic Magazine (May 1951 Issue)</div>
+                <div class="mag-desc">Mountain folk craft, rifle making in Gatlinburg, and Cherokee nation traditions.</div>
             </div>
-            <div class="card-meta">
-                <span>Category: Historical</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            <div class="action-btn">
+                📄 Read Full Magazine PDF →
             </div>
         </a>
 
-        <a class="card" href="pdfs/195204.html" data-category="Nature" data-title="national geographic magazine (1952 full year collection)">
+        <a class="magazine-card" href="pdfs/195204.html" data-era="1950s-1970s" data-title="national geographic magazine (april 1952 issue)" data-year="1952" data-desc="appalachian spring wildflowers, salamander species diversity, and old-growth timber.">
             <div>
-                <img src="images/195204_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (1952 Full Year Collection)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+                <div class="cover-hero-wrap">
+                    <img src="images/195204_cover.jpg" alt="National Geographic Magazine (April 1952 Issue) Cover" loading="lazy" decoding="async">
+                    <div class="year-badge">1952</div>
+                </div>
+                <div class="mag-title">National Geographic Magazine (April 1952 Issue)</div>
+                <div class="mag-desc">Appalachian spring wildflowers, salamander species diversity, and old-growth timber.</div>
             </div>
-            <div class="card-meta">
-                <span>Category: Nature</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            <div class="action-btn">
+                📄 Read Full Magazine PDF →
             </div>
         </a>
 
-        <a class="card" href="pdfs/195304.html" data-category="Historical" data-title="national geographic magazine (1953 full year collection)">
+        <a class="magazine-card" href="pdfs/195304.html" data-era="1950s-1970s" data-title="national geographic magazine (april 1953 issue)" data-year="1953" data-desc="southern highland culture, traditional music, and mountain balds ecology.">
             <div>
-                <img src="images/195304_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (1953 Full Year Collection)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
+                <div class="cover-hero-wrap">
+                    <img src="images/195304_cover.jpg" alt="National Geographic Magazine (April 1953 Issue) Cover" loading="lazy" decoding="async">
+                    <div class="year-badge">1953</div>
+                </div>
+                <div class="mag-title">National Geographic Magazine (April 1953 Issue)</div>
+                <div class="mag-desc">Southern highland culture, traditional music, and mountain balds ecology.</div>
             </div>
-            <div class="card-meta">
-                <span>Category: Historical</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
-            </div>
-        </a>
-
-        <a class="card" href="pdfs/nationalgeograph2009unse.html" data-category="Nature" data-title="national geographic magazine (2009 modern color issue)">
-            <div>
-                <img src="images/195011_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (2009 Modern Color Issue)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
-            </div>
-            <div class="card-meta">
-                <span>Category: Nature</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
-            </div>
-        </a>
-
-        <a class="card" href="pdfs/nationalgeograp421922nati.html" data-category="Historical" data-title="national geographic magazine (volume 42 - 1922 edition)">
-            <div>
-                <img src="images/194701to12_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (Volume 42 - 1922 Edition)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
-            </div>
-            <div class="card-meta">
-                <span>Category: Historical</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
-            </div>
-        </a>
-
-        <a class="card" href="pdfs/nationalgeograp401921nati.html" data-category="Historical" data-title="national geographic magazine (volume 40 - 1921 edition)">
-            <div>
-                <img src="images/194905_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (Volume 40 - 1921 Edition)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
-            </div>
-            <div class="card-meta">
-                <span>Category: Historical</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
-            </div>
-        </a>
-
-        <a class="card" href="pdfs/nationalgeograp371920nati.html" data-category="Smokies" data-title="national geographic magazine (volume 37 - 1920 edition)">
-            <div>
-                <img src="images/nationalgeograph37natiuoft_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (Volume 37 - 1920 Edition)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
-            </div>
-            <div class="card-meta">
-                <span>Category: Smokies</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
-            </div>
-        </a>
-
-        <a class="card" href="pdfs/nationalgeograp331918nati.html" data-category="Nature" data-title="national geographic magazine (volume 33 - 1918 edition)">
-            <div>
-                <img src="images/195105_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (Volume 33 - 1918 Edition)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
-            </div>
-            <div class="card-meta">
-                <span>Category: Nature</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
-            </div>
-        </a>
-
-        <a class="card" href="pdfs/nationalgeograp321917nati.html" data-category="Nature" data-title="national geographic magazine (volume 32 - 1917 edition)">
-            <div>
-                <img src="images/195204_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (Volume 32 - 1917 Edition)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
-            </div>
-            <div class="card-meta">
-                <span>Category: Nature</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
-            </div>
-        </a>
-
-        <a class="card" href="pdfs/nationalgeograp301916nati.html" data-category="Historical" data-title="national geographic magazine (volume 30 - 1916 edition)">
-            <div>
-                <img src="images/195304_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (Volume 30 - 1916 Edition)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
-            </div>
-            <div class="card-meta">
-                <span>Category: Historical</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
-            </div>
-        </a>
-
-        <a class="card" href="pdfs/nationalgeograph271915nati.html" data-category="Appalachia" data-title="national geographic magazine (volume 27 - 1915 edition)">
-            <div>
-                <img src="images/jishankhan_hotmail_1954_cover.jpg" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
-                <div class="card-title">National Geographic Magazine (Volume 27 - 1915 Edition)</div>
-                <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">📄 Open High-Res Full NatGeo PDF →</div>
-            </div>
-            <div class="card-meta">
-                <span>Category: Appalachia</span>
-                <span class="badge badge-pdf">PDF MAGAZINE</span>
+            <div class="action-btn">
+                📄 Read Full Magazine PDF →
             </div>
         </a>
         </main>
@@ -369,19 +317,22 @@
     <script>
         const searchInput = document.getElementById('searchInput');
         const tabs = document.querySelectorAll('.tab');
-        const cards = document.querySelectorAll('.card');
+        const cards = document.querySelectorAll('.magazine-card');
 
-        let currentCategory = 'ALL';
+        let currentEra = 'ALL';
         let searchQuery = '';
 
-        function filterCards() {
+        function filterMagazines() {
             cards.forEach(card => {
-                const cat = card.getAttribute('data-category');
+                const era = card.getAttribute('data-era');
                 const title = card.getAttribute('data-title') || '';
-                const matchesCategory = (currentCategory === 'ALL' || cat === currentCategory);
-                const matchesSearch = !searchQuery || title.includes(searchQuery);
+                const desc = card.getAttribute('data-desc') || '';
+                const year = card.getAttribute('data-year') || '';
 
-                if (matchesCategory && matchesSearch) {
+                const matchesEra = (currentEra === 'ALL' || era === currentEra);
+                const matchesSearch = !searchQuery || title.includes(searchQuery) || desc.includes(searchQuery) || year.includes(searchQuery);
+
+                if (matchesEra && matchesSearch) {
                     card.classList.remove('hidden');
                 } else {
                     card.classList.add('hidden');
@@ -392,7 +343,7 @@
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
                 searchQuery = e.target.value.toLowerCase().trim();
-                filterCards();
+                filterMagazines();
             });
         }
 
@@ -400,8 +351,8 @@
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                currentCategory = tab.getAttribute('data-category');
-                filterCards();
+                currentEra = tab.getAttribute('data-era');
+                filterMagazines();
             });
         });
     </script>

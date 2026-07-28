@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>National Geographic Magazine (Volume 1 - 1889 Historical Archive) (Full PDF)</title>
+    <title>National Geographic Magazine (Vol. 1, 1889 - Founding Premiere Issue)</title>
     <script src="../js/pdf.min.js"></script>
     <style>
         :root {
@@ -23,14 +23,16 @@
         }
         .header {
             background: var(--card-bg);
-            border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            transition: transform 0.3s ease-in-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        h1 { font-size: 1.1rem; margin: 0; color: var(--accent); }
+        h1 { font-size: 1.1rem; margin: 0; color: var(--accent); font-weight: 700; }
         .page-info { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
         .scroll-container {
             max-width: 950px;
@@ -44,7 +46,7 @@
         .pdf-page-wrap {
             background: #ffffff;
             border-radius: 6px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.7);
             overflow: hidden;
             max-width: 100%;
             display: flex;
@@ -61,48 +63,43 @@
             height: 92vh;
             border: none;
         }
-        a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 0.9rem; }
     </style>
 </head>
 <body>
     <div class="header">
         <div>
-            <h1>National Geographic Magazine (Volume 1 - 1889 Historical Archive)</h1>
-            <a href="../index.html">← Back to NatGeo Index</a>
+            <h1>National Geographic Magazine (Vol. 1, 1889 - Founding Premiere Issue)</h1>
+            <a href="../index.html">← Back to NatGeo Magazine Gallery</a>
         </div>
         <div>
         </div>
     </div>
     
     <div class="scroll-container" id="pdfScrollContainer">
-        <div style="width: 100%; text-align: center; margin-bottom: 1rem;">
-            <a href="nationalgeograph11889nati.pdf" target="_blank" style="display: inline-block; background: var(--accent); color: #0f172a; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none;">📄 Open / Download Raw PDF Magazine Directly (nationalgeograph11889nati.pdf)</a>
-        </div>
-        <iframe src="nationalgeograph11889nati.pdf" style="width: 100%; height: 85vh; border: 1px solid var(--border); border-radius: 8px; background: #ffffff;"></iframe>
+        <object data="nationalgeograph11889nati.pdf" type="application/pdf">
+            <embed src="nationalgeograph11889nati.pdf" type="application/pdf" />
+        </object>
     </div>
 
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/pdf.worker.min.js';
         const pdfUrl = 'nationalgeograph11889nati.pdf';
         const container = document.getElementById('pdfScrollContainer');
+        const statusText = document.getElementById('statusText');
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {
-            const canvasList = document.createElement('div');
-            canvasList.style.display = 'flex';
-            canvasList.style.flexDirection = 'column';
-            canvasList.style.gap = '1.5rem';
-            canvasList.style.alignItems = 'center';
-            canvasList.style.marginTop = '1.5rem';
-            container.appendChild(canvasList);
+            if (statusText) statusText.textContent = '';
+            container.innerHTML = '';
 
-            for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {
+            for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 120); pageNum++) {
                 pdfDoc.getPage(pageNum).then(function(page) {
                     const wrap = document.createElement('div');
                     wrap.className = 'pdf-page-wrap';
                     
                     const canvas = document.createElement('canvas');
                     wrap.appendChild(canvas);
-                    canvasList.appendChild(wrap);
+                    container.appendChild(wrap);
 
                     const ctx = canvas.getContext('2d');
                     const dpr = window.devicePixelRatio || 2.0;
@@ -123,7 +120,7 @@
                 });
             }
         }).catch(function(err) {
-            console.log("PDF.js canvas rendering fallback to native iframe.");
+            console.log("PDF.js fallback to native embed.");
         });
     </script>
 </body>

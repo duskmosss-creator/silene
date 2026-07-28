@@ -16,20 +16,22 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0; padding-top: 80px;
+            margin: 0;
             padding: 0;
             background-color: var(--bg);
             color: var(--text-main);
         }
-        .header {{
+        .header {
             background: var(--card-bg);
-            border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            transition: transform 0.3s ease-in-out;
-        }}}}}
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
         h1 { font-size: 1.1rem; margin: 0; color: var(--accent); font-weight: 700; }
         .page-info { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
         .scroll-container {
@@ -66,15 +68,17 @@
 </head>
 <body>
     <div class="header">
-        <div style="max-width: 950px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">Document Viewer</h1>
-            <a href="../index.html" onclick="if(window.history.length>1){window.history.back();return false;}else{location.href='../index.html';return false;}" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
+        <div>
+            <h1>National Geographic Magazine (July 1988 Centennial Issue)</h1>
+            <a href="../index.html">← Back to NatGeo Magazine Gallery</a>
+        </div>
+        <div>
         </div>
     </div>
     
     <div class="scroll-container" id="pdfScrollContainer">
-        <object data-pdf-src="national-geographic-1988-07.pdf" type="application/pdf">
-            <embed data-pdf-src="national-geographic-1988-07.pdf" type="application/pdf" />
+        <object data="national-geographic-1988-07.pdf" type="application/pdf">
+            <embed src="national-geographic-1988-07.pdf" type="application/pdf" />
         </object>
     </div>
 
@@ -119,31 +123,5 @@
             console.log("PDF.js fallback to native embed.");
         });
     </script>
-
-<script>
-    (function() {
-        let lastScrollTop = 0;
-        window.addEventListener("scroll", function() {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-            let header = document.querySelector("header");
-            if (!header) header = document.querySelector(".header");
-            if (header) {
-                if (st > lastScrollTop && st > 60) {
-                    header.style.transform = "translateY(-100%)";
-                } else {
-                    header.style.transform = "translateY(0)";
-                }
-            }
-            lastScrollTop = st <= 0 ? 0 : st;
-        });
-        
-        // Fix PDF and Link zimcheck bypasses
-        document.querySelectorAll('object[data-pdf-src]').forEach(el => el.data = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('embed[data-pdf-src]').forEach(el => el.src = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('iframe[data-pdf-src]').forEach(el => el.src = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('a[data-href]').forEach(el => el.href = el.getAttribute('data-href'));
-    })();
-</script>
 </body>
-
 </html>
