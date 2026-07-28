@@ -281,17 +281,23 @@ for g in guides:
         h1 {{ font-size: 1.2rem; margin: 0; color: var(--accent); }}
         .meta {{ color: var(--text-muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }}
         .container {{ max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }}
-        .text-box {{
+        .md-content {{
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 2rem;
-            white-space: pre-wrap;
-            word-wrap: break-word;
             font-size: 1rem;
             line-height: 1.8;
             color: #e2e8f0;
         }}
+        .md-content h1 {{ color: var(--accent); font-size: 1.6rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.4rem; margin-top: 2rem; }}
+        .md-content h2 {{ color: var(--accent); font-size: 1.3rem; margin-top: 1.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }}
+        .md-content h3 {{ color: #93c5fd; font-size: 1.1rem; margin-top: 1.4rem; }}
+        .md-content ul {{ padding-left: 1.5rem; margin: 0.5rem 0; }}
+        .md-content li {{ margin: 0.3rem 0; }}
+        .md-content strong {{ color: #f8fafc; font-weight: 700; }}
+        .md-content hr {{ border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }}
+        .md-content code {{ background: #0f172a; padding: 0.1rem 0.4rem; border-radius: 4px; font-family: monospace; font-size: 0.9em; }}
         .btn-bar {{ display: flex; gap: 0.4rem; align-items: center; }}
         .btn {{
             background: #334155;
@@ -323,7 +329,7 @@ for g in guides:
     </div>
     
     <div class="container">
-        <div class="text-box" id="textContent">Loading field manual...</div>
+        <div class="md-content" id="mdContent">Loading field manual...</div>
     </div>
 
     <script>
@@ -334,10 +340,53 @@ for g in guides:
         const savedSize = localStorage.getItem('field_doc_font_size');
         if (savedSize) setFontSize(savedSize);
 
+        function renderMarkdown(md) {{
+            const lines = md.split('\n');
+            let html = '';
+            let inList = false;
+            for (let i = 0; i < lines.length; i++) {{
+                let line = lines[i];
+                // Headings
+                if (line.startsWith('### ')) {{
+                    if (inList) {{ html += '</ul>'; inList = false; }}
+                    html += '<h3>' + esc(line.slice(4)) + '</h3>';
+                }} else if (line.startsWith('## ')) {{
+                    if (inList) {{ html += '</ul>'; inList = false; }}
+                    html += '<h2>' + esc(line.slice(3)) + '</h2>';
+                }} else if (line.startsWith('# ')) {{
+                    if (inList) {{ html += '</ul>'; inList = false; }}
+                    html += '<h1>' + esc(line.slice(2)) + '</h1>';
+                // Horizontal rule
+                }} else if (line.match(/^-{{3,}}$/)) {{
+                    if (inList) {{ html += '</ul>'; inList = false; }}
+                    html += '<hr>';
+                // Bullet list
+                }} else if (line.startsWith('- ')) {{
+                    if (!inList) {{ html += '<ul>'; inList = true; }}
+                    html += '<li>' + inlineFmt(line.slice(2)) + '</li>';
+                // Blank line
+                }} else if (line.trim() === '') {{
+                    if (inList) {{ html += '</ul>'; inList = false; }}
+                    html += '<br>';
+                }} else {{
+                    if (inList) {{ html += '</ul>'; inList = false; }}
+                    html += '<p>' + inlineFmt(line) + '</p>';
+                }}
+            }}
+            if (inList) html += '</ul>';
+            return html;
+        }}
+        function esc(s) {{ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }}
+        function inlineFmt(s) {{
+            s = esc(s);
+            s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+            return s;
+        }}
         fetch('{g["id"]}.txt')
             .then(res => res.text())
-            .then(text => {{ document.getElementById('textContent').textContent = text; }})
-            .catch(err => {{ document.getElementById('textContent').textContent = "{g['title']}"; }});
+            .then(text => {{ document.getElementById('mdContent').innerHTML = renderMarkdown(text); }})
+            .catch(() => {{ document.getElementById('mdContent').textContent = "{g['title']}"; }});
     </script>
 </body>
 </html>
@@ -350,7 +399,7 @@ for g in guides:
         'title': g['title'],
         'category': g['category'],
         'path': f"texts/{g['id']}.html",
-        'type': 'GUIDE',
+        'type': 'Markdown',
         'local': txt_filepath,
         'content': g['content']
     })

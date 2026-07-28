@@ -616,7 +616,6 @@ html_content = f"""<!DOCTYPE html>
                     <button class="btn" onclick="setFontSize('14px')">S</button>
                     <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
                     <button class="btn" onclick="setFontSize('18px')">L</button>
-                    <button class="btn" onclick="setFontSize('20px')">XL</button>
                 </div>
             </div>
 

@@ -340,16 +340,19 @@ for item in natgeo_archive_list:
     with open(f"{natgeo_dir}/{pdf_html_rel}", 'w', encoding='utf-8') as pf:
         pf.write(pdf_viewer_html)
 
-    processed_items.append({
-        'id': identifier,
-        'title': item['title'],
-        'year': item['year'],
-        'era': item['era'],
-        'desc': item['desc'],
-        'cover': cover_rel if has_cover else "",
-        'path': pdf_html_rel,
-        'has_pdf': has_pdf
-    })
+    if not has_pdf:
+        print(f"  [SKIP] {identifier} — PDF not on disk, skipping from gallery.")
+    else:
+        processed_items.append({
+            'id': identifier,
+            'title': item['title'],
+            'year': item['year'],
+            'era': item['era'],
+            'desc': item['desc'],
+            'cover': cover_rel if has_cover else "",
+            'path': pdf_html_rel,
+            'has_pdf': has_pdf
+        })
 
 search_json = json.dumps(processed_items)
 
