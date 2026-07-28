@@ -1,35 +1,39 @@
-<!DOCTYPE html>
+import os
+import glob
+
+def generate_pdf_html(pdf_filename, title, back_url):
+    return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Document: statushistoryofm00culb.pdf</title>
+    <title>{title}</title>
     <script src="../js/pdf.min.js"></script>
     <style>
-        :root {
+        :root {{
             --bg: #0f172a;
             --card-bg: #1e293b;
             --accent: #fbbf24;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: #334155;
-        }
-        body {
+        }}
+        body {{
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0; padding-top: 50px;
             padding: 0;
             background-color: var(--bg);
             color: var(--text-main);
-        }
-        .header {
+        }}
+        .header {{
             background: var(--card-bg);
             border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-        }
-        .scroll-container {
+        }}
+        .scroll-container {{
             max-width: 950px;
             margin: 0 auto;
             padding: 4rem 1.5rem 1.5rem 1.5rem;
@@ -37,8 +41,8 @@
             flex-direction: column;
             align-items: center;
             gap: 1.5rem;
-        }
-        .pdf-page-wrap {
+        }}
+        .pdf-page-wrap {{
             background: #ffffff;
             border-radius: 6px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.7);
@@ -46,35 +50,35 @@
             max-width: 100%;
             display: flex;
             justify-content: center;
-        }
-        canvas {
+        }}
+        canvas {{
             display: block;
             max-width: 100%;
             height: auto;
-        }
+        }}
     </style>
 </head>
 <body>
     <div class="header">
         <div style="max-width: 950px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">Document: statushistoryofm00culb.pdf</h1>
-            <a href="../index.html" onclick="if(window.history.length>1){window.history.back();return false;}else{location.href='../index.html';return false;}" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
+            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">{title}</h1>
+            <a href="{back_url}" onclick="if(window.history.length>1){{window.history.back();return false;}}else{{location.href='{back_url}';return false;}}" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
         </div>
     </div>
     
     <div class="scroll-container" id="pdfScrollContainer">
         <div style="width: 100%; text-align: center; margin-bottom: 1rem;">
-            <a href="statushistoryofm00culb.pdf" target="_blank" style="display: inline-block; background: var(--accent); color: #0f172a; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none;">📄 Open / Download Raw PDF Document Directly (statushistoryofm00culb.pdf)</a>
+            <a href="{pdf_filename}" target="_blank" style="display: inline-block; background: var(--accent); color: #0f172a; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none;">📄 Open / Download Raw PDF Document Directly ({pdf_filename})</a>
         </div>
-        <iframe src="statushistoryofm00culb.pdf" style="width: 100%; height: 85vh; border: 1px solid var(--border); border-radius: 8px; background: #ffffff;"></iframe>
+        <iframe src="{pdf_filename}" style="width: 100%; height: 85vh; border: 1px solid var(--border); border-radius: 8px; background: #ffffff;"></iframe>
     </div>
 
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/pdf.worker.min.js';
-        const pdfUrl = 'statushistoryofm00culb.pdf';
+        const pdfUrl = '{pdf_filename}';
         const container = document.getElementById('pdfScrollContainer');
 
-        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {
+        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {{
             const canvasList = document.createElement('div');
             canvasList.style.display = 'flex';
             canvasList.style.flexDirection = 'column';
@@ -85,8 +89,8 @@
             // Note: We DO NOT clear container.innerHTML here! We append canvasList safely below the iframe fallback!
             container.appendChild(canvasList);
 
-            for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {
-                pdfDoc.getPage(pageNum).then(function(page) {
+            for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {{
+                pdfDoc.getPage(pageNum).then(function(page) {{
                     const wrap = document.createElement('div');
                     wrap.className = 'pdf-page-wrap';
                     
@@ -97,22 +101,41 @@
                     const ctx = canvas.getContext('2d');
                     const dpr = window.devicePixelRatio || 2.0;
                     const scale = 1.8 * dpr;
-                    const viewport = page.getViewport({ scale: scale });
+                    const viewport = page.getViewport({{ scale: scale }});
 
                     canvas.width = Math.floor(viewport.width);
                     canvas.height = Math.floor(viewport.height);
                     canvas.style.width = Math.floor(viewport.width / dpr) + 'px';
 
-                    const renderContext = {
+                    const renderContext = {{
                         canvasContext: ctx,
                         viewport: viewport
-                    };
+                    }};
                     page.render(renderContext);
-                });
-            }
-        }).catch(function(err) {
+                }});
+            }}
+        }}).catch(function(err) {{
             console.log("PDF.js fallback: Kiwix JS PWA blocked local fetch. Showing native iframe instead.");
-        });
+        }});
     </script>
 </body>
 </html>
+"""
+
+def process_dir(pdf_dir, back_url):
+    for pdf_path in glob.glob(f"{pdf_dir}/*.pdf"):
+        filename = os.path.basename(pdf_path)
+        aid = filename.replace('.pdf', '')
+        title = f"Document: {filename}"
+        
+        html_path = f"{pdf_dir}/{aid}.html"
+        html_content = generate_pdf_html(filename, title, back_url)
+        
+        with open(html_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        print(f"Regenerated {html_path}")
+
+process_dir("content/pdfs", "../index.html")
+process_dir("natgeo_collection/pdfs", "../index.html")
+process_dir("backpacking_guide/pdfs", "../index.html")
+process_dir("regional_collection/pdfs", "../index.html")

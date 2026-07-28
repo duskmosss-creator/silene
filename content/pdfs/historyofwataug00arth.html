@@ -3,39 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>A History of Watauga County, North Carolina</title>
+    <title>Document: historyofwataug00arth.pdf</title>
     <script src="../js/pdf.min.js"></script>
     <style>
         :root {
             --bg: #0f172a;
             --card-bg: #1e293b;
-            --accent: #38bdf8;
+            --accent: #fbbf24;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: #334155;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0; padding-top: 80px;
+            margin: 0; padding-top: 50px;
             padding: 0;
             background-color: var(--bg);
             color: var(--text-main);
         }
-        .header {{
+        .header {
             background: var(--card-bg);
             border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            transition: transform 0.3s ease-in-out;
-        }}}}}
-        h1 { font-size: 1.1rem; margin: 0; color: var(--accent); }
-        .page-info { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
+        }
         .scroll-container {
             max-width: 950px;
             margin: 0 auto;
-            padding: 1.5rem;
+            padding: 4rem 1.5rem 1.5rem 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -44,7 +41,7 @@
         .pdf-page-wrap {
             background: #ffffff;
             border-radius: 6px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.7);
             overflow: hidden;
             max-width: 100%;
             display: flex;
@@ -54,41 +51,40 @@
             display: block;
             max-width: 100%;
             height: auto;
-            object-fit: contain;
         }
-        object, embed {
-            width: 100%;
-            height: 92vh;
-            border: none;
-        }
-        a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
     </style>
 </head>
 <body>
     <div class="header">
         <div style="max-width: 950px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">Document Viewer</h1>
+            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">Document: historyofwataug00arth.pdf</h1>
             <a href="../index.html" onclick="if(window.history.length>1){window.history.back();return false;}else{location.href='../index.html';return false;}" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
         </div>
     </div>
     
     <div class="scroll-container" id="pdfScrollContainer">
-        <object data-pdf-src="historyofwataug00arth.pdf" type="application/pdf">
-            <embed data-pdf-src="historyofwataug00arth.pdf" type="application/pdf" />
-        </object>
+        <div style="width: 100%; text-align: center; margin-bottom: 1rem;">
+            <a href="historyofwataug00arth.pdf" target="_blank" style="display: inline-block; background: var(--accent); color: #0f172a; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none;">📄 Open / Download Raw PDF Document Directly (historyofwataug00arth.pdf)</a>
+        </div>
+        <iframe src="historyofwataug00arth.pdf" style="width: 100%; height: 85vh; border: 1px solid var(--border); border-radius: 8px; background: #ffffff;"></iframe>
     </div>
 
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/pdf.worker.min.js';
         const pdfUrl = 'historyofwataug00arth.pdf';
         const container = document.getElementById('pdfScrollContainer');
-        const statusText = document.getElementById('statusText');
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {
-            if (statusText) statusText.textContent = '';
-            container.innerHTML = '';
+            const canvasList = document.createElement('div');
+            canvasList.style.display = 'flex';
+            canvasList.style.flexDirection = 'column';
+            canvasList.style.gap = '1.5rem';
+            canvasList.style.alignItems = 'center';
+            canvasList.style.marginTop = '1.5rem';
+            
+            // Note: We DO NOT clear container.innerHTML here! We append canvasList safely below the iframe fallback!
+            container.appendChild(canvasList);
 
-            // Render all pages in natural exact aspect ratio (Zero Distortion)
             for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {
                 pdfDoc.getPage(pageNum).then(function(page) {
                     const wrap = document.createElement('div');
@@ -96,22 +92,16 @@
                     
                     const canvas = document.createElement('canvas');
                     wrap.appendChild(canvas);
-                    container.appendChild(wrap);
+                    canvasList.appendChild(wrap);
 
                     const ctx = canvas.getContext('2d');
-                    
-                    // High-DPI scale maintaining exact original aspect ratio
                     const dpr = window.devicePixelRatio || 2.0;
                     const scale = 1.8 * dpr;
                     const viewport = page.getViewport({ scale: scale });
 
                     canvas.width = Math.floor(viewport.width);
                     canvas.height = Math.floor(viewport.height);
-                    
-                    // Display style matches exact aspect ratio without stretching
                     canvas.style.width = Math.floor(viewport.width / dpr) + 'px';
-                    canvas.style.maxWidth = '100%';
-                    canvas.style.height = 'auto';
 
                     const renderContext = {
                         canvasContext: ctx,
@@ -121,34 +111,8 @@
                 });
             }
         }).catch(function(err) {
-            console.log("PDF.js render fallback to native embed.");
+            console.log("PDF.js fallback: Kiwix JS PWA blocked local fetch. Showing native iframe instead.");
         });
     </script>
-
-<script>
-    (function() {
-        let lastScrollTop = 0;
-        window.addEventListener("scroll", function() {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-            let header = document.querySelector("header");
-            if (!header) header = document.querySelector(".header");
-            if (header) {
-                if (st > lastScrollTop && st > 60) {
-                    header.style.transform = "translateY(-100%)";
-                } else {
-                    header.style.transform = "translateY(0)";
-                }
-            }
-            lastScrollTop = st <= 0 ? 0 : st;
-        });
-        
-        // Fix PDF and Link zimcheck bypasses
-        document.querySelectorAll('object[data-pdf-src]').forEach(el => el.data = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('embed[data-pdf-src]').forEach(el => el.src = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('iframe[data-pdf-src]').forEach(el => el.src = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('a[data-href]').forEach(el => el.href = el.getAttribute('data-href'));
-    })();
-</script>
 </body>
-
 </html>
