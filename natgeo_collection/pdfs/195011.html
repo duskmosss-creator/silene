@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>National Geographic Magazine (November 1950 Issue)</title>
+    <title>National Geographic Magazine (1950 Full Year Collection) (Full PDF)</title>
     <script src="../js/pdf.min.js"></script>
     <style>
         :root {
@@ -16,7 +16,7 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0; padding-top: 80px;
+            margin: 0;
             padding: 0;
             background-color: var(--bg);
             color: var(--text-main);
@@ -30,7 +30,7 @@
             z-index: 1000;
             transition: transform 0.3s ease-in-out;
         }}
-        h1 { font-size: 1.1rem; margin: 0; color: var(--accent); font-weight: 700; }
+        h1 { font-size: 1.1rem; margin: 0; color: var(--accent); }
         .page-info { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
         .scroll-container {
             max-width: 950px;
@@ -44,7 +44,7 @@
         .pdf-page-wrap {
             background: #ffffff;
             border-radius: 6px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
             overflow: hidden;
             max-width: 100%;
             display: flex;
@@ -61,41 +61,46 @@
             height: 92vh;
             border: none;
         }
-        a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+        a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
     </style>
 </head>
 <body>
     <div class="header">
         <div style="max-width: 950px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">Document Viewer</h1>
+            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">National Geographic Magazine (1950 Full Year Collection)</h1>
             <a href="../index.html" onclick="if(window.history.length>1){window.history.back();return false;}else{location.href='../index.html';return false;}" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
         </div>
     </div>
     
     <div class="scroll-container" id="pdfScrollContainer">
-        <object data-pdf-src="195011.pdf" type="application/pdf">
-            <embed data-pdf-src="195011.pdf" type="application/pdf" />
-        </object>
+        <div style="width: 100%; text-align: center; margin-bottom: 1rem;">
+            <a href="195011.pdf" target="_blank" style="display: inline-block; background: var(--accent); color: #0f172a; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none;">📄 Open / Download Raw PDF Magazine Directly (195011.pdf)</a>
+        </div>
+        <iframe src="195011.pdf" style="width: 100%; height: 85vh; border: 1px solid var(--border); border-radius: 8px; background: #ffffff;"></iframe>
     </div>
 
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/pdf.worker.min.js';
         const pdfUrl = '195011.pdf';
         const container = document.getElementById('pdfScrollContainer');
-        const statusText = document.getElementById('statusText');
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {
-            if (statusText) statusText.textContent = '';
-            container.innerHTML = '';
+            const canvasList = document.createElement('div');
+            canvasList.style.display = 'flex';
+            canvasList.style.flexDirection = 'column';
+            canvasList.style.gap = '1.5rem';
+            canvasList.style.alignItems = 'center';
+            canvasList.style.marginTop = '1.5rem';
+            container.appendChild(canvasList);
 
-            for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 120); pageNum++) {
+            for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {
                 pdfDoc.getPage(pageNum).then(function(page) {
                     const wrap = document.createElement('div');
                     wrap.className = 'pdf-page-wrap';
                     
                     const canvas = document.createElement('canvas');
                     wrap.appendChild(canvas);
-                    container.appendChild(wrap);
+                    canvasList.appendChild(wrap);
 
                     const ctx = canvas.getContext('2d');
                     const dpr = window.devicePixelRatio || 2.0;
@@ -116,34 +121,8 @@
                 });
             }
         }).catch(function(err) {
-            console.log("PDF.js fallback to native embed.");
+            console.log("PDF.js canvas rendering fallback to native iframe.");
         });
     </script>
-
-<script>
-    (function() {
-        let lastScrollTop = 0;
-        window.addEventListener("scroll", function() {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-            let header = document.querySelector("header");
-            if (!header) header = document.querySelector(".header");
-            if (header) {
-                if (st > lastScrollTop && st > 60) {
-                    header.style.transform = "translateY(-100%)";
-                } else {
-                    header.style.transform = "translateY(0)";
-                }
-            }
-            lastScrollTop = st <= 0 ? 0 : st;
-        });
-        
-        // Fix PDF and Link zimcheck bypasses
-        document.querySelectorAll('object[data-pdf-src]').forEach(el => el.data = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('embed[data-pdf-src]').forEach(el => el.src = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('iframe[data-pdf-src]').forEach(el => el.src = el.getAttribute('data-pdf-src'));
-        document.querySelectorAll('a[data-href]').forEach(el => el.href = el.getAttribute('data-href'));
-    })();
-</script>
 </body>
-
 </html>
