@@ -399,16 +399,20 @@ for item in real_natgeo_volumes:
         with open(pdf_html_path, 'w', encoding='utf-8') as pf:
             pf.write(pdf_viewer_html)
 
-    downloaded_natgeo.append({
-        'id': aid,
-        'title': item['title'],
-        'category': item['category'],
-        'path': f"pdfs/{aid}.html" if has_pdf else f"texts/{aid}.html",
-        'cover': cover_img_path,
-        'type': 'PDF MAGAZINE' if has_pdf else 'TEXT MAGAZINE',
-        'has_pdf': has_pdf,
-        'content': raw_text[:15000]
-    })
+        clean_text = re.sub(r'(?i)Skip to main content.*?', '', raw_text)
+        clean_text = re.sub(r'[\r\n]+', ' ', clean_text)
+        clean_text = re.sub(r'\s+', ' ', clean_text).strip()
+        
+        downloaded_natgeo.append({
+            'id': aid,
+            'title': item['title'],
+            'category': item['category'],
+            'path': f"pdfs/{aid}.html" if has_pdf else f"texts/{aid}.html",
+            'cover': cover_img_path,
+            'type': 'PDF MAGAZINE' if has_pdf else 'TEXT MAGAZINE',
+            'has_pdf': has_pdf,
+            'content': clean_text[:1000]
+        })
 
 search_json = json.dumps(downloaded_natgeo)
 
