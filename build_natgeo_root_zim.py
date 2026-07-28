@@ -53,10 +53,10 @@ mimetype_map = {
 with open(f"{natgeo_dir}/index.html", "r", encoding="utf-8") as f:
     html_content = f.read()
 
-# Collect active PDF stems from static card hrefs in index.html
+# Collect active stems from static card hrefs in index.html (can be pdfs/ or texts/)
 active_pdf_stems = set()
-for href in re.findall(r'href="pdfs/([^"]+)\.html"', html_content):
-    active_pdf_stems.add(href)
+for stem in re.findall(r'href="(?:pdfs|texts)/([^"]+)\.html"', html_content):
+    active_pdf_stems.add(stem)
 
 print(f"Active magazine items in index: {len(active_pdf_stems)}")
 for stem in sorted(active_pdf_stems):
@@ -69,7 +69,7 @@ with Creator(zim_filename) as creator:
     creator.add_metadata("Publisher", "Hickory Search")
     creator.add_metadata("Description", "National Geographic Appalachian magazines collection for Kiwix and iOS")
     # Change Name to force Kiwix iOS cache invalidation
-    creator.add_metadata("Name", "national_geographic_appalachian_collection_v3")
+    creator.add_metadata("Name", "national_geographic_appalachian_collection_v5")
     creator.add_metadata("Date", datetime.now().strftime("%Y-%m-%d"))
     
     favicon_b64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAA8Bw1AAAEVv+wMAAAAAElFTkSuQmCC"
