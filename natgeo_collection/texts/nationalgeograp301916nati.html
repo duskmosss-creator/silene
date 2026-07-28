@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>National Geographic Magazine (1947 Full Year Collection)</title>
+    <title>National Geographic Magazine (Volume 30 - 1916 Edition)</title>
     <style>
         :root {
             --bg: #0f172a;
@@ -78,8 +78,8 @@
     <div class="header">
         <div class="header-inner">
             <div>
-                <div class="meta">Category: Appalachia</div>
-                <h1>National Geographic Magazine (1947 Full Year Collection)</h1>
+                <div class="meta">Category: Historical</div>
+                <h1>National Geographic Magazine (Volume 30 - 1916 Edition)</h1>
             </div>
             <div class="btn-bar">
                 <button class="btn" onclick="setFontSize('14px')">S</button>
@@ -91,8 +91,8 @@
     </div>
     
     <div class="container">
-        <div class="cover-box"><img src="../images/194701to12_cover.jpg" alt="NatGeo Cover" loading="lazy" decoding="async"></div>
-        <div style="text-align:center; margin-bottom: 1.5rem;"><a href="../pdfs/194701to12.html" style="background:#fbbf24; color:#0f172a; padding:0.6rem 1.2rem; border-radius:8px; font-weight:700;">📄 View Full Multi-Megabyte NatGeo PDF →</a></div>
+        <div class="cover-box"><img src="../images/195304_cover.jpg" alt="NatGeo Cover" loading="lazy" decoding="async"></div>
+        <div style="text-align:center; margin-bottom: 1.5rem;"><a href="../pdfs/nationalgeograp301916nati.html" style="background:#fbbf24; color:#0f172a; padding:0.6rem 1.2rem; border-radius:8px; font-weight:700;">📄 View Full Multi-Megabyte NatGeo PDF →</a></div>
         <div class="text-box" id="textContent">Loading magazine text...</div>
     </div>
 
@@ -104,10 +104,10 @@
         const savedSize = localStorage.getItem('natgeo_doc_font_size');
         if (savedSize) setFontSize(savedSize);
 
-        fetch('194701to12.txt')
+        fetch('nationalgeograp301916nati.txt')
             .then(res => res.text())
             .then(text => { document.getElementById('textContent').textContent = text; })
-            .catch(err => { document.getElementById('textContent').textContent = "National Geographic Magazine (1947 Full Year Collection)"; });
+            .catch(err => { document.getElementById('textContent').textContent = "National Geographic Magazine (Volume 30 - 1916 Edition)"; });
     </script>
 </body>
 </html>

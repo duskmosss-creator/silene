@@ -172,7 +172,7 @@ for item in real_natgeo_volumes:
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }}
-        .header {
+        .header {{
             background: var(--card-bg);
             border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
@@ -288,7 +288,7 @@ for item in real_natgeo_volumes:
             background-color: var(--bg);
             color: var(--text-main);
         }}
-        .header {
+        .header {{
             background: var(--card-bg);
             border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
@@ -399,10 +399,6 @@ for item in real_natgeo_volumes:
         with open(pdf_html_path, 'w', encoding='utf-8') as pf:
             pf.write(pdf_viewer_html)
 
-        clean_text = re.sub(r'(?i)Skip to main content.*?', '', raw_text)
-        clean_text = re.sub(r'[\r\n]+', ' ', clean_text)
-        clean_text = re.sub(r'\s+', ' ', clean_text).strip()
-        
         downloaded_natgeo.append({
             'id': aid,
             'title': item['title'],
@@ -411,7 +407,7 @@ for item in real_natgeo_volumes:
             'cover': cover_img_path,
             'type': 'PDF MAGAZINE' if has_pdf else 'TEXT MAGAZINE',
             'has_pdf': has_pdf,
-            'content': clean_text[:1000]
+            'content': item['title']
         })
 
 search_json = json.dumps(downloaded_natgeo)
