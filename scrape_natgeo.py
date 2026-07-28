@@ -1,4 +1,5 @@
 import os
+import urllib.request
 import json
 
 natgeo_dir = "natgeo_collection"
@@ -65,28 +66,154 @@ real_natgeo_volumes = [
 
 downloaded_natgeo = []
 
+print("Formatting National Geographic magazine volumes into styled iOS-optimized HTML readers...")
 for item in real_natgeo_volumes:
-    txt_filepath = f"{natgeo_dir}/texts/{item['id']}.txt"
-    content_snippet = ""
-    try:
-        with open(txt_filepath, 'r', encoding='utf-8', errors='ignore') as tf:
-            content_snippet = tf.read()[:15000]
-    except:
-        content_snippet = f"Archival text for {item['title']}"
+    txt_filename = f"{item['id']}.txt"
+    raw_txt_path = f"{natgeo_dir}/texts/{txt_filename}"
+    html_page_path = f"{natgeo_dir}/texts/{item['id']}.html"
+    cover_img_path = item['cover']
+    has_cover = os.path.exists(f"{natgeo_dir}/{cover_img_path}")
+    
+    raw_text = ""
+    if os.path.exists(raw_txt_path):
+        try:
+            with open(raw_txt_path, 'r', encoding='utf-8', errors='ignore') as tf:
+                raw_text = tf.read()
+        except:
+            raw_text = item['title']
+    else:
+        raw_text = f"Archival National Geographic Text for {item['title']}"
+
+    # Build styled iOS-optimized HTML viewer for NatGeo magazine volume
+    article_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>{item['title']}</title>
+    <style>
+        :root {{
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #fbbf24;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --font-size: 16px;
+        }}
+        html {{ font-size: var(--font-size); scroll-behavior: smooth; }}
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }}
+        .header {{
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--accent);
+            padding: 1.25rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }}
+        .header-inner {{
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }}
+        h1 {{ font-size: 1.2rem; margin: 0; color: var(--accent); }}
+        .meta {{ color: var(--text-muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }}
+        .container {{ max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }}
+        .cover-box {{ text-align: center; margin-bottom: 2rem; }}
+        .cover-box img {{
+            max-width: 320px;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+        }}
+        .text-box {{
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+        }}
+        .btn-bar {{ display: flex; gap: 0.4rem; align-items: center; }}
+        .btn {{
+            background: #334155;
+            color: white;
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.65rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }}
+        .btn:hover {{ background: var(--accent); color: #0f172a; }}
+        a {{ color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-inner">
+            <div>
+                <div class="meta">Category: {item['category']}</div>
+                <h1>{item['title']}</h1>
+            </div>
+            <div class="btn-bar">
+                <button class="btn" onclick="setFontSize('14px')">S</button>
+                <button class="btn" onclick="setFontSize('16px')">M</button>
+                <button class="btn" onclick="setFontSize('18px')">L</button>
+                <a href="../index.html" style="margin-left: 1rem;">← Back to Index</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        {f'<div class="cover-box"><img src="../{cover_img_path}" alt="NatGeo Cover"></div>' if has_cover else ''}
+        <div class="text-box" id="textContent">Loading magazine text...</div>
+    </div>
+
+    <script>
+        function setFontSize(size) {{
+            document.documentElement.style.setProperty('--font-size', size);
+            localStorage.setItem('natgeo_doc_font_size', size);
+        }}
+        const savedSize = localStorage.getItem('natgeo_doc_font_size');
+        if (savedSize) setFontSize(savedSize);
+
+        fetch('{txt_filename}')
+            .then(res => res.text())
+            .then(text => {{ document.getElementById('textContent').textContent = text; }})
+            .catch(err => {{ document.getElementById('textContent').textContent = "{item['title']}"; }});
+    </script>
+</body>
+</html>
+"""
+    with open(html_page_path, 'w', encoding='utf-8') as hf:
+        hf.write(article_html)
 
     downloaded_natgeo.append({
         'id': item['id'],
         'title': item['title'],
         'category': item['category'],
-        'path': f"texts/{item['id']}.txt",
-        'cover': item['cover'],
+        'path': f"texts/{item['id']}.html",
+        'cover': cover_img_path,
         'type': 'MAGAZINE',
-        'local': txt_filepath,
-        'content': content_snippet
+        'local': raw_txt_path,
+        'content': raw_text[:15000]
     })
 
 search_json = json.dumps(downloaded_natgeo)
 
+# Unified Dark Theme Index for NatGeo
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -258,14 +385,15 @@ html_content = f"""<!DOCTYPE html>
                 let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.content && item.content.toLowerCase().includes(searchQuery));
 
                 if (matchesSearch && matchesCategory) {{
-                    const card = document.createElement('div');
+                    const card = document.createElement('a');
                     card.className = 'card';
+                    card.href = item.path;
                     card.innerHTML = `
                         <div>
                             <img src="${{item.cover}}" class="card-cover" alt="NatGeo Cover">
                             <div class="card-title">${{item.title}}</div>
-                            <div style="margin-top: 0.75rem;">
-                                <a href="${{item.path}}" style="color: var(--accent); font-weight: 700; font-size: 0.9rem; text-decoration: none;">📖 Open Magazine Text →</a>
+                            <div style="margin-top: 0.75rem; color: var(--accent); font-weight: 700; font-size: 0.9rem;">
+                                📖 Open Magazine Article Viewer →
                             </div>
                         </div>
                         <div class="card-meta">
@@ -296,4 +424,4 @@ html_content = f"""<!DOCTYPE html>
 with open(f"{natgeo_dir}/index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print("NatGeo scrape with authentic cover images complete.")
+print("NatGeo scrape and viewer generation complete.")
