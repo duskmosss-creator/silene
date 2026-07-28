@@ -91,15 +91,29 @@ class HickoryTerminalAgent:
 
         for name, archive in self.archives.items():
             try:
-                main = archive.main_entry
-                item = main.get_item()
-                # item.content is the correct libzim API (not item.get_content())
-                text = re.sub(r'<[^>]+>', ' ', bytes(item.content).decode('utf-8', errors='ignore'))
+                # Prefer index.html — it has clean readable content.
+                # mainPage redirects to index.html but has CSS dumped first.
+                entry = None
+                for candidate in ['index.html', 'mainPage']:
+                    if archive.has_entry_by_path(candidate):
+                        entry = archive.get_entry_by_path(candidate)
+                        break
+                if entry is None:
+                    entry = archive.main_entry
+
+                item = entry.get_item()
+                raw = bytes(item.content).decode('utf-8', errors='ignore')
+
+                # Strip <style> and <script> blocks so CSS doesn't pollute snippets
+                raw = re.sub(r'<style[^>]*>.*?</style>', ' ', raw, flags=re.DOTALL)
+                raw = re.sub(r'<script[^>]*>.*?</script>', ' ', raw, flags=re.DOTALL)
+                text = re.sub(r'<[^>]+>', ' ', raw)
+                text = re.sub(r'\s+', ' ', text).strip()
 
                 if clean_kw in text.lower():
                     results.append({
                         'archive': name,
-                        'title': main.title if main.title else main.path,
+                        'title': entry.title if entry.title else entry.path,
                         'snippet': text[:1200]
                     })
             except Exception:
