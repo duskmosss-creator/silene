@@ -266,7 +266,7 @@ for g in guides:
         .header {{
             background: var(--card-bg);
             border-bottom: 2px solid var(--accent);
-            padding: 1.25rem 1.5rem;
+            padding: 0.25rem 1rem; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: transform 0.3s ease-in-out;
             position: sticky;
             top: 0;
             z-index: 100;
