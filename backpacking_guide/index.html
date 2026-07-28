@@ -6,165 +6,93 @@
     <title>GSMNP & DuPont Backpacking Field Manual</title>
     <style>
         :root {
-            --bg-color: #f4f6f8;
-            --card-bg: #ffffff;
-            --primary-color: #15803d;
-            --header-bg: #064e3b;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --border-color: #cbd5e1;
+            --bg: #0f172a;
+            --header-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #22c55e;
+            --border: #334155;
             --base-font-size: 16px;
         }
 
-        html {
-            font-size: var(--base-font-size);
-            scroll-behavior: smooth;
-        }
-
+        html { font-size: var(--base-font-size); scroll-behavior: smooth; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
-            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            line-height: 1.7;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding-top: max(1rem, env(safe-area-inset-top));
-            padding-right: max(1rem, env(safe-area-inset-right));
-            padding-bottom: max(1rem, env(safe-area-inset-bottom));
-            padding-left: max(1rem, env(safe-area-inset-left));
+            padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
         }
 
         header {
             background-color: var(--header-bg);
-            color: #ffffff;
-            border-bottom: 4px solid var(--primary-color);
+            border-bottom: 4px solid var(--accent);
             padding: 2rem 1rem;
             text-align: center;
         }
 
-        header h1 {
-            color: #86efac;
-            margin: 0 0 0.5rem 0;
-            font-size: 1.9rem;
-        }
-
-        header p {
-            color: #a7f3d0;
-            font-size: 0.95rem;
-            margin: 0;
-        }
+        header h1 { color: var(--accent); margin: 0 0 0.5rem 0; font-size: 1.9rem; }
+        header p { color: var(--text-muted); font-size: 0.95rem; margin: 0; }
 
         .controls {
-            background: #ffffff;
+            background: var(--card-bg);
             padding: 1rem;
             border-radius: 8px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border);
             margin: 1.5rem 0;
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
 
-        .control-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.75rem;
-        }
+        .control-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; }
 
         .search-bar {
             flex: 1;
             min-width: 220px;
             padding: 0.65rem 1rem;
-            border: 1px solid var(--border-color);
+            background: #0f172a;
+            border: 1px solid var(--border);
+            color: var(--text-main);
             border-radius: 6px;
             font-size: 0.95rem;
             outline: none;
         }
 
-        .search-bar:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(21, 128, 61, 0.2);
-        }
+        .search-bar:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2); }
 
-        .settings-bar {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .btn {
-            background: #f1f5f9;
-            border: 1px solid var(--border-color);
-            padding: 0.4rem 0.75rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            color: var(--text-main);
-            user-select: none;
-        }
-
-        .btn:hover, .btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .filter-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
+        .filter-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
         .tab {
             padding: 0.4rem 0.85rem;
             border-radius: 6px;
-            background: #f1f5f9;
-            border: 1px solid var(--border-color);
+            background: #334155;
+            border: 1px solid var(--border);
             color: var(--text-main);
             font-size: 0.85rem;
             cursor: pointer;
-            user-select: none;
         }
 
-        .tab.active, .tab:hover {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
+        .tab.active, .tab:hover { background: var(--accent); color: #0f172a; border-color: var(--accent); font-weight: 700; }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-        }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
 
-        @media only screen and (min-width: 852px) and (orientation: landscape) {
-            .grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media only screen and (min-width: 744px) and (orientation: portrait) {
-            .grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media only screen and (min-width: 1024px) {
-            .grid { grid-template-columns: repeat(3, 1fr); }
-        }
+        @media only screen and (min-width: 852px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        @media only screen and (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 
         .card {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--primary-color);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
             border-radius: 8px;
             padding: 1.25rem;
             text-decoration: none;
@@ -172,36 +100,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-        }
+        .card:hover { transform: translateY(-2px); border-color: var(--accent); }
 
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--header-bg);
-            margin-bottom: 0.5rem;
-        }
-
-        .snippet {
-            font-size: 0.85rem;
-            color: #475569;
-            background: #f8fafc;
-            padding: 0.5rem;
-            border-radius: 4px;
-            margin-top: 0.5rem;
-            border-left: 3px solid var(--primary-color);
-        }
-
-        .snippet mark {
-            background: #fef08a;
-            color: #854d0e;
-        }
+        .card-title { font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem; }
 
         .card-meta {
             display: flex;
@@ -209,27 +113,12 @@
             align-items: center;
             font-size: 0.8rem;
             color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border);
             padding-top: 0.5rem;
             margin-top: 1rem;
         }
 
-        .badge {
-            background: #dcfce7;
-            color: #15803d;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 0.75rem;
-        }
-
-        .no-results {
-            text-align: center;
-            grid-column: 1 / -1;
-            padding: 2rem;
-            color: var(--text-muted);
-            display: none;
-        }
+        .badge { background: #dcfce7; color: #15803d; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700; font-size: 0.75rem; }
     </style>
 </head>
 <body>
@@ -242,14 +131,6 @@
         <section class="controls">
             <div class="control-row">
                 <input type="text" id="searchInput" class="search-bar" placeholder="Search shelters, trail mileages, water sources, bear safety...">
-                
-                <div class="settings-bar">
-                    <span>Font Size:</span>
-                    <button class="btn" onclick="setFontSize('14px')">S</button>
-                    <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
-                    <button class="btn" onclick="setFontSize('18px')">L</button>
-                    <button class="btn" onclick="setFontSize('20px')">XL</button>
-                </div>
             </div>
 
             <div class="filter-tabs" id="filterTabs">
@@ -262,90 +143,33 @@
             </div>
         </section>
 
-        <main class="grid" id="cardGrid">
-            <div class="no-results" id="noResults">No matching guides found.</div>
-        </main>
+        <main class="grid" id="cardGrid"></main>
     </div>
 
     <script>
-        const articles = [{"id": "shelter_directory", "title": "GSMNP Backcountry Shelter & Campsite Directory", "category": "Campsites", "path": "texts/shelter_directory.txt", "type": "GUIDE", "local": "backpacking_guide/texts/shelter_directory.txt", "content": "# GSMNP Backcountry Shelter & Campsite Directory\n\n## Key AT Shelters & Water Source Reliability\n1. **Icewater Spring Shelter** (Elevation: 5,920 ft)\n   - Capacity: 12 hikers.\n   - Bear Cables: Yes (Mandatory food hanging).\n   - Water Source: Pipe spring 100 ft south of shelter. Extremely reliable year-round.\n2. **Mount LeConte Shelter** (Elevation: 6,400 ft)\n   - Capacity: 12 hikers (Permit required).\n   - Bear Cables: Yes.\n   - Water Source: Spring near lodge trail junction. Can slow to a drip in late October.\n3. **Spence Field Shelter** (Elevation: 4,900 ft)\n   - Capacity: 12 hikers.\n   - Bear Cables: Yes.\n   - Water Source: Spring down trail 0.1 miles. Reliable spring and summer; moderate autumn flow.\n4. **Mollies Ridge Shelter** (Elevation: 4,560 ft)\n   - Capacity: 12 hikers.\n   - Bear Cables: Yes.\n   - Water Source: Spring 0.2 miles down blue-blazed side trail.\n\n## Backcountry Campsites (Cades Cove & Little River Region)\n- **Campsite 18 (West Prong)**: Easy 2.1 mile hike in. Good water source from Little River.\n- **Campsite 24 (Rough Fork)**: Deep forest site along Cataloochee area.\n- **Campsite 30 (Three Forks)**: High elevation stream access near Hazel Creek.\n"}, {"id": "trail_profiles", "title": "Appalachian Trail & Segment Elevation Profiles", "category": "Trails", "path": "texts/trail_profiles.txt", "type": "GUIDE", "local": "backpacking_guide/texts/trail_profiles.txt", "content": "# Appalachian Trail & Regional Segment Elevation Profiles\n\n## 1. Appalachian Trail (GSMNP Section: 71 Miles)\n- **Fontana Dam to Davenport Gap**\n- Total Elevation Gain: ~18,000 ft ascent / ~17,000 ft descent.\n- Highest Point: Kuwohi / Clingmans Dome (6,643 ft).\n- Key Segment Distances:\n  - Fontana Dam to Spence Field Shelter: 16.4 miles (+4,100 ft)\n  - Spence Field to Silers Bald Shelter: 14.1 miles\n  - Silers Bald to Clingmans Dome: 4.8 miles (+1,700 ft)\n  - Clingmans Dome to Newfound Gap: 7.9 miles (-1,600 ft)\n  - Newfound Gap to Icewater Spring: 3.0 miles (+900 ft)\n  - Icewater Spring to Tri-Corner Knob: 12.7 miles\n  - Tri-Corner Knob to Davenport Gap: 12.1 miles (-3,900 ft)\n\n## 2. Alum Cave & Boulevard Trails to Mt. LeConte\n- **Alum Cave Trail**: 5.5 miles one way (+2,760 ft gain). Features Arch Rock, Inspiration Point, Alum Cave Bluff.\n- **The Boulevard Trail**: 5.4 miles one way from AT junction (+1,500 ft aggregate gain along crest).\n\n## 3. DuPont State Forest Trail Network\n- **Triple Falls to High Falls Loop**: 2.2 miles, gentle 350 ft elevation gain.\n- **Bridal Veil Falls Trail**: 4.4 miles round trip, 400 ft gain.\n"}, {"id": "emergency_weather", "title": "High-Altitude Emergency & Weather Protocols", "category": "Safety", "path": "texts/emergency_weather.txt", "type": "GUIDE", "local": "backpacking_guide/texts/emergency_weather.txt", "content": "# High-Altitude Emergency & Weather Protocols\n\n## Temperature & Altitude Calculations\n- **Lapse Rate**: Expect a **3.5\u00b0F to 5.5\u00b0F drop in temperature per 1,000 feet of elevation gain**.\n- **Clingmans Dome vs. Gatlinburg**: Clingmans Dome (6,643 ft) is routinely 15\u00b0F to 22\u00b0F colder than Gatlinburg (1,289 ft). High winds on ridges produce severe wind chill.\n- **Hypothermia Warning**: Wet clothing combined with 45\u00b0F temperatures and wind is the #1 cause of backcountry hypothermia in spring and fall.\n\n## Emergency Contacts & Offline Radio Frequencies\n- **GSMNP Emergency Dispatch**: (865) 436-1294 (Cell service unreliable on trails; SMS sometimes transmits on ridges).\n- **NOAA Weather Radio Frequencies (Southern Appalachians)**:\n  - 162.550 MHz (WX1 - Knoxville/Sevier County)\n  - 162.400 MHz (WX2 - Asheville/WNC)\n- **Ranger Stations**:\n  - Sugarlands Visitor Center / Backcountry Office: (865) 436-1297\n  - Oconaluftee Visitor Center: (828) 497-1904\n"}, {"id": "bear_flora_guide", "title": "Black Bear Safety & Native Flora Field Manual", "category": "Flora/Fauna", "path": "texts/bear_flora_guide.txt", "type": "GUIDE", "local": "backpacking_guide/texts/bear_flora_guide.txt", "content": "# Black Bear Safety & Native Flora Field Manual\n\n## Black Bear Encounter & Cable Protocols\n- **Food Storage**: All food, trash, toothpaste, and scented items MUST be hung on park-provided bear cable systems at every backcountry campsite and shelter.\n- **Cable Operation**: Clip dry bag to carabiner -> Hoist cable to top pulley -> Secure loop on anchor post.\n- **Encounter Guidelines**:\n  - Do NOT run.\n  - Stand tall, raise arms, speak in a loud, firm voice.\n  - Back away slowly.\n  - If a bear approaches aggressively, make loud noises and throw objects.\n\n## Native Flora: Edible vs Toxic Species\n- **Edible**:\n  - **Ramps (Wild Leeks)**: Broad green leaves with onion/garlic aroma in rich hardwood coves.\n  - **Blackberries & Wineberries**: Ripe in mid-to-late summer along sunny trail gaps.\n- **Toxic / Dangerous**:\n  - **Poison Hemlock**: Smooth green stem with purple spots. Extremely toxic.\n  - **Stinging Nettle**: Serrated leaves with fine stinging hairs along lower moist trails.\n  - **Poison Ivy**: \"Leaves of three, let it be.\" Abundant in lower elevation river coves.\n"}, {"id": "firefly_ecotourism", "title": "Firefly Ecotourism Peak Windows & Trail Waypoints", "category": "Ecotourism", "path": "texts/firefly_ecotourism.txt", "type": "GUIDE", "local": "backpacking_guide/texts/firefly_ecotourism.txt", "content": "# Firefly Ecotourism Peak Windows & Trail Waypoints\n\n## 1. Synchronous Fireflies (*Photinus carolinus*) - Elkmont\n- **Location**: Little River & Jakes Creek Trailheads near Elkmont, GSMNP.\n- **Peak Window**: Late May to early June (approx. 2-week window).\n- **Behavior**: Thousands of male fireflies flash in near-perfect unison (6-8 flashes followed by 6-8 seconds of total darkness).\n- **Best Viewing Time**: 9:30 PM to 11:00 PM.\n- **Rules**: Red cellophane filters over all flashlights to protect insect mating cycles.\n\n## 2. Blue Ghost Fireflies (*Phausis reticulata*) - DuPont Forest & Pisgah\n- **Location**: DuPont State Recreational Forest & surrounding Transylvania/Henderson County woods.\n- **Peak Window**: Mid-May to early June.\n- **Behavior**: Emits a continuous, ghostly blue-green glow while hovering 1-2 feet above the moist forest floor.\n- **Best Viewing Time**: 9:00 PM to 10:30 PM in dense, undisturbed leaf litter.\n"}];
-
+        const articles = [{"id": "shelter_directory", "title": "Exhaustive GSMNP Backcountry Shelter & Campsite Directory", "category": "Campsites", "path": "texts/shelter_directory.html", "type": "GUIDE", "local": "backpacking_guide/texts/shelter_directory.txt", "content": "# Exhaustive GSMNP Backcountry Shelter & Campsite Directory\n\n## 1. Appalachian Trail Backcountry Shelters (South to North)\n\n### Fontana Hilton / Fontana Dam Shelter (Elevation: 1,720 ft)\n- **AT Mile**: 165.2 (From Springer Mountain)\n- **Capacity**: 24 Hikers (Multi-level wooden structure)\n- **Water Source**: Solar-powered water spigot & fountain nearby.\n- **Amenities**: Solar cell phone charging station, hot showers at nearby Fontana marina, privy, bear cables.\n- **Notes**: Premier starting point for northbound GSMNP AT thru-hikes. Permit registration kiosk located at Fontana Dam.\n\n### Mollies Ridge Shelter (Elevation: 4,560 ft)\n- **AT Mile**: 177.3\n- **Capacity**: 12 Hikers\n- **Water Source**: Spring located 0.2 miles down blue-blazed side trail to the west. Moderate autumn flow.\n- **Bear Cables**: Mandatory bear cable system present.\n- **Notes**: High ridge position between Doe Knob and Ekaneetlee Gap.\n\n### Russell Field Shelter (Elevation: 4,340 ft)\n- **AT Mile**: 183.3\n- **Capacity**: 12 Hikers\n- **Water Source**: Reliable spring 150 yards down side trail.\n- **Bear Cables**: Yes.\n- **Notes**: Popular stopover before climbing Thunderhead Mountain. Nearby grassy field provides birdwatching opportunities.\n\n### Spence Field Shelter (Elevation: 4,900 ft)\n- **AT Mile**: 186.2\n- **Capacity**: 12 Hikers\n- **Water Source**: Pipe spring 0.1 miles down south side trail. High reliability year-round.\n- **Bear Cables**: Yes.\n- **Notes**: Located near junction with Bote Mountain Trail. High exposure to gusty winds across Spence Field bald.\n\n### Silers Bald Shelter (Elevation: 5,420 ft)\n- **AT Mile**: 199.7\n- **Capacity**: 12 Hikers\n- **Water Source**: Spring located 0.1 miles down steep north side trail.\n- **Bear Cables**: Yes.\n- **Notes**: High altitude site. Cold temperatures persist into late spring. Close to Silers Bald summit (5,607 ft).\n\n### Mount Collins Shelter (Elevation: 5,900 ft)\n- **AT Mile**: 209.4\n- **Capacity**: 12 Hikers\n- **Water Source**: Spring 0.2 miles down Sugarland Mountain Trail junction.\n- **Bear Cables**: Yes.\n- **Notes**: Dense spruce-fir forest setting. Located 4 miles east of Kuwohi / Clingmans Dome.\n\n### Icewater Spring Shelter (Elevation: 5,920 ft)\n- **AT Mile**: 216.7\n- **Capacity**: 12 Hikers\n- **Water Source**: Famous pipe spring flowing directly out of rock wall 100 ft south of shelter. Extremely reliable year-round.\n- **Bear Cables**: Yes. Includes composting privy.\n- **Notes**: Most popular shelter in the park. High-volume ridge views of the Oconaluftee valley.\n\n### Peck Corner Shelter (Elevation: 5,300 ft)\n- **AT Mile**: 227.1\n- **Capacity**: 12 Hikers\n- **Water Source**: Spring 0.1 miles down side trail.\n- **Bear Cables**: Yes.\n- **Notes**: Located 0.4 miles off the AT along Peck Corner side trail. Quieter than Icewater Spring.\n\n### Tri-Corner Knob Shelter (Elevation: 5,940 ft)\n- **AT Mile**: 232.3\n- **Capacity**: 12 Hikers\n- **Water Source**: Spring 75 yards in front of shelter.\n- **Bear Cables**: Yes.\n- **Notes**: Most remote shelter in GSMNP. Junction point of Mount Sterling Ridge and main AT crest.\n\n### Cosby Knob Shelter (Elevation: 4,770 ft)\n- **AT Mile**: 239.8\n- **Capacity**: 12 Hikers\n- **Water Source**: Excellent high-volume spring 50 ft from shelter entrance.\n- **Bear Cables**: Yes.\n- **Notes**: Located at base of Mount Cammerer spur trail.\n\n### Davenport Gap Shelter (Elevation: 2,600 ft)\n- **AT Mile**: 247.5\n- **Capacity**: 12 Hikers\n- **Water Source**: Stream 100 yards south.\n- **Bear Cables**: Yes. Features chain-link bear fence enclosure.\n- **Notes**: Final AT shelter inside GSMNP boundary before crossing Big Creek into North Carolina.\n\n---\n\n## 2. Key Backcountry Campsites\n\n- **Campsite 18 (West Prong)**: 2.1 miles from Laurel Falls trailhead. Stream water from West Prong of Little River.\n- **Campsite 24 (Rough Fork - Cataloochee)**: Deep hemlock grove near historic Cataloochee Valley elk habitats.\n- **Campsite 30 (Three Forks - Hazel Creek)**: Remote wilderness site requiring multi-day hike or boat shuttle across Fontana Lake.\n- **Campsite 37 (Big Creek)**: Located along Big Creek trail. Features massive boulders and deep swimming holes.\n- **Campsite 71 (Noland Creek)**: Spacious hardwood cove site near historic Noland estate ruins.\n"}, {"id": "trail_profiles", "title": "Comprehensive Appalachian Trail & Regional Trail Profiles", "category": "Trails", "path": "texts/trail_profiles.html", "type": "GUIDE", "local": "backpacking_guide/texts/trail_profiles.txt", "content": "# Comprehensive Appalachian Trail & Regional Trail Profiles\n\n## 1. AT GSMNP Crest Traverse (71.4 Total Miles)\n\n### Waypoint & Elevation Breakdown\n| Trail Segment | Distance (mi) | Elev Gain / Loss | Key Waypoints & Features |\n| :--- | :--- | :--- | :--- |\n| **Fontana Dam to Mollies Ridge** | 12.1 mi | +3,400 ft / -600 ft | Shuckstack Fire Tower (4,020 ft), Ekaneetlee Gap |\n| **Mollies Ridge to Spence Field** | 8.9 mi | +1,800 ft / -1,460 ft | Rocky Top (5,447 ft), Thunderhead Mountain |\n| **Spence Field to Silers Bald** | 13.5 mi | +2,100 ft / -1,580 ft | Bote Mountain Junction, Derrick Knob Shelter |\n| **Silers Bald to Clingmans Dome** | 4.8 mi | +1,223 ft / -180 ft | Kuwohi / Clingmans Dome Summit (6,643 ft) |\n| **Clingmans Dome to Newfound Gap** | 7.9 mi | -1,600 ft / +400 ft | Mount Collins Junction, Road Prong Trailhead |\n| **Newfound Gap to Icewater Spring**| 3.0 mi | +900 ft / -100 ft | Sweat Heifer Trail Junction, Boulevard Trail Head |\n| **Icewater Spring to Tri-Corner** | 15.6 mi | +2,400 ft / -2,380 ft | Charlies Bunion (5,375 ft), Sawtooth Ridges |\n| **Tri-Corner to Davenport Gap** | 15.2 mi | -3,400 ft / +800 ft | Mount Cammerer Spur, Big Creek Crossing |\n\n---\n\n## 2. Signature Day & Multi-Day Trails\n\n### Alum Cave Trail to Mount LeConte\n- **Distance**: 11.0 miles round trip (+2,760 ft elevation gain).\n- **Waypoints**:\n  - **Arch Rock (1.4 mi)**: Natural stone arch carved by freezing and thawing.\n  - **Inspiration Point (2.0 mi)**: Panoramic vista of Duckhawk Ridge and Myrtle Point.\n  - **Alum Cave Bluff (2.3 mi)**: 80-foot high concave cliff face with mineral deposits.\n  - **LeConte Lodge / Cliff Tops (5.5 mi)**: Summit plateau (6,593 ft) with sunset vistas.\n\n### Mount Cammerer Fire Tower Trail\n- **Distance**: 11.1 miles round trip (+3,045 ft elevation gain).\n- **Features**: Octagonal stone fire lookout tower built by the Civilian Conservation Corps (CCC) in 1937. Provides a 360-degree view of the Pigeon River Gorge and Snowbird Mountains.\n\n### Gregory Bald Trail (Azalea Bloom Peak)\n- **Distance**: 11.3 miles round trip (+3,020 ft gain).\n- **Features**: Famous 10-acre high mountain bald providing world-renowned flame azalea blooms in mid-to-late June.\n"}, {"id": "emergency_weather", "title": "High-Altitude Emergency Protocols, Radio Frequencies & Weather", "category": "Safety", "path": "texts/emergency_weather.html", "type": "GUIDE", "local": "backpacking_guide/texts/emergency_weather.txt", "content": "# High-Altitude Emergency Protocols, Radio Frequencies & Weather\n\n## 1. Temperature Lapse Rates & Wind Chill Hazards\n- **Environmental Lapse Rate**: Expect a temperature drop of **3.5\u00b0F to 5.5\u00b0F per 1,000 feet of elevation gain**.\n- **Valley vs. Summit Examples**:\n  - Gatlinburg (1,289 ft): 75\u00b0F sunny\n  - Clingmans Dome / Kuwohi (6,643 ft): 48\u00b0F with gusty winds and cloud fog.\n- **Wind Chill Risk**: Wind speeds exceeding 35 mph on exposed bluffs (Charlies Bunion, Rocky Top) can drop effective feel to sub-freezing even in early autumn.\n\n---\n\n## 2. Emergency Radio Frequencies & Communications\n- **NOAA Weather Radio Frequencies (Southern Appalachians)**:\n  - **162.550 MHz (WX1)**: Sevier County / East Tennessee transmitter.\n  - **162.400 MHz (WX2)**: Asheville / Western North Carolina transmitter.\n  - **162.475 MHz (WX3)**: Waynesville / Haywood County.\n- **GSMNP Park Dispatch (Emergency Only)**: (865) 436-1294.\n- **Cell Service Heatmap**: Cell signals hit reliably along open ridge gaps facing cities (Newfound Gap, Charlies Bunion, Mount Cammerer), but are completely dead in deep stream coves (Hazel Creek, Cataloochee, Greenbrier).\n\n---\n\n## 3. High-Altitude Lightning & Severe Weather Protocols\n- **Lightning Exposure Zones**: Silers Bald, Thunderhead Mountain, Charlies Bunion, Mount Cammerer tower.\n- **Protocol**: If thunder sounds, immediately descend at least 300 vertical feet off the ridge line into dense timber. Do NOT seek shelter under isolated trees or rock overhangs.\n"}, {"id": "bear_flora_guide", "title": "Black Bear Safety, Stream Crossings & Native Flora Manual", "category": "Flora/Fauna", "path": "texts/bear_flora_guide.html", "type": "GUIDE", "local": "backpacking_guide/texts/bear_flora_guide.txt", "content": "# Black Bear Safety, Stream Crossings & Native Flora Manual\n\n## 1. Black Bear Encounter & Cable Operations\n- **Mandatory Food Storage**: All food, trash, lip balm, toothpaste, and scented items MUST be elevated on park bear cables.\n- **Bear Cable Rigging**:\n  1. Attach dry bag to carabiner on cable wire.\n  2. Pull control cable to hoist bag 15+ feet off the ground.\n  3. Secure control cable loop around anchor post.\n- **Encounter Guidelines**:\n  - Never run. Running triggers predatory chase instinct.\n  - Stand tall, hold arms overhead, group together, speak firmly.\n  - If a bear approaches within 50 feet, yell loudly and throw rocks.\n\n---\n\n## 2. Edible vs. Toxic Flora Field Manual\n\n### Edible Plants\n- **Ramps (Wild Leeks - *Allium tricoccum*)**: Broad green leaves with garlic/onion aroma found in rich hardwood coves in spring.\n- **Wild Blackberries & Wineberries**: Ripe mid-summer along sunny trail gaps and former homestead clearings.\n- **Wood Sorrel (*Oxalis*)**: Three heart-shaped leaflets with sour lemony flavor.\n\n### Toxic & Dangerous Plants\n- **Poison Hemlock (*Conium maculatum*)**: Smooth hollow stem with distinctive purple spots. Highly fatal if ingested.\n- **Stinging Nettle (*Urtica dioica*)**: Serrated leaves covered in tiny silica stinging hairs. Causes severe burning sensation.\n- **White Snakeroot (*Ageratina altissima*)**: Contains tremetol toxin. Caused historic \"Milk Sickness\" in pioneers.\n"}, {"id": "firefly_ecotourism", "title": "Firefly Ecotourism Peak Windows & Wildlife Waypoints", "category": "Ecotourism", "path": "texts/firefly_ecotourism.html", "type": "GUIDE", "local": "backpacking_guide/texts/firefly_ecotourism.txt", "content": "# Firefly Ecotourism Peak Windows & Wildlife Waypoints\n\n## 1. Synchronous Fireflies (*Photinus carolinus*) - Elkmont\n- **Location**: Little River Trail & Jakes Creek Trail near Elkmont, GSMNP.\n- **Peak Window**: Late May to early June (2-week annual peak).\n- **Flashing Sequence**: Males emit 6-8 synchronous flashes in total unison, followed by 6-8 seconds of dark silence.\n- **Viewing Rules**: Red cellophane covers over all flashlights to protect insect mating displays.\n\n---\n\n## 2. Blue Ghost Fireflies (*Phausis reticulata*) - DuPont & Pisgah\n- **Location**: DuPont State Forest & Transylvania County hardwood coves.\n- **Peak Window**: Mid-May to early June.\n- **Flashing Behavior**: Emits a constant, ghostly blue-green light while hovering 1-2 feet above moist leaf litter.\n"}];
         const searchInput = document.getElementById('searchInput');
         const tabs = document.querySelectorAll('.tab');
         const cardGrid = document.getElementById('cardGrid');
-        const noResults = document.getElementById('noResults');
 
         let currentCategory = 'ALL';
         let searchQuery = '';
 
-        function setFontSize(size) {
-            document.documentElement.style.setProperty('--base-font-size', size);
-            localStorage.setItem('backpack_font_size', size);
-        }
-
-        const savedFontSize = localStorage.getItem('backpack_font_size');
-        if (savedFontSize) { setFontSize(savedFontSize); }
-
-        window.addEventListener('scroll', () => {
-            localStorage.setItem('backpack_scroll_pos', window.scrollY);
-        });
-
-        const savedScrollPos = localStorage.getItem('backpack_scroll_pos');
-        if (savedScrollPos) {
-            window.scrollTo({ top: parseInt(savedScrollPos), behavior: 'smooth' });
-        }
-
-        function getSnippet(content, query) {
-            if (!query || !content) return '';
-            const idx = content.toLowerCase().indexOf(query.toLowerCase());
-            if (idx === -1) return '';
-
-            const start = Math.max(0, idx - 40);
-            const end = Math.min(content.length, idx + query.length + 60);
-            let snippet = content.substring(start, end);
-
-            const regex = new RegExp(`(${query})`, 'gi');
-            snippet = snippet.replace(regex, '<mark>$1</mark>');
-
-            return (start > 0 ? '...' : '') + snippet + (end < content.length ? '...' : '');
-        }
-
         function renderArticles() {
             cardGrid.innerHTML = '';
-            let visibleCount = 0;
-
             articles.forEach(item => {
                 const matchesCategory = (currentCategory === 'ALL' || item.category === currentCategory);
-                let matchesSearch = false;
-                let snippetHTML = '';
-
-                if (!searchQuery) {
-                    matchesSearch = true;
-                } else {
-                    const titleMatch = item.title.toLowerCase().includes(searchQuery);
-                    let bodyMatch = false;
-
-                    if (item.content) {
-                        const snippetText = getSnippet(item.content, searchQuery);
-                        if (snippetText) {
-                            bodyMatch = true;
-                            snippetHTML = `<div class="snippet">${snippetText}</div>`;
-                        }
-                    }
-
-                    matchesSearch = titleMatch || bodyMatch;
-                }
+                let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.content && item.content.toLowerCase().includes(searchQuery));
 
                 if (matchesSearch && matchesCategory) {
-                    visibleCount++;
-                    const card = document.createElement('div');
+                    const card = document.createElement('a');
                     card.className = 'card';
+                    card.href = item.path;
                     card.innerHTML = `
                         <div>
                             <div class="card-title">${item.title}</div>
-                            ${snippetHTML}
-                            <div style="margin-top: 0.75rem;">
-                                <a href="${item.path}" style="color: var(--primary-color); font-weight: 700; font-size: 0.9rem; text-decoration: none;">📋 Read Field Guide →</a>
+                            <div style="margin-top: 0.75rem; color: var(--accent); font-weight: 700; font-size: 0.9rem;">
+                                📋 Read Field Manual →
                             </div>
                         </div>
                         <div class="card-meta">
@@ -356,21 +180,9 @@
                     cardGrid.appendChild(card);
                 }
             });
-
-            if (visibleCount === 0) {
-                const noRes = document.createElement('div');
-                noRes.className = 'no-results';
-                noRes.style.display = 'block';
-                noRes.textContent = 'No matching guides found.';
-                cardGrid.appendChild(noRes);
-            }
         }
 
-        searchInput.addEventListener('input', (e) => {
-            searchQuery = e.target.value.toLowerCase().trim();
-            renderArticles();
-        });
-
+        searchInput.addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase().trim(); renderArticles(); });
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
@@ -379,7 +191,6 @@
                 renderArticles();
             });
         });
-
         renderArticles();
     </script>
 </body>

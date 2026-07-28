@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Comprehensive Appalachian Trail & Regional Trail Profiles</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #22c55e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --font-size: 16px;
+        }
+        html { font-size: var(--font-size); scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+        .header {
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--accent);
+            padding: 1.25rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 { font-size: 1.2rem; margin: 0; color: var(--accent); }
+        .meta { color: var(--text-muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .text-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+        }
+        .btn-bar { display: flex; gap: 0.4rem; align-items: center; }
+        .btn {
+            background: #334155;
+            color: white;
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.65rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .btn:hover { background: var(--accent); color: #0f172a; }
+        a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-inner">
+            <div>
+                <div class="meta">Category: Trails</div>
+                <h1>Comprehensive Appalachian Trail & Regional Trail Profiles</h1>
+            </div>
+            <div class="btn-bar">
+                <button class="btn" onclick="setFontSize('14px')">S</button>
+                <button class="btn" onclick="setFontSize('16px')">M</button>
+                <button class="btn" onclick="setFontSize('18px')">L</button>
+                <a href="../index.html" style="margin-left: 1rem;">← Back to Index</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="text-box" id="textContent">Loading field manual...</div>
+    </div>
+
+    <script>
+        function setFontSize(size) {
+            document.documentElement.style.setProperty('--font-size', size);
+            localStorage.setItem('field_doc_font_size', size);
+        }
+        const savedSize = localStorage.getItem('field_doc_font_size');
+        if (savedSize) setFontSize(savedSize);
+
+        fetch('trail_profiles.txt')
+            .then(res => res.text())
+            .then(text => { document.getElementById('textContent').textContent = text; })
+            .catch(err => { document.getElementById('textContent').textContent = "Comprehensive Appalachian Trail & Regional Trail Profiles"; });
+    </script>
+</body>
+</html>

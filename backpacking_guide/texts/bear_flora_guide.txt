@@ -1,19 +1,26 @@
-# Black Bear Safety & Native Flora Field Manual
+# Black Bear Safety, Stream Crossings & Native Flora Manual
 
-## Black Bear Encounter & Cable Protocols
-- **Food Storage**: All food, trash, toothpaste, and scented items MUST be hung on park-provided bear cable systems at every backcountry campsite and shelter.
-- **Cable Operation**: Clip dry bag to carabiner -> Hoist cable to top pulley -> Secure loop on anchor post.
+## 1. Black Bear Encounter & Cable Operations
+- **Mandatory Food Storage**: All food, trash, lip balm, toothpaste, and scented items MUST be elevated on park bear cables.
+- **Bear Cable Rigging**:
+  1. Attach dry bag to carabiner on cable wire.
+  2. Pull control cable to hoist bag 15+ feet off the ground.
+  3. Secure control cable loop around anchor post.
 - **Encounter Guidelines**:
-  - Do NOT run.
-  - Stand tall, raise arms, speak in a loud, firm voice.
-  - Back away slowly.
-  - If a bear approaches aggressively, make loud noises and throw objects.
+  - Never run. Running triggers predatory chase instinct.
+  - Stand tall, hold arms overhead, group together, speak firmly.
+  - If a bear approaches within 50 feet, yell loudly and throw rocks.
 
-## Native Flora: Edible vs Toxic Species
-- **Edible**:
-  - **Ramps (Wild Leeks)**: Broad green leaves with onion/garlic aroma in rich hardwood coves.
-  - **Blackberries & Wineberries**: Ripe in mid-to-late summer along sunny trail gaps.
-- **Toxic / Dangerous**:
-  - **Poison Hemlock**: Smooth green stem with purple spots. Extremely toxic.
-  - **Stinging Nettle**: Serrated leaves with fine stinging hairs along lower moist trails.
-  - **Poison Ivy**: "Leaves of three, let it be." Abundant in lower elevation river coves.
+---
+
+## 2. Edible vs. Toxic Flora Field Manual
+
+### Edible Plants
+- **Ramps (Wild Leeks - *Allium tricoccum*)**: Broad green leaves with garlic/onion aroma found in rich hardwood coves in spring.
+- **Wild Blackberries & Wineberries**: Ripe mid-summer along sunny trail gaps and former homestead clearings.
+- **Wood Sorrel (*Oxalis*)**: Three heart-shaped leaflets with sour lemony flavor.
+
+### Toxic & Dangerous Plants
+- **Poison Hemlock (*Conium maculatum*)**: Smooth hollow stem with distinctive purple spots. Highly fatal if ingested.
+- **Stinging Nettle (*Urtica dioica*)**: Serrated leaves covered in tiny silica stinging hairs. Causes severe burning sensation.
+- **White Snakeroot (*Ageratina altissima*)**: Contains tremetol toxin. Caused historic "Milk Sickness" in pioneers.

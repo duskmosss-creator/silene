@@ -1,22 +1,35 @@
-# Appalachian Trail & Regional Segment Elevation Profiles
+# Comprehensive Appalachian Trail & Regional Trail Profiles
 
-## 1. Appalachian Trail (GSMNP Section: 71 Miles)
-- **Fontana Dam to Davenport Gap**
-- Total Elevation Gain: ~18,000 ft ascent / ~17,000 ft descent.
-- Highest Point: Kuwohi / Clingmans Dome (6,643 ft).
-- Key Segment Distances:
-  - Fontana Dam to Spence Field Shelter: 16.4 miles (+4,100 ft)
-  - Spence Field to Silers Bald Shelter: 14.1 miles
-  - Silers Bald to Clingmans Dome: 4.8 miles (+1,700 ft)
-  - Clingmans Dome to Newfound Gap: 7.9 miles (-1,600 ft)
-  - Newfound Gap to Icewater Spring: 3.0 miles (+900 ft)
-  - Icewater Spring to Tri-Corner Knob: 12.7 miles
-  - Tri-Corner Knob to Davenport Gap: 12.1 miles (-3,900 ft)
+## 1. AT GSMNP Crest Traverse (71.4 Total Miles)
 
-## 2. Alum Cave & Boulevard Trails to Mt. LeConte
-- **Alum Cave Trail**: 5.5 miles one way (+2,760 ft gain). Features Arch Rock, Inspiration Point, Alum Cave Bluff.
-- **The Boulevard Trail**: 5.4 miles one way from AT junction (+1,500 ft aggregate gain along crest).
+### Waypoint & Elevation Breakdown
+| Trail Segment | Distance (mi) | Elev Gain / Loss | Key Waypoints & Features |
+| :--- | :--- | :--- | :--- |
+| **Fontana Dam to Mollies Ridge** | 12.1 mi | +3,400 ft / -600 ft | Shuckstack Fire Tower (4,020 ft), Ekaneetlee Gap |
+| **Mollies Ridge to Spence Field** | 8.9 mi | +1,800 ft / -1,460 ft | Rocky Top (5,447 ft), Thunderhead Mountain |
+| **Spence Field to Silers Bald** | 13.5 mi | +2,100 ft / -1,580 ft | Bote Mountain Junction, Derrick Knob Shelter |
+| **Silers Bald to Clingmans Dome** | 4.8 mi | +1,223 ft / -180 ft | Kuwohi / Clingmans Dome Summit (6,643 ft) |
+| **Clingmans Dome to Newfound Gap** | 7.9 mi | -1,600 ft / +400 ft | Mount Collins Junction, Road Prong Trailhead |
+| **Newfound Gap to Icewater Spring**| 3.0 mi | +900 ft / -100 ft | Sweat Heifer Trail Junction, Boulevard Trail Head |
+| **Icewater Spring to Tri-Corner** | 15.6 mi | +2,400 ft / -2,380 ft | Charlies Bunion (5,375 ft), Sawtooth Ridges |
+| **Tri-Corner to Davenport Gap** | 15.2 mi | -3,400 ft / +800 ft | Mount Cammerer Spur, Big Creek Crossing |
 
-## 3. DuPont State Forest Trail Network
-- **Triple Falls to High Falls Loop**: 2.2 miles, gentle 350 ft elevation gain.
-- **Bridal Veil Falls Trail**: 4.4 miles round trip, 400 ft gain.
+---
+
+## 2. Signature Day & Multi-Day Trails
+
+### Alum Cave Trail to Mount LeConte
+- **Distance**: 11.0 miles round trip (+2,760 ft elevation gain).
+- **Waypoints**:
+  - **Arch Rock (1.4 mi)**: Natural stone arch carved by freezing and thawing.
+  - **Inspiration Point (2.0 mi)**: Panoramic vista of Duckhawk Ridge and Myrtle Point.
+  - **Alum Cave Bluff (2.3 mi)**: 80-foot high concave cliff face with mineral deposits.
+  - **LeConte Lodge / Cliff Tops (5.5 mi)**: Summit plateau (6,593 ft) with sunset vistas.
+
+### Mount Cammerer Fire Tower Trail
+- **Distance**: 11.1 miles round trip (+3,045 ft elevation gain).
+- **Features**: Octagonal stone fire lookout tower built by the Civilian Conservation Corps (CCC) in 1937. Provides a 360-degree view of the Pigeon River Gorge and Snowbird Mountains.
+
+### Gregory Bald Trail (Azalea Bloom Peak)
+- **Distance**: 11.3 miles round trip (+3,020 ft gain).
+- **Features**: Famous 10-acre high mountain bald providing world-renowned flame azalea blooms in mid-to-late June.

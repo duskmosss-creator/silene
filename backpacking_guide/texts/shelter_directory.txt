@@ -1,24 +1,90 @@
-# GSMNP Backcountry Shelter & Campsite Directory
+# Exhaustive GSMNP Backcountry Shelter & Campsite Directory
 
-## Key AT Shelters & Water Source Reliability
-1. **Icewater Spring Shelter** (Elevation: 5,920 ft)
-   - Capacity: 12 hikers.
-   - Bear Cables: Yes (Mandatory food hanging).
-   - Water Source: Pipe spring 100 ft south of shelter. Extremely reliable year-round.
-2. **Mount LeConte Shelter** (Elevation: 6,400 ft)
-   - Capacity: 12 hikers (Permit required).
-   - Bear Cables: Yes.
-   - Water Source: Spring near lodge trail junction. Can slow to a drip in late October.
-3. **Spence Field Shelter** (Elevation: 4,900 ft)
-   - Capacity: 12 hikers.
-   - Bear Cables: Yes.
-   - Water Source: Spring down trail 0.1 miles. Reliable spring and summer; moderate autumn flow.
-4. **Mollies Ridge Shelter** (Elevation: 4,560 ft)
-   - Capacity: 12 hikers.
-   - Bear Cables: Yes.
-   - Water Source: Spring 0.2 miles down blue-blazed side trail.
+## 1. Appalachian Trail Backcountry Shelters (South to North)
 
-## Backcountry Campsites (Cades Cove & Little River Region)
-- **Campsite 18 (West Prong)**: Easy 2.1 mile hike in. Good water source from Little River.
-- **Campsite 24 (Rough Fork)**: Deep forest site along Cataloochee area.
-- **Campsite 30 (Three Forks)**: High elevation stream access near Hazel Creek.
+### Fontana Hilton / Fontana Dam Shelter (Elevation: 1,720 ft)
+- **AT Mile**: 165.2 (From Springer Mountain)
+- **Capacity**: 24 Hikers (Multi-level wooden structure)
+- **Water Source**: Solar-powered water spigot & fountain nearby.
+- **Amenities**: Solar cell phone charging station, hot showers at nearby Fontana marina, privy, bear cables.
+- **Notes**: Premier starting point for northbound GSMNP AT thru-hikes. Permit registration kiosk located at Fontana Dam.
+
+### Mollies Ridge Shelter (Elevation: 4,560 ft)
+- **AT Mile**: 177.3
+- **Capacity**: 12 Hikers
+- **Water Source**: Spring located 0.2 miles down blue-blazed side trail to the west. Moderate autumn flow.
+- **Bear Cables**: Mandatory bear cable system present.
+- **Notes**: High ridge position between Doe Knob and Ekaneetlee Gap.
+
+### Russell Field Shelter (Elevation: 4,340 ft)
+- **AT Mile**: 183.3
+- **Capacity**: 12 Hikers
+- **Water Source**: Reliable spring 150 yards down side trail.
+- **Bear Cables**: Yes.
+- **Notes**: Popular stopover before climbing Thunderhead Mountain. Nearby grassy field provides birdwatching opportunities.
+
+### Spence Field Shelter (Elevation: 4,900 ft)
+- **AT Mile**: 186.2
+- **Capacity**: 12 Hikers
+- **Water Source**: Pipe spring 0.1 miles down south side trail. High reliability year-round.
+- **Bear Cables**: Yes.
+- **Notes**: Located near junction with Bote Mountain Trail. High exposure to gusty winds across Spence Field bald.
+
+### Silers Bald Shelter (Elevation: 5,420 ft)
+- **AT Mile**: 199.7
+- **Capacity**: 12 Hikers
+- **Water Source**: Spring located 0.1 miles down steep north side trail.
+- **Bear Cables**: Yes.
+- **Notes**: High altitude site. Cold temperatures persist into late spring. Close to Silers Bald summit (5,607 ft).
+
+### Mount Collins Shelter (Elevation: 5,900 ft)
+- **AT Mile**: 209.4
+- **Capacity**: 12 Hikers
+- **Water Source**: Spring 0.2 miles down Sugarland Mountain Trail junction.
+- **Bear Cables**: Yes.
+- **Notes**: Dense spruce-fir forest setting. Located 4 miles east of Kuwohi / Clingmans Dome.
+
+### Icewater Spring Shelter (Elevation: 5,920 ft)
+- **AT Mile**: 216.7
+- **Capacity**: 12 Hikers
+- **Water Source**: Famous pipe spring flowing directly out of rock wall 100 ft south of shelter. Extremely reliable year-round.
+- **Bear Cables**: Yes. Includes composting privy.
+- **Notes**: Most popular shelter in the park. High-volume ridge views of the Oconaluftee valley.
+
+### Peck Corner Shelter (Elevation: 5,300 ft)
+- **AT Mile**: 227.1
+- **Capacity**: 12 Hikers
+- **Water Source**: Spring 0.1 miles down side trail.
+- **Bear Cables**: Yes.
+- **Notes**: Located 0.4 miles off the AT along Peck Corner side trail. Quieter than Icewater Spring.
+
+### Tri-Corner Knob Shelter (Elevation: 5,940 ft)
+- **AT Mile**: 232.3
+- **Capacity**: 12 Hikers
+- **Water Source**: Spring 75 yards in front of shelter.
+- **Bear Cables**: Yes.
+- **Notes**: Most remote shelter in GSMNP. Junction point of Mount Sterling Ridge and main AT crest.
+
+### Cosby Knob Shelter (Elevation: 4,770 ft)
+- **AT Mile**: 239.8
+- **Capacity**: 12 Hikers
+- **Water Source**: Excellent high-volume spring 50 ft from shelter entrance.
+- **Bear Cables**: Yes.
+- **Notes**: Located at base of Mount Cammerer spur trail.
+
+### Davenport Gap Shelter (Elevation: 2,600 ft)
+- **AT Mile**: 247.5
+- **Capacity**: 12 Hikers
+- **Water Source**: Stream 100 yards south.
+- **Bear Cables**: Yes. Features chain-link bear fence enclosure.
+- **Notes**: Final AT shelter inside GSMNP boundary before crossing Big Creek into North Carolina.
+
+---
+
+## 2. Key Backcountry Campsites
+
+- **Campsite 18 (West Prong)**: 2.1 miles from Laurel Falls trailhead. Stream water from West Prong of Little River.
+- **Campsite 24 (Rough Fork - Cataloochee)**: Deep hemlock grove near historic Cataloochee Valley elk habitats.
+- **Campsite 30 (Three Forks - Hazel Creek)**: Remote wilderness site requiring multi-day hike or boat shuttle across Fontana Lake.
+- **Campsite 37 (Big Creek)**: Located along Big Creek trail. Features massive boulders and deep swimming holes.
+- **Campsite 71 (Noland Creek)**: Spacious hardwood cove site near historic Noland estate ruins.

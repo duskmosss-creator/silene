@@ -1,15 +1,24 @@
-# High-Altitude Emergency & Weather Protocols
+# High-Altitude Emergency Protocols, Radio Frequencies & Weather
 
-## Temperature & Altitude Calculations
-- **Lapse Rate**: Expect a **3.5°F to 5.5°F drop in temperature per 1,000 feet of elevation gain**.
-- **Clingmans Dome vs. Gatlinburg**: Clingmans Dome (6,643 ft) is routinely 15°F to 22°F colder than Gatlinburg (1,289 ft). High winds on ridges produce severe wind chill.
-- **Hypothermia Warning**: Wet clothing combined with 45°F temperatures and wind is the #1 cause of backcountry hypothermia in spring and fall.
+## 1. Temperature Lapse Rates & Wind Chill Hazards
+- **Environmental Lapse Rate**: Expect a temperature drop of **3.5°F to 5.5°F per 1,000 feet of elevation gain**.
+- **Valley vs. Summit Examples**:
+  - Gatlinburg (1,289 ft): 75°F sunny
+  - Clingmans Dome / Kuwohi (6,643 ft): 48°F with gusty winds and cloud fog.
+- **Wind Chill Risk**: Wind speeds exceeding 35 mph on exposed bluffs (Charlies Bunion, Rocky Top) can drop effective feel to sub-freezing even in early autumn.
 
-## Emergency Contacts & Offline Radio Frequencies
-- **GSMNP Emergency Dispatch**: (865) 436-1294 (Cell service unreliable on trails; SMS sometimes transmits on ridges).
+---
+
+## 2. Emergency Radio Frequencies & Communications
 - **NOAA Weather Radio Frequencies (Southern Appalachians)**:
-  - 162.550 MHz (WX1 - Knoxville/Sevier County)
-  - 162.400 MHz (WX2 - Asheville/WNC)
-- **Ranger Stations**:
-  - Sugarlands Visitor Center / Backcountry Office: (865) 436-1297
-  - Oconaluftee Visitor Center: (828) 497-1904
+  - **162.550 MHz (WX1)**: Sevier County / East Tennessee transmitter.
+  - **162.400 MHz (WX2)**: Asheville / Western North Carolina transmitter.
+  - **162.475 MHz (WX3)**: Waynesville / Haywood County.
+- **GSMNP Park Dispatch (Emergency Only)**: (865) 436-1294.
+- **Cell Service Heatmap**: Cell signals hit reliably along open ridge gaps facing cities (Newfound Gap, Charlies Bunion, Mount Cammerer), but are completely dead in deep stream coves (Hazel Creek, Cataloochee, Greenbrier).
+
+---
+
+## 3. High-Altitude Lightning & Severe Weather Protocols
+- **Lightning Exposure Zones**: Silers Bald, Thunderhead Mountain, Charlies Bunion, Mount Cammerer tower.
+- **Protocol**: If thunder sounds, immediately descend at least 300 vertical feet off the ridge line into dense timber. Do NOT seek shelter under isolated trees or rock overhangs.
