@@ -30,6 +30,8 @@ class ZimItem(Item):
     def get_hints(self):
         return {Hint.FRONT_ARTICLE: True} if self.path == "C/index.html" else {}
 
+from datetime import datetime
+
 b_dir = "backpacking_guide"
 zim_filename = os.path.join("zim_downloads", "GSMNP_Backpacking_Field_Guide.zim")
 
@@ -40,7 +42,7 @@ with Creator(zim_filename) as creator:
     creator.add_metadata("Publisher", "Hickory Search")
     creator.add_metadata("Description", "GSMNP & DuPont Backpacking Field Manual for iOS and Kiwix")
     creator.add_metadata("Name", "gsmnp_backpacking_field_guide")
-    creator.add_metadata("Date", "2023-10-26")
+    creator.add_metadata("Date", datetime.now().strftime("%Y-%m-%d"))
     
     favicon_b64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAA8Bw1AAAEVv+wMAAAAAElFTkSuQmCC"
     favicon_bytes = base64.b64decode(favicon_b64)

@@ -30,6 +30,8 @@ class ZimItem(Item):
     def get_hints(self):
         return {Hint.FRONT_ARTICLE: True} if self.path == "C/index.html" else {}
 
+from datetime import datetime
+
 reg_dir = "regional_collection"
 zim_filename = os.path.join("zim_downloads", "Southern_Appalachian_Regional_Master.zim")
 
@@ -40,7 +42,7 @@ with Creator(zim_filename) as creator:
     creator.add_metadata("Publisher", "Hickory Search")
     creator.add_metadata("Description", "Southern Appalachian Regional Master Archive for iOS and Kiwix")
     creator.add_metadata("Name", "southern_appalachian_regional_master")
-    creator.add_metadata("Date", "2023-10-26")
+    creator.add_metadata("Date", datetime.now().strftime("%Y-%m-%d"))
     
     favicon_b64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAA8Bw1AAAEVv+wMAAAAAElFTkSuQmCC"
     favicon_bytes = base64.b64decode(favicon_b64)
