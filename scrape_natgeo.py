@@ -190,7 +190,7 @@ for item in real_natgeo_volumes:
     </div>
     
     <div class="container">
-        {f'<div class="cover-box"><img src="../{cover_img_path}" alt="NatGeo Cover"></div>' if has_cover else ''}
+        {f'<div class="cover-box"><img src="../{cover_img_path}" alt="NatGeo Cover" loading="lazy" decoding="async"></div>' if has_cover else ''}
         {f'<div style="text-align:center; margin-bottom: 1.5rem;"><a href="../pdfs/{aid}.html" style="background:#fbbf24; color:#0f172a; padding:0.6rem 1.2rem; border-radius:8px; font-weight:700;">📄 View Full Multi-Megabyte NatGeo PDF →</a></div>' if has_pdf else ''}
         <div class="text-box" id="textContent">Loading magazine text...</div>
     </div>
@@ -241,7 +241,7 @@ for item in real_natgeo_volumes:
         }}
         .header {{
             background: var(--card-bg);
-            padding: 1rem 1.5rem;
+            padding: 0.4rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -291,7 +291,6 @@ for item in real_natgeo_volumes:
             <a href="../index.html">← Back to NatGeo Index</a>
         </div>
         <div>
-            <span class="page-info" id="statusText">Rendering NatGeo Magazine...</span>
         </div>
     </div>
     
@@ -308,7 +307,7 @@ for item in real_natgeo_volumes:
         const statusText = document.getElementById('statusText');
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {{
-            statusText.textContent = 'NatGeo Pages: ' + pdfDoc.numPages + ' (Zero Distortion Vertical Scroll)';
+            if (statusText) statusText.textContent = '';
             container.innerHTML = '';
 
             for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {{
@@ -543,11 +542,9 @@ html_content = f"""<!DOCTYPE html>
 
                     card.innerHTML = `
                         <div>
-                            <img src="${{item.cover}}" class="card-cover" alt="NatGeo Cover">
+                            <img data-cover-src="${{item.cover}}" class="card-cover" alt="NatGeo Cover" loading="lazy" decoding="async">
                             <div class="card-title">${{item.title}}</div>
-                            <div style="margin-top: 0.75rem; color: var(--accent); font-weight: 700; font-size: 0.9rem;">
-                                ${{linkText}}
-                            </div>
+                            <div style="margin-top: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.85rem;">${{linkText}}</div>
                         </div>
                         <div class="card-meta">
                             <span>Category: ${{item.category}}</span>
@@ -555,6 +552,7 @@ html_content = f"""<!DOCTYPE html>
                         </div>
                     `;
                     cardGrid.appendChild(card);
+                    card.querySelectorAll('img[data-cover-src]').forEach(img => {{ img.src = img.getAttribute('data-cover-src'); img.removeAttribute('data-cover-src'); }});
                 }}
             }});
         }}

@@ -19,6 +19,7 @@ import re
 import json
 import urllib.request
 import urllib.parse
+import concurrent.futures
 from bs4 import BeautifulSoup
 from libzim.reader import Archive
 
@@ -26,27 +27,35 @@ from libzim.reader import Archive
 ZIM_DIR = os.environ.get("ZIM_DIR", "zim_downloads")
 API_BASE = os.environ.get("API_BASE", "http://127.0.0.1:8000/v1")
 MODEL_NAME = os.environ.get("MODEL_NAME", "lemonade-local")
-MAX_SEARCH_STEPS = 50
+MAX_SEARCH_STEPS = 10
 CHUNK_SIZE = 1200
 
 CURRENT_ARTICLE_CACHE = {}
 ZIM_ARCHIVES = {}
 
+def _load_single_zim(zfile):
+    try:
+        name = os.path.basename(zfile)
+        archive = Archive(zfile)
+        print(f"     [OK] Loaded archive: {name}")
+        return name, archive
+    except Exception as e:
+        print(f"     [ERR] Could not load {os.path.basename(zfile)}: {e}")
+        return None, None
+
 def load_all_zim_archives(zim_dir=ZIM_DIR):
-    """Discovers and opens all .zim files in the specified directory."""
+    """Discovers and opens all .zim files in the specified directory using multi-threading."""
     global ZIM_ARCHIVES
     ZIM_ARCHIVES.clear()
     
     zim_files = glob.glob(os.path.join(zim_dir, "*.zim"))
     print(f"\n   [MultiZIM] Discovered {len(zim_files)} .zim archives in '{zim_dir}'")
     
-    for zfile in zim_files:
-        try:
-            name = os.path.basename(zfile)
-            ZIM_ARCHIVES[name] = Archive(zfile)
-            print(f"     [OK] Loaded archive: {name}")
-        except Exception as e:
-            print(f"     [ERR] Could not load {os.path.basename(zfile)}: {e}")
+    with concurrent.futures.ThreadPoolExecutor(max_workers=min(32, len(zim_files) or 1)) as executor:
+        results = executor.map(_load_single_zim, zim_files)
+        for name, archive in results:
+            if name and archive:
+                ZIM_ARCHIVES[name] = archive
             
     print("   " + "-" * 60)
     return ZIM_ARCHIVES
@@ -117,10 +126,9 @@ def search_multi_zim_tool(query):
 
     hits = []
     
-    # Search across all loaded ZIM archives
-    for zim_name, archive in ZIM_ARCHIVES.items():
+    def _search_single_archive(zim_item):
+        zim_name, archive = zim_item
         try:
-            # 1. Check index.html or mainPage entry
             entry = None
             for candidate in ['index.html', 'mainPage', clean_query, f"A/{clean_query}"]:
                 if archive.has_entry_by_path(candidate):
@@ -133,57 +141,53 @@ def search_multi_zim_tool(query):
             item = entry.get_item()
             raw_bytes = bytes(item.content)
             
-            # Clean HTML to plain text using BeautifulSoup
             soup = BeautifulSoup(raw_bytes, "html.parser")
             for tag in soup(["script", "style", "table", "footer", "nav", "div.references"]):
                 tag.decompose()
             text = soup.get_text(separator=' ', strip=True)
             text = re.sub(r'\s+', ' ', text).strip()
             
-            # Check if query matches text or title
             title = entry.title if entry.title else entry.path
             if clean_query in text.lower() or clean_query in title.lower():
-                hits.append({
-                    'zim': zim_name,
-                    'title': title,
-                    'text': text
-                })
+                return {'zim': zim_name, 'title': title, 'text': text}
         except Exception:
             pass
+        return None
+
+    # Search across all loaded ZIM archives in parallel
+    with concurrent.futures.ThreadPoolExecutor(max_workers=min(32, len(ZIM_ARCHIVES) or 1)) as executor:
+        results = executor.map(_search_single_archive, ZIM_ARCHIVES.items())
+        for res in results:
+            if res:
+                hits.append(res)
 
     if not hits:
         return f"SYSTEM NOTICE: No entries found matching '{query}' across {len(ZIM_ARCHIVES)} ZIM archives. Try broader keywords."
 
-    # Top matching source
-    top_hit = hits[0]
-    full_text = top_hit['text']
-    title = top_hit['title']
-    zim_name = top_hit['zim']
+    combined_text = ""
+    for hit in hits:
+        combined_text += f"SOURCE ARCHIVE: [{hit['zim']}] | TITLE: {hit['title']}\n{hit['text']}\n\n"
     
-    print(f"   [V] Verified Match [{zim_name}]: {title} ({len(hits)} total hits across archives)")
+    print(f"   [V] Verified Match ({len(hits)} total hits across archives)")
     
     # Pagination
     global CURRENT_ARTICLE_CACHE
-    if len(full_text) > CHUNK_SIZE:
+    if len(combined_text) > CHUNK_SIZE:
         CURRENT_ARTICLE_CACHE = {
-            'full_text': full_text,
+            'full_text': combined_text,
             'current_index': CHUNK_SIZE,
-            'title': title,
-            'zim': zim_name
+            'title': "Multiple Sources",
+            'zim': "Multiple Archives"
         }
         return (
-            f"SOURCE ARCHIVE: [{zim_name}]\n"
-            f"ARTICLE TITLE: {title} (Part 1)\n\n"
-            f"CONTENT:\n{full_text[:CHUNK_SIZE]}\n\n"
-            f"[SYSTEM NOTICE: Article is long ({len(full_text)} chars). Output truncated. "
+            f"CONTENT:\n{combined_text[:CHUNK_SIZE]}\n\n"
+            f"[SYSTEM NOTICE: Content is long ({len(combined_text)} chars). Output truncated. "
             f"To read the next section, issue tool command: CONTINUE]"
         )
     else:
         CURRENT_ARTICLE_CACHE = {}
         return (
-            f"SOURCE ARCHIVE: [{zim_name}]\n"
-            f"ARTICLE TITLE: {title}\n\n"
-            f"CONTENT:\n{full_text}"
+            f"CONTENT:\n{combined_text}"
         )
 
 def continue_reading_tool():
@@ -326,12 +330,13 @@ def run_agent_loop(query):
     print("=" * 65)
 
 def main():
-    print("""
-  ===============================================================
-   HICKORY SEARCH: MULTI-ZIM AUTONOMOUS WIKI AGENT
-   100% On-Device | Multi-ZIM RAG | Lemonade / LMStudio Integration
-  ===============================================================
-    """)
+    print("""===============================================================
+ HICKORY MULTI-ZIM WIKI AGENT
+ Full System Logging | Multi-ZIM Search | Lemonade / LMStudio
+===============================================================
+
+Starting Multi-ZIM Wiki Agent...
+(Press Ctrl+C at any time to quit)""")
     
     target_dir = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith("--") else ZIM_DIR
     load_all_zim_archives(target_dir)

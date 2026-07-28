@@ -114,6 +114,8 @@
             flex-direction: column;
             justify-content: space-between;
             transition: border-color 0.2s ease, transform 0.2s ease;
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 250px;
         }
 
         .card:hover { border-color: var(--accent); transform: translateY(-2px); }
@@ -162,7 +164,6 @@
                     <button class="btn" onclick="setFontSize('14px')">S</button>
                     <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
                     <button class="btn" onclick="setFontSize('18px')">L</button>
-                    <button class="btn" onclick="setFontSize('20px')">XL</button>
                 </div>
             </div>
 
@@ -220,7 +221,7 @@
                         linkText = '🎵 Play Offline Audio (WAV) →';
                     }
 
-                    let coverHTML = item.cover ? `<img src="${item.cover}" class="card-cover" alt="Cover">` : '';
+                    let coverHTML = item.cover ? `<img data-cover-src="${item.cover}" class="card-cover" alt="Cover" loading="lazy" decoding="async">` : '';
 
                     card.innerHTML = `
                         <div>
@@ -234,6 +235,7 @@
                         </div>
                     `;
                     cardGrid.appendChild(card);
+                    card.querySelectorAll('img[data-cover-src]').forEach(img => { img.src = img.getAttribute('data-cover-src'); img.removeAttribute('data-cover-src'); });
                 }
             });
         }

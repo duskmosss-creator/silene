@@ -1,0 +1,23 @@
+﻿  [OK]     pdfs/nationalgeograph11889nati.pdf  (28143 KB)
+  [OK]     pdfs/nationalgeograph37natiuoft.pdf  (56554 KB)
+  [OK]     pdfs/194701to12.pdf  (27805 KB)
+  [OK]     pdfs/194905.pdf  (12349 KB)
+  [OK]     pdfs/195011.pdf  (12781 KB)
+  [OK]     pdfs/195105.pdf  (13249 KB)
+  [OK]     pdfs/195204.pdf  (13490 KB)
+  [OK]     pdfs/195304.pdf  (13694 KB)
+  [MISSING] pdfs/jishankhan_hotmail_1954.pdf
+  [MISSING] pdfs/sim_national-geographic_1969-12_136_6.pdf
+  [MISSING] pdfs/national-geographic-1972-10.pdf
+  [MISSING] pdfs/sim_national-geographic_1985-06_167_6.pdf
+  [MISSING] pdfs/sim_national-geographic_1985-12_168_6.pdf
+  [MISSING] pdfs/national-geographic-1988-07.pdf
+  [MISSING] pdfs/national-geographic-1996-09.pdf
+  [MISSING] pdfs/sim_national-geographic_1999-12_196_6.pdf
+  [MISSING] pdfs/national-geographic-2006-08.pdf
+  [MISSING] pdfs/sim_national-geographic_2016-05_229_5.pdf
+  [MISSING] pdfs/sim_national-geographic_2020-04_237_4.pdf
+  [MISSING] pdfs/sim_national-geographic_2023-01_243_1.pdf
+  [MISSING] pdfs/national-geographic-2024-01.pdf
+
+Total: 8 present, 13 missing

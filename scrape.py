@@ -253,7 +253,7 @@ for aid, (title, category) in archive_ids.items():
         }}
         .header {{
             background: var(--card-bg);
-            padding: 1rem 1.5rem;
+            padding: 0.4rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -303,7 +303,6 @@ for aid, (title, category) in archive_ids.items():
             <a href="../index.html">← Back to Archive Index</a>
         </div>
         <div>
-            <span class="page-info" id="statusText">Rendering Document...</span>
         </div>
     </div>
     
@@ -320,7 +319,7 @@ for aid, (title, category) in archive_ids.items():
         const statusText = document.getElementById('statusText');
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {{
-            statusText.textContent = 'Document Pages: ' + pdfDoc.numPages + ' (Zero Distortion Vertical Scroll)';
+            if (statusText) statusText.textContent = '';
             container.innerHTML = '';
 
             // Render all pages in natural exact aspect ratio (Zero Distortion)
@@ -568,6 +567,8 @@ html_content = f"""<!DOCTYPE html>
             flex-direction: column;
             justify-content: space-between;
             transition: border-color 0.2s ease, transform 0.2s ease;
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 250px;
         }}
 
         .card:hover {{ border-color: var(--accent); transform: translateY(-2px); }}
@@ -673,7 +674,7 @@ html_content = f"""<!DOCTYPE html>
                         linkText = '🎵 Play Offline Audio (WAV) →';
                     }}
 
-                    let coverHTML = item.cover ? `<img src="${{item.cover}}" class="card-cover" alt="Cover">` : '';
+                    let coverHTML = item.cover ? `<img data-cover-src="${{item.cover}}" class="card-cover" alt="Cover" loading="lazy" decoding="async">` : '';
 
                     card.innerHTML = `
                         <div>
@@ -687,6 +688,7 @@ html_content = f"""<!DOCTYPE html>
                         </div>
                     `;
                     cardGrid.appendChild(card);
+                    card.querySelectorAll('img[data-cover-src]').forEach(img => {{ img.src = img.getAttribute('data-cover-src'); img.removeAttribute('data-cover-src'); }});
                 }}
             }});
         }}

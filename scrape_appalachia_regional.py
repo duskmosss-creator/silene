@@ -273,6 +273,8 @@ html_content = f"""<!DOCTYPE html>
             justify-content: space-between;
             box-shadow: 0 1px 3px rgba(0,0,0,0.04);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 250px;
         }}
 
         .card:hover {{

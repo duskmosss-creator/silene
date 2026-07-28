@@ -1,0 +1,31 @@
+﻿=== Header/Nav area ===
+<header>
+        <h1>Appalachian Corridor Archive</h1>
+        <p>Great Smoky Mountains National Park to DuPont State Recreational Forest</p>
+    </header>
+
+    <div class="container">
+        <section class="controls">
+            <div class="control-row">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search full text across all books, PDFs, and audio...">
+                <div class="settings-bar">
+                    <span>Font Size:</span>
+                    <button class="btn" onclick="setFontSize('14px')">S</button>
+                    <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
+                    <button class="btn" onclick="setFontSize('18px')">L</button>
+                    <button class="btn" onclick="setF
+
+=== XL button context ===
+ss="btn" onclick="setFontSize('14px')">S</button>
+                    <button class="btn active" id="btnMed" onclick="setFontSize('16px')">M</button>
+                    <button class="btn" onclick="setFontSize('18px')">L</button>
+                    <button class="btn" onclick="setFontSize('20px')">XL</button>
+                </div>
+            </
+
+Total searchData items: 23
+=== Body tag ===
+<body>
+    <header>
+        <h1>Appalachian Corridor Archive</h1>
+        <p>Great Smoky Mountains N

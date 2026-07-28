@@ -1,4 +1,5 @@
 import os
+import base64
 from libzim.writer import Creator, Item, StringProvider, FileProvider, Hint
 
 print("Building Appalachian Corridor ZIM file (bundling all photos, PDFs, JS engines, audio, and HTML)...")
@@ -27,10 +28,10 @@ class ZimItem(Item):
             return StringProvider(self.content_or_path)
             
     def get_hints(self):
-        return {Hint.FRONT_ARTICLE: True} if self.path == "index.html" else {}
+        return {Hint.FRONT_ARTICLE: True} if self.path == "C/index.html" else {}
 
 content_dir = "content"
-zim_filename = "Appalachian_Corridor.zim"
+zim_filename = os.path.join("zim_downloads", "Appalachian_Corridor.zim")
 
 mimetype_map = {
     ".html": "text/html",
@@ -48,11 +49,30 @@ mimetype_map = {
 }
 
 with Creator(zim_filename) as creator:
-    creator.set_mainpath("index.html")
+    creator.add_metadata("Title", "Appalachian Corridor Archive")
+    creator.add_metadata("Language", "eng")
+    creator.add_metadata("Creator", "Custom ZIM Builder")
+    creator.add_metadata("Publisher", "Hickory Search")
+    creator.add_metadata("Description", "Offline Appalachian Corridor collection for iOS and Kiwix")
+    creator.add_metadata("Name", "appalachian_corridor")
+    creator.add_metadata("Date", "2023-10-26")
+    
+    favicon_b64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAA8Bw1AAAEVv+wMAAAAAElFTkSuQmCC"
+    favicon_bytes = base64.b64decode(favicon_b64)
+    creator.add_illustration(48, favicon_bytes)
+    
+    creator.set_mainpath("C/index.html")
     
     with open(f"{content_dir}/index.html", "r", encoding="utf-8") as f:
         html_content = f.read()
-    creator.add_item(ZimItem("index.html", html_content, "text/html", is_file=False))
+    creator.add_item(ZimItem("C/index.html", html_content, "text/html", is_file=False))
+    
+    try:
+        creator.add_redirection("mainPage", "Main Page", "C/index.html", {})
+        creator.add_redirection("A/index.html", "Main Page", "C/index.html", {})
+        creator.add_redirection("index.html", "Main Page", "C/index.html", {})
+    except Exception:
+        pass
     
     item_count = 0
     for root, dirs, files in os.walk(content_dir):
@@ -66,7 +86,7 @@ with Creator(zim_filename) as creator:
             ext = os.path.splitext(file)[1].lower()
             mimetype = mimetype_map.get(ext, "application/octet-stream")
                 
-            creator.add_item(ZimItem(zim_path, local_path, mimetype, is_file=True))
+            creator.add_item(ZimItem(f"C/{zim_path}", local_path, mimetype, is_file=True))
             item_count += 1
 
 print(f"ZIM file {zim_filename} created successfully with {item_count} bundled items.")

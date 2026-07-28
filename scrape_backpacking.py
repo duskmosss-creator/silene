@@ -510,6 +510,8 @@ html_content = f"""<!DOCTYPE html>
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.2s ease, border-color 0.2s ease;
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 200px;
         }}
 
         .card:hover {{ transform: translateY(-2px); border-color: var(--accent); }}

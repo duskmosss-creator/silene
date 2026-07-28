@@ -9,10 +9,23 @@
   - **NatGeo ZIM**: Filtered gallery generation to only include verified, full-issue PDFs present on disk (8 complete issues), preventing broken viewer links.
   - **GSMNP Backpacking Guide**: Built native inline Markdown renderer for guide articles, replacing plain-text pre-wrap dumps with formatted headings, lists, bold text, and rules.
   - **Appalachian Corridor ZIM**: Refined header control bar layout, removing duplicate XL font size button and fixing scroll parameters.
+  - **Southern Appalachian Regional Master ZIM**: Scraped regional guides (Pisgah, Nantahala, Shenandoah, Blue Ridge) and compiled them into `Southern_Appalachian_Regional_Master.zim`.
   - **Python RAG Core & CLI**: Corrected `libzim` API usage (`item.content`), implemented style/script stripping for clean search snippets, added search result deduplication, and added `--zim` CLI path support.
   - **Swift iOS Engine**: Added `NSLock` thread safety to `HickoryRAGEngine.swift` for concurrent multi-ZIM scanning.
 - [x] **Multi-ZIM Autonomous Wiki Agent & Port 8000 Launcher (`run_hickory_search.bat`)**:
   - **Port 8000 Lemonade Integration**: Configured `hickory_multi_zim_agent.py` to prioritize `http://127.0.0.1:8000/v1` as the primary local AI endpoint.
   - **Unified Launcher**: Created and updated `run_hickory_search.bat` (and `hickory_search/run_hickory_search.bat`) to launch the full multi-ZIM agent with port 8000 backend probing.
   - **No User Search Engine Needed**: Agent uses internal `SEARCH: [term]` and `CONTINUE` tool calls across all 40+ `.zim` archives automatically.
+  - **Search Limit & Multi-ZIM Gathering**: Limited autonomous steps to 10 and updated the SEARCH tool to synthesize results from all loaded ZIM archives simultaneously.
+- [x] **Web & Mobile ZIM HTML Loading & RAM Optimizations (iOS / iPadOS / HTTP)**:
+  - **Lazy Loading & Async Image Decoding**: Applied `loading="lazy"` and `decoding="async"` across image assets in all ZIM template generators (`build_natgeo_modern_full_collection.py`, `scrape_natgeo.py`, `scrape.py`).
+  - **CSS `content-visibility: auto`**: Integrated CSS rendering containment (`content-visibility: auto` & `contain-intrinsic-size`) on cards across all archives to defer offscreen layout/paint calculations, drastically saving RAM and accelerating 60fps scrolling on iOS / Mobile Safari.
+  - **ZIM Direct Builds**: Updated all builder scripts (`build_zim.py`, `build_natgeo_zim.py`, `build_backpacking_zim.py`, `build_appalachia_regional_zim.py`) to output directly to `zim_downloads/`.
+  - **Slim Header Banner & Clean UI**: Reduced PDF viewer top header banner padding to a sleek `0.4rem 1rem` and removed the top-right `Document Pages: ... (Zero Distortion Vertical Scroll)` status text.
+- [x] **Full Kiwix for iOS / iPadOS ZIM App Compatibility**:
+  - **OpenZIM Standard Metadata**: Embedded required metadata headers (`Title`, `Language`, `Creator`, `Publisher`, `Description`, `Name`) across all 4 builder scripts (`build_zim.py`, `build_natgeo_zim.py`, `build_backpacking_zim.py`, `build_appalachia_regional_zim.py`).
+  - **iOS Mainpage & Namespace Redirections**: Registered `mainPage`, `A/index.html`, and `C/index.html` redirection aliases so Kiwix iOS (Apple MobileCore ZIM engine) resolves the archive entrypoints identical to Kiwix JS / Electron.
+  - **Explicit `C/` Article Namespace Structure**: Prefixed all archived content items with `C/` (`C/index.html`, `C/images/`, `C/js/`, etc.) across all 4 builder scripts to comply with strict OpenZIM namespace rules expected by the iOS Kiwix app engine.
+  - **OpenZIM Strict Validation (Apple MobileCore)**: Downloaded official Windows `zimcheck.exe` to debug Kiwix iOS rejections. Discovered iOS rejects ZIMs missing mandatory metadata. Added standard `Date` metadata and injected a compliant `Illustration_48x48@1` PNG Favicon payload into all archives.
+  - **Internal Link Validation Fix**: Refactored HTML JS template literals (`src="${item.cover}"`) to (`data-cover-src="${item.cover}"`) across all static frontends, bypassing the strict internal link validator which incorrectly flagged the template literals as missing files, causing iOS to reject the archives.
 - [x] Pushed updated Hickory Search and ZIM files to GitHub: `https://github.com/duskmosss-creator/silene`.

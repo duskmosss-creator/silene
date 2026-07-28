@@ -233,7 +233,7 @@ for item in natgeo_archive_list:
         }}
         .header {{
             background: var(--card-bg);
-            padding: 1rem 1.5rem;
+            padding: 0.4rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -283,7 +283,6 @@ for item in natgeo_archive_list:
             <a href="../index.html">← Back to NatGeo Magazine Gallery</a>
         </div>
         <div>
-            <span class="page-info" id="statusText">Rendering Full Magazine Volume...</span>
         </div>
     </div>
     
@@ -300,7 +299,7 @@ for item in natgeo_archive_list:
         const statusText = document.getElementById('statusText');
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {{
-            statusText.textContent = 'Magazine Pages: ' + pdfDoc.numPages + ' (Zero Distortion Vertical Scroll)';
+            if (statusText) statusText.textContent = '';
             container.innerHTML = '';
 
             for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 120); pageNum++) {{
@@ -474,6 +473,8 @@ gallery_index_html = f"""<!DOCTYPE html>
             justify-content: space-between;
             transition: transform 0.25s ease, box-shadow 0.25s ease;
             position: relative;
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 400px;
         }}
 
         .magazine-card:hover {{
@@ -583,7 +584,7 @@ gallery_index_html = f"""<!DOCTYPE html>
                     card.innerHTML = `
                         <div>
                             <div class="cover-hero-wrap">
-                                <img src="${{coverSrc}}" alt="${{item.title}} Cover">
+                                <img data-cover-src="${{coverSrc}}" alt="${{item.title}} Cover" loading="lazy" decoding="async">
                                 <div class="year-badge">${{item.year}}</div>
                             </div>
                             <div class="mag-title">${{item.title}}</div>
@@ -594,6 +595,7 @@ gallery_index_html = f"""<!DOCTYPE html>
                         </div>
                     `;
                     cardGrid.appendChild(card);
+                    card.querySelectorAll('img[data-cover-src]').forEach(img => {{ img.src = img.getAttribute('data-cover-src'); img.removeAttribute('data-cover-src'); }});
                 }}
             }});
         }}

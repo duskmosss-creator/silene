@@ -1,0 +1,19 @@
+﻿s() {
+            cardGrid.innerHTML = '';
+            magazines.forEach(item => {
+                const matchesEra = (currentEra === 'ALL' || item.era === currentEra);
+                let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || item.desc.toLowerCase().includes(searchQuery) || item.year.toString().includes(searchQuery);
+
+                if (matchesSearch && matchesEra) {
+                    const card = document.createElement('a');
+                    card.className = 'magazine-card';
+                    card.href = item.path;
+
+                    let coverSrc = item.cover ? item.cover : 'images/nationalgeograph11889nati_cover.jpg';
+
+                    card.innerHTML = `
+                        <div>
+                            <div class="cover-hero-wrap">
+                                <img src="${coverSrc}" alt="${item.title} Cover">
+                                <div class="year-badge">${item.year}</div>
+                            </di

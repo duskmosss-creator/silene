@@ -23,7 +23,7 @@
         }
         .header {
             background: var(--card-bg);
-            padding: 1rem 1.5rem;
+            padding: 0.4rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -73,7 +73,6 @@
             <a href="../index.html">← Back to NatGeo Magazine Gallery</a>
         </div>
         <div>
-            <span class="page-info" id="statusText">Rendering Full Magazine Volume...</span>
         </div>
     </div>
     
@@ -90,7 +89,7 @@
         const statusText = document.getElementById('statusText');
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {
-            statusText.textContent = 'Magazine Pages: ' + pdfDoc.numPages + ' (Zero Distortion Vertical Scroll)';
+            if (statusText) statusText.textContent = '';
             container.innerHTML = '';
 
             for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 120); pageNum++) {
