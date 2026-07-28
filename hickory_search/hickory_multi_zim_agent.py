@@ -24,7 +24,7 @@ from libzim.reader import Archive
 
 # ================= CONFIGURATION =================
 ZIM_DIR = os.environ.get("ZIM_DIR", "zim_downloads")
-API_BASE = os.environ.get("API_BASE", "http://127.0.0.1:11434/v1")
+API_BASE = os.environ.get("API_BASE", "http://127.0.0.1:8000/v1")
 MODEL_NAME = os.environ.get("MODEL_NAME", "lemonade-local")
 MAX_SEARCH_STEPS = 50
 CHUNK_SIZE = 1200
@@ -75,17 +75,17 @@ def smart_http_post(url, json_data, timeout=120):
         return json.loads(resp.read().decode('utf-8'))
 
 def detect_and_configure_backend():
-    """Probes local AI backends and configures the active endpoint."""
+    """Probes local AI backends prioritizing Lemonade on port 8000."""
     global API_BASE, MODEL_NAME
     
-    print("\n   [WikiAgent] Probing for available local AI backends...")
+    print("\n   [WikiAgent] Probing for local AI backends (Port 8000)...")
     
     backends = [
+        ("Lemonade (Port 8000)", "http://127.0.0.1:8000/v1", "lemonade-local"),
+        ("Lemonade IPv6 (Port 8000)", "http://[::1]:8000/v1", "lemonade-local"),
+        ("Lemonade Localhost (Port 8000)", "http://localhost:8000/v1", "lemonade-local"),
         ("Lemonade / Ollama (Port 11434)", "http://127.0.0.1:11434/v1", "lemonade"),
-        ("Lemonade (IPv6 11434)", "http://[::1]:11434/v1", "lemonade"),
-        ("Lemonade (Port 8000)", "http://127.0.0.1:8000/v1", "lemonade"),
-        ("LM Studio (Port 1234)", "http://127.0.0.1:1234/v1", "local-model"),
-        ("Ollama (Port 11434 Native)", "http://localhost:11434/v1", "qwen2.5")
+        ("LM Studio (Port 1234)", "http://127.0.0.1:1234/v1", "local-model")
     ]
     
     for name, base_url, default_model in backends:

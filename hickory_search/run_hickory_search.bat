@@ -1,16 +1,12 @@
 @echo off
-title Hickory Search - Off-Grid Terminal Agent
-cd /d "%~dp0"
+title Hickory Search - Off-Grid Multi-ZIM Agent (Port 8000)
+cd /d "%~dp0\.."
 echo ===============================================================
-echo  HICKORY SEARCH: OFF-GRID TERMINAL AGENT
-echo  100%% On-Device RAG Engine (Zero Open Network Ports)
+echo  HICKORY SEARCH: OFF-GRID MULTI-ZIM AGENT (PORT 8000)
+echo  100%% On-Device RAG Engine | Lemonade / LMStudio Ready
 echo ===============================================================
 echo.
 
-IF EXIST "zim_downloads" (
-    python hickory_search/hickory_cli.py --zim zim_downloads
-) ELSE (
-    python hickory_search/hickory_cli.py
-)
+python hickory_search/hickory_multi_zim_agent.py zim_downloads
 
 pause
