@@ -107,7 +107,7 @@ def create_html_wrapper(title, body_html, accent_color="#22c55e"):
     <div class="header">
         <div style="max-width: 950px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%; color: var(--accent);">{html.escape(title)}</h1>
-            <a href="../index.html" onclick="if(window.history.length>1){window.history.back();return false;}else{location.href='../index.html';return false;}" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
+            <a href="../index.html" onclick="if(window.history.length>1){{window.history.back();return false;}}else{{location.href='../index.html';return false;}}" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
         </div>
     </div>
     

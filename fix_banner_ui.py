@@ -6,7 +6,7 @@ directories = ['content', 'backpacking_guide', 'natgeo_collection', 'regional_co
 def clean_header_css(content):
     # Regex to find .header { ... } and replace it
     pattern = re.compile(r'\.header\s*\{[^}]+\}', re.MULTILINE | re.DOTALL)
-    replacement = """.header {
+    replacement = """.header {{
             background: var(--card-bg);
             border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
@@ -14,7 +14,7 @@ def clean_header_css(content):
             top: 0; left: 0; right: 0;
             z-index: 1000;
             transition: transform 0.3s ease-in-out;
-        }"""
+        }}"""
     return pattern.sub(replacement, content)
 
 def clean_header_html(content):
@@ -30,7 +30,7 @@ def clean_header_html(content):
     new_header = f"""<div class="header">
         <div style="max-width: 950px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">{title}</h1>
-            <a href="../index.html" onclick="if(window.history.length>1){window.history.back();return false;}else{location.href='../index.html';return false;}" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
+            <a href="../index.html" onclick="if(window.history.length>1){{window.history.back();return false;}}else{{location.href='../index.html';return false;}}" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
         </div>
     </div>
     
