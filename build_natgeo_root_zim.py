@@ -68,16 +68,17 @@ with Creator(zim_filename) as creator:
     creator.add_metadata("Creator", "Custom ZIM Builder")
     creator.add_metadata("Publisher", "Hickory Search")
     creator.add_metadata("Description", "National Geographic Appalachian magazines collection for Kiwix and iOS")
-    creator.add_metadata("Name", "national_geographic_appalachian_collection")
+    # Change Name to force Kiwix iOS cache invalidation
+    creator.add_metadata("Name", "national_geographic_appalachian_collection_v3")
     creator.add_metadata("Date", datetime.now().strftime("%Y-%m-%d"))
     
     favicon_b64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAA8Bw1AAAEVv+wMAAAAAElFTkSuQmCC"
     favicon_bytes = base64.b64decode(favicon_b64)
     creator.add_illustration(48, favicon_bytes)
     
-    # Main entry is "index.html" (no C/ prefix, matching original ZIM structure)
-    creator.set_mainpath("index.html")
-    creator.add_item(ZimItem("index.html", html_content, "text/html", is_file=False))
+    # Kiwix strictly expects articles in C/ namespace.
+    creator.set_mainpath("C/index.html")
+    creator.add_item(ZimItem("C/index.html", html_content, "text/html", is_file=False))
     
     item_count = 0
     skipped_count = 0
@@ -113,7 +114,6 @@ with Creator(zim_filename) as creator:
 
             # STRICT: Only include cover images for active gallery items
             if ext in (".jpg", ".jpeg", ".png", ".webp") and zim_path.startswith("images/"):
-                # Image stems are like "nationalgeograph11889nati_cover" - strip the _cover suffix
                 img_stem = stem.replace("_cover", "")
                 if img_stem not in active_pdf_stems:
                     skipped_count += 1
@@ -126,7 +126,8 @@ with Creator(zim_filename) as creator:
                     continue
 
             mimetype = mimetype_map.get(ext, "application/octet-stream")
-            creator.add_item(ZimItem(zim_path, local_path, mimetype, is_file=True))
+            # Prepend C/ to the zim_path
+            creator.add_item(ZimItem(f"C/{zim_path}", local_path, mimetype, is_file=True))
             item_count += 1
             if item_count % 10 == 0:
                 print(f"  Added {item_count} items...")
