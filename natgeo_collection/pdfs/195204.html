@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>National Geographic Magazine (April 1952 Issue)</title>
+    <script src="../js/pdf.min.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #fbbf24;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+        }
+        .header {
+            background: var(--card-bg);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        h1 { font-size: 1.1rem; margin: 0; color: var(--accent); font-weight: 700; }
+        .page-info { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
+        .scroll-container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .pdf-page-wrap {
+            background: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+            overflow: hidden;
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        canvas {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        object, embed {
+            width: 100%;
+            height: 92vh;
+            border: none;
+        }
+        a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>National Geographic Magazine (April 1952 Issue)</h1>
+            <a href="../index.html">← Back to NatGeo Magazine Gallery</a>
+        </div>
+        <div>
+            <span class="page-info" id="statusText">Rendering Full Magazine Volume...</span>
+        </div>
+    </div>
+    
+    <div class="scroll-container" id="pdfScrollContainer">
+        <object data="195204.pdf" type="application/pdf">
+            <embed src="195204.pdf" type="application/pdf" />
+        </object>
+    </div>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/pdf.worker.min.js';
+        const pdfUrl = '195204.pdf';
+        const container = document.getElementById('pdfScrollContainer');
+        const statusText = document.getElementById('statusText');
+
+        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {
+            statusText.textContent = 'Magazine Pages: ' + pdfDoc.numPages + ' (Zero Distortion Vertical Scroll)';
+            container.innerHTML = '';
+
+            for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 120); pageNum++) {
+                pdfDoc.getPage(pageNum).then(function(page) {
+                    const wrap = document.createElement('div');
+                    wrap.className = 'pdf-page-wrap';
+                    
+                    const canvas = document.createElement('canvas');
+                    wrap.appendChild(canvas);
+                    container.appendChild(wrap);
+
+                    const ctx = canvas.getContext('2d');
+                    const dpr = window.devicePixelRatio || 2.0;
+                    const scale = 1.8 * dpr;
+                    const viewport = page.getViewport({ scale: scale });
+
+                    canvas.width = Math.floor(viewport.width);
+                    canvas.height = Math.floor(viewport.height);
+                    canvas.style.width = Math.floor(viewport.width / dpr) + 'px';
+                    canvas.style.maxWidth = '100%';
+                    canvas.style.height = 'auto';
+
+                    const renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+            }
+        }).catch(function(err) {
+            console.log("PDF.js fallback to native embed.");
+        });
+    </script>
+</body>
+</html>

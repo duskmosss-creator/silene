@@ -6,6 +6,17 @@ natgeo_dir = "natgeo_collection"
 os.makedirs(f"{natgeo_dir}/texts", exist_ok=True)
 os.makedirs(f"{natgeo_dir}/pdfs", exist_ok=True)
 os.makedirs(f"{natgeo_dir}/images", exist_ok=True)
+os.makedirs(f"{natgeo_dir}/js", exist_ok=True)
+
+# 1. Verify PDF.js in NatGeo
+try:
+    if not os.path.exists(f"{natgeo_dir}/js/pdf.min.js"):
+        urllib.request.urlretrieve("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js", f"{natgeo_dir}/js/pdf.min.js")
+    if not os.path.exists(f"{natgeo_dir}/js/pdf.worker.min.js"):
+        urllib.request.urlretrieve("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js", f"{natgeo_dir}/js/pdf.worker.min.js")
+    print("NatGeo PDF.js verified.")
+except Exception as e:
+    print(f"Notice NatGeo PDF.js: {e}")
 
 real_natgeo_volumes = [
     {
@@ -66,14 +77,18 @@ real_natgeo_volumes = [
 
 downloaded_natgeo = []
 
-print("Formatting National Geographic magazine volumes into styled iOS-optimized HTML readers...")
+print("Formatting NatGeo text viewers and high-res continuous PDF viewers...")
 for item in real_natgeo_volumes:
-    txt_filename = f"{item['id']}.txt"
+    aid = item['id']
+    txt_filename = f"{aid}.txt"
     raw_txt_path = f"{natgeo_dir}/texts/{txt_filename}"
-    html_page_path = f"{natgeo_dir}/texts/{item['id']}.html"
+    html_page_path = f"{natgeo_dir}/texts/{aid}.html"
+    pdf_file_path = f"{natgeo_dir}/pdfs/{aid}.pdf"
+    pdf_html_path = f"{natgeo_dir}/pdfs/{aid}.html"
     cover_img_path = item['cover']
     has_cover = os.path.exists(f"{natgeo_dir}/{cover_img_path}")
-    
+    has_pdf = os.path.exists(pdf_file_path) and os.path.getsize(pdf_file_path) > 50000
+
     raw_text = ""
     if os.path.exists(raw_txt_path):
         try:
@@ -81,10 +96,8 @@ for item in real_natgeo_volumes:
                 raw_text = tf.read()
         except:
             raw_text = item['title']
-    else:
-        raw_text = f"Archival National Geographic Text for {item['title']}"
 
-    # Build styled iOS-optimized HTML viewer for NatGeo magazine volume
+    # 1. Text Viewer HTML
     article_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,6 +191,7 @@ for item in real_natgeo_volumes:
     
     <div class="container">
         {f'<div class="cover-box"><img src="../{cover_img_path}" alt="NatGeo Cover"></div>' if has_cover else ''}
+        {f'<div style="text-align:center; margin-bottom: 1.5rem;"><a href="../pdfs/{aid}.html" style="background:#fbbf24; color:#0f172a; padding:0.6rem 1.2rem; border-radius:8px; font-weight:700;">📄 View Full Multi-Megabyte NatGeo PDF →</a></div>' if has_pdf else ''}
         <div class="text-box" id="textContent">Loading magazine text...</div>
     </div>
 
@@ -189,7 +203,7 @@ for item in real_natgeo_volumes:
         const savedSize = localStorage.getItem('natgeo_doc_font_size');
         if (savedSize) setFontSize(savedSize);
 
-        fetch('{txt_filename}')
+        fetch('{aid}.txt')
             .then(res => res.text())
             .then(text => {{ document.getElementById('textContent').textContent = text; }})
             .catch(err => {{ document.getElementById('textContent').textContent = "{item['title']}"; }});
@@ -200,14 +214,148 @@ for item in real_natgeo_volumes:
     with open(html_page_path, 'w', encoding='utf-8') as hf:
         hf.write(article_html)
 
+    # 2. PDF Viewer HTML (Zero-Distortion High-Res Continuous Vertical Scroll)
+    if has_pdf:
+        pdf_viewer_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>{item['title']} (Full PDF)</title>
+    <script src="../js/pdf.min.js"></script>
+    <style>
+        :root {{
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #fbbf24;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }}
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+        }}
+        .header {{
+            background: var(--card-bg);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }}
+        h1 {{ font-size: 1.1rem; margin: 0; color: var(--accent); }}
+        .page-info {{ font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }}
+        .scroll-container {{
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }}
+        .pdf-page-wrap {{
+            background: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+            overflow: hidden;
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+        }}
+        canvas {{
+            display: block;
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }}
+        object, embed {{
+            width: 100%;
+            height: 92vh;
+            border: none;
+        }}
+        a {{ color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>{item['title']}</h1>
+            <a href="../index.html">← Back to NatGeo Index</a>
+        </div>
+        <div>
+            <span class="page-info" id="statusText">Rendering NatGeo Magazine...</span>
+        </div>
+    </div>
+    
+    <div class="scroll-container" id="pdfScrollContainer">
+        <object data="{aid}.pdf" type="application/pdf">
+            <embed src="{aid}.pdf" type="application/pdf" />
+        </object>
+    </div>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/pdf.worker.min.js';
+        const pdfUrl = '{aid}.pdf';
+        const container = document.getElementById('pdfScrollContainer');
+        const statusText = document.getElementById('statusText');
+
+        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {{
+            statusText.textContent = 'NatGeo Pages: ' + pdfDoc.numPages + ' (Zero Distortion Vertical Scroll)';
+            container.innerHTML = '';
+
+            for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {{
+                pdfDoc.getPage(pageNum).then(function(page) {{
+                    const wrap = document.createElement('div');
+                    wrap.className = 'pdf-page-wrap';
+                    
+                    const canvas = document.createElement('canvas');
+                    wrap.appendChild(canvas);
+                    container.appendChild(wrap);
+
+                    const ctx = canvas.getContext('2d');
+                    const dpr = window.devicePixelRatio || 2.0;
+                    const scale = 1.8 * dpr;
+                    const viewport = page.getViewport({{ scale: scale }});
+
+                    canvas.width = Math.floor(viewport.width);
+                    canvas.height = Math.floor(viewport.height);
+                    canvas.style.width = Math.floor(viewport.width / dpr) + 'px';
+                    canvas.style.maxWidth = '100%';
+                    canvas.style.height = 'auto';
+
+                    const renderContext = {{
+                        canvasContext: ctx,
+                        viewport: viewport
+                    }};
+                    page.render(renderContext);
+                }});
+            }}
+        }}).catch(function(err) {{
+            console.log("PDF.js fallback to native embed.");
+        }});
+    </script>
+</body>
+</html>
+"""
+        with open(pdf_html_path, 'w', encoding='utf-8') as pf:
+            pf.write(pdf_viewer_html)
+
     downloaded_natgeo.append({
-        'id': item['id'],
+        'id': aid,
         'title': item['title'],
         'category': item['category'],
-        'path': f"texts/{item['id']}.html",
+        'path': f"pdfs/{aid}.html" if has_pdf else f"texts/{aid}.html",
         'cover': cover_img_path,
-        'type': 'MAGAZINE',
-        'local': raw_txt_path,
+        'type': 'PDF MAGAZINE' if has_pdf else 'TEXT MAGAZINE',
+        'has_pdf': has_pdf,
         'content': raw_text[:15000]
     })
 
@@ -343,12 +491,13 @@ html_content = f"""<!DOCTYPE html>
         }}
 
         .badge {{ background: #fef3c7; color: #92400e; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700; font-size: 0.75rem; }}
+        .badge-pdf {{ background: #991b1b; color: #fee2e2; }}
     </style>
 </head>
 <body>
     <header>
         <h1>NATIONAL GEOGRAPHIC ARCHIVED MAGAZINES</h1>
-        <p>Full-Text Collection with Real Archival Cover Page Photos</p>
+        <p>Full Multi-Megabyte PDF Volumes & Text Collection</p>
     </header>
 
     <div class="container">
@@ -388,17 +537,21 @@ html_content = f"""<!DOCTYPE html>
                     const card = document.createElement('a');
                     card.className = 'card';
                     card.href = item.path;
+
+                    let badgeClass = item.has_pdf ? 'badge-pdf' : '';
+                    let linkText = item.has_pdf ? '📄 Open High-Res Full NatGeo PDF →' : '📖 Open Magazine Article Viewer →';
+
                     card.innerHTML = `
                         <div>
                             <img src="${{item.cover}}" class="card-cover" alt="NatGeo Cover">
                             <div class="card-title">${{item.title}}</div>
                             <div style="margin-top: 0.75rem; color: var(--accent); font-weight: 700; font-size: 0.9rem;">
-                                📖 Open Magazine Article Viewer →
+                                ${{linkText}}
                             </div>
                         </div>
                         <div class="card-meta">
                             <span>Category: ${{item.category}}</span>
-                            <span class="badge">${{item.type}}</span>
+                            <span class="badge ${{badgeClass}}">${{item.type}}</span>
                         </div>
                     `;
                     cardGrid.appendChild(card);
@@ -424,4 +577,4 @@ html_content = f"""<!DOCTYPE html>
 with open(f"{natgeo_dir}/index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print("NatGeo scrape and viewer generation complete.")
+print("NatGeo PDF and text viewer setup complete.")
