@@ -26,11 +26,12 @@
         }
         .header {
             background: var(--card-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 0.25rem 1rem; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: transform 0.3s ease-in-out;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border-bottom: 2px solid var(--accent);
+            padding: 0.4rem 1rem;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
         }
         .header-inner {
             max-width: 900px;
@@ -69,17 +70,9 @@
 </head>
 <body>
     <div class="header">
-        <div class="header-inner">
-            <div>
-                <div class="meta">Category: Travel</div>
-                <h1>On Horseback</h1>
-            </div>
-            <div class="btn-bar">
-                <button class="btn" onclick="setFontSize('14px')">S</button>
-                <button class="btn" onclick="setFontSize('16px')">M</button>
-                <button class="btn" onclick="setFontSize('18px')">L</button>
-                <a href="../index.html" style="margin-left: 1rem;">← Back to Index</a>
-            </div>
+        <div style="max-width: 950px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">On Horseback</h1>
+            <a href="../index.html" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
         </div>
     </div>
     

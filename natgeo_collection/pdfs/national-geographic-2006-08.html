@@ -23,13 +23,12 @@
         }
         .header {
             background: var(--card-bg);
-            padding: 0.25rem 1rem; display: flex; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: transform 0.3s ease-in-out;;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--accent);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border-bottom: 2px solid var(--accent);
+            padding: 0.4rem 1rem;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
         }
         h1 { font-size: 1.1rem; margin: 0; color: var(--accent); font-weight: 700; }
         .page-info { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
@@ -67,11 +66,9 @@
 </head>
 <body>
     <div class="header">
-        <div>
-            <h1>National Geographic Magazine (August 2006 Issue)</h1>
-            <a href="../index.html">← Back to NatGeo Magazine Gallery</a>
-        </div>
-        <div>
+        <div style="max-width: 950px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">National Geographic Magazine (August 2006 Issue)</h1>
+            <a href="../index.html" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
         </div>
     </div>
     

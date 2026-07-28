@@ -128,13 +128,14 @@ for gid, (title, category) in gutenberg_ids.items():
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }}
-        .header {{
+        .header {
             background: var(--card-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 0.25rem 1rem; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: transform 0.3s ease-in-out;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border-bottom: 2px solid var(--accent);
+            padding: 0.4rem 1rem;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
         }}
         .header-inner {{
             max-width: 900px;
@@ -251,16 +252,14 @@ for aid, (title, category) in archive_ids.items():
             background-color: var(--bg);
             color: var(--text-main);
         }}
-        .header {{
+        .header {
             background: var(--card-bg);
+            border-bottom: 2px solid var(--accent);
             padding: 0.4rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
         }}
         h1 {{ font-size: 1.1rem; margin: 0; color: var(--accent); }}
         .page-info {{ font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }}

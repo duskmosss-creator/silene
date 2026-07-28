@@ -263,13 +263,14 @@ for g in guides:
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }}
-        .header {{
+        .header {
             background: var(--card-bg);
             border-bottom: 2px solid var(--accent);
-            padding: 0.25rem 1rem; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: transform 0.3s ease-in-out;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 0.4rem 1rem;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
         }}
         .header-inner {{
             max-width: 900px;
