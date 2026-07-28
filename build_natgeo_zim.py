@@ -54,7 +54,7 @@ with open(f"{natgeo_dir}/index.html", "r", encoding="utf-8") as f:
 referenced_paths = set(re.findall(r'["\']((?:images|pdfs|texts|js)/[^"\']+)["\']', html_content))
 
 with Creator(zim_filename) as creator:
-    creator.add_metadata("Title", "National Geographic Appalachian Collection")
+    creator.add_metadata("Title", "NatGeo Appalachia Col")
     creator.add_metadata("Language", "eng")
     creator.add_metadata("Creator", "Custom ZIM Builder")
     creator.add_metadata("Publisher", "Hickory Search")

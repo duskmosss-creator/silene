@@ -49,7 +49,7 @@ mimetype_map = {
 }
 
 with Creator(zim_filename) as creator:
-    creator.add_metadata("Title", "Appalachian Corridor Archive")
+    creator.add_metadata("Title", "Appalachian Corridor")
     creator.add_metadata("Language", "eng")
     creator.add_metadata("Creator", "Custom ZIM Builder")
     creator.add_metadata("Publisher", "Hickory Search")

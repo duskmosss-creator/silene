@@ -34,7 +34,7 @@ b_dir = "backpacking_guide"
 zim_filename = os.path.join("zim_downloads", "GSMNP_Backpacking_Field_Guide.zim")
 
 with Creator(zim_filename) as creator:
-    creator.add_metadata("Title", "GSMNP Backpacking Field Guide")
+    creator.add_metadata("Title", "GSMNP Field Guide")
     creator.add_metadata("Language", "eng")
     creator.add_metadata("Creator", "Custom ZIM Builder")
     creator.add_metadata("Publisher", "Hickory Search")

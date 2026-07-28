@@ -34,7 +34,7 @@ reg_dir = "regional_collection"
 zim_filename = os.path.join("zim_downloads", "Southern_Appalachian_Regional_Master.zim")
 
 with Creator(zim_filename) as creator:
-    creator.add_metadata("Title", "Southern Appalachian Regional Master Archive")
+    creator.add_metadata("Title", "Appalachian Reg Archive")
     creator.add_metadata("Language", "eng")
     creator.add_metadata("Creator", "Custom ZIM Builder")
     creator.add_metadata("Publisher", "Hickory Search")
