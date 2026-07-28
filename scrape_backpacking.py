@@ -342,7 +342,7 @@ for g in guides:
         if (savedSize) setFontSize(savedSize);
 
         function renderMarkdown(md) {{
-            const lines = md.split('\n');
+            const lines = md.split('\\n');
             let html = '';
             let inList = false;
             for (let i = 0; i < lines.length; i++) {{

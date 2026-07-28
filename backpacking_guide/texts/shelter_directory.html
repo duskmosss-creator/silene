@@ -94,8 +94,7 @@
         if (savedSize) setFontSize(savedSize);
 
         function renderMarkdown(md) {
-            const lines = md.split('
-');
+            const lines = md.split('\n');
             let html = '';
             let inList = false;
             for (let i = 0; i < lines.length; i++) {
