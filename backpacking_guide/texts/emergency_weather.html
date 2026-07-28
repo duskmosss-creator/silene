@@ -144,10 +144,9 @@
             s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
             return s;
         }
-        fetch('emergency_weather.txt')
-            .then(res => res.text())
-            .then(text => { document.getElementById('mdContent').innerHTML = renderMarkdown(text); })
-            .catch(() => { document.getElementById('mdContent').textContent = "High-Altitude Emergency Protocols, Radio Frequencies & Weather"; });
+        const b64Data = "IyBIaWdoLUFsdGl0dWRlIEVtZXJnZW5jeSBQcm90b2NvbHMsIFJhZGlvIEZyZXF1ZW5jaWVzICYgV2VhdGhlcgoKIyMgMS4gVGVtcGVyYXR1cmUgTGFwc2UgUmF0ZXMgJiBXaW5kIENoaWxsIEhhemFyZHMKLSAqKkVudmlyb25tZW50YWwgTGFwc2UgUmF0ZSoqOiBFeHBlY3QgYSB0ZW1wZXJhdHVyZSBkcm9wIG9mICoqMy41wrBGIHRvIDUuNcKwRiBwZXIgMSwwMDAgZmVldCBvZiBlbGV2YXRpb24gZ2FpbioqLgotICoqVmFsbGV5IHZzLiBTdW1taXQgRXhhbXBsZXMqKjoKICAtIEdhdGxpbmJ1cmcgKDEsMjg5IGZ0KTogNzXCsEYgc3VubnkKICAtIENsaW5nbWFucyBEb21lIC8gS3V3b2hpICg2LDY0MyBmdCk6IDQ4wrBGIHdpdGggZ3VzdHkgd2luZHMgYW5kIGNsb3VkIGZvZy4KLSAqKldpbmQgQ2hpbGwgUmlzayoqOiBXaW5kIHNwZWVkcyBleGNlZWRpbmcgMzUgbXBoIG9uIGV4cG9zZWQgYmx1ZmZzIChDaGFybGllcyBCdW5pb24sIFJvY2t5IFRvcCkgY2FuIGRyb3AgZWZmZWN0aXZlIGZlZWwgdG8gc3ViLWZyZWV6aW5nIGV2ZW4gaW4gZWFybHkgYXV0dW1uLgoKLS0tCgojIyAyLiBFbWVyZ2VuY3kgUmFkaW8gRnJlcXVlbmNpZXMgJiBDb21tdW5pY2F0aW9ucwotICoqTk9BQSBXZWF0aGVyIFJhZGlvIEZyZXF1ZW5jaWVzIChTb3V0aGVybiBBcHBhbGFjaGlhbnMpKio6CiAgLSAqKjE2Mi41NTAgTUh6IChXWDEpKio6IFNldmllciBDb3VudHkgLyBFYXN0IFRlbm5lc3NlZSB0cmFuc21pdHRlci4KICAtICoqMTYyLjQwMCBNSHogKFdYMikqKjogQXNoZXZpbGxlIC8gV2VzdGVybiBOb3J0aCBDYXJvbGluYSB0cmFuc21pdHRlci4KICAtICoqMTYyLjQ3NSBNSHogKFdYMykqKjogV2F5bmVzdmlsbGUgLyBIYXl3b29kIENvdW50eS4KLSAqKkdTTU5QIFBhcmsgRGlzcGF0Y2ggKEVtZXJnZW5jeSBPbmx5KSoqOiAoODY1KSA0MzYtMTI5NC4KLSAqKkNlbGwgU2VydmljZSBIZWF0bWFwKio6IENlbGwgc2lnbmFscyBoaXQgcmVsaWFibHkgYWxvbmcgb3BlbiByaWRnZSBnYXBzIGZhY2luZyBjaXRpZXMgKE5ld2ZvdW5kIEdhcCwgQ2hhcmxpZXMgQnVuaW9uLCBNb3VudCBDYW1tZXJlciksIGJ1dCBhcmUgY29tcGxldGVseSBkZWFkIGluIGRlZXAgc3RyZWFtIGNvdmVzIChIYXplbCBDcmVlaywgQ2F0YWxvb2NoZWUsIEdyZWVuYnJpZXIpLgoKLS0tCgojIyAzLiBIaWdoLUFsdGl0dWRlIExpZ2h0bmluZyAmIFNldmVyZSBXZWF0aGVyIFByb3RvY29scwotICoqTGlnaHRuaW5nIEV4cG9zdXJlIFpvbmVzKio6IFNpbGVycyBCYWxkLCBUaHVuZGVyaGVhZCBNb3VudGFpbiwgQ2hhcmxpZXMgQnVuaW9uLCBNb3VudCBDYW1tZXJlciB0b3dlci4KLSAqKlByb3RvY29sKio6IElmIHRodW5kZXIgc291bmRzLCBpbW1lZGlhdGVseSBkZXNjZW5kIGF0IGxlYXN0IDMwMCB2ZXJ0aWNhbCBmZWV0IG9mZiB0aGUgcmlkZ2UgbGluZSBpbnRvIGRlbnNlIHRpbWJlci4gRG8gTk9UIHNlZWsgc2hlbHRlciB1bmRlciBpc29sYXRlZCB0cmVlcyBvciByb2NrIG92ZXJoYW5ncy4K";
+        const decodedText = decodeURIComponent(escape(atob(b64Data)));
+        document.getElementById('mdContent').innerHTML = renderMarkdown(decodedText);
     </script>
 
 <script>

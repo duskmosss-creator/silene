@@ -144,10 +144,9 @@
             s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
             return s;
         }
-        fetch('bear_flora_guide.txt')
-            .then(res => res.text())
-            .then(text => { document.getElementById('mdContent').innerHTML = renderMarkdown(text); })
-            .catch(() => { document.getElementById('mdContent').textContent = "Black Bear Safety, Stream Crossings & Native Flora Manual"; });
+        const b64Data = "IyBCbGFjayBCZWFyIFNhZmV0eSwgU3RyZWFtIENyb3NzaW5ncyAmIE5hdGl2ZSBGbG9yYSBNYW51YWwKCiMjIDEuIEJsYWNrIEJlYXIgRW5jb3VudGVyICYgQ2FibGUgT3BlcmF0aW9ucwotICoqTWFuZGF0b3J5IEZvb2QgU3RvcmFnZSoqOiBBbGwgZm9vZCwgdHJhc2gsIGxpcCBiYWxtLCB0b290aHBhc3RlLCBhbmQgc2NlbnRlZCBpdGVtcyBNVVNUIGJlIGVsZXZhdGVkIG9uIHBhcmsgYmVhciBjYWJsZXMuCi0gKipCZWFyIENhYmxlIFJpZ2dpbmcqKjoKICAxLiBBdHRhY2ggZHJ5IGJhZyB0byBjYXJhYmluZXIgb24gY2FibGUgd2lyZS4KICAyLiBQdWxsIGNvbnRyb2wgY2FibGUgdG8gaG9pc3QgYmFnIDE1KyBmZWV0IG9mZiB0aGUgZ3JvdW5kLgogIDMuIFNlY3VyZSBjb250cm9sIGNhYmxlIGxvb3AgYXJvdW5kIGFuY2hvciBwb3N0LgotICoqRW5jb3VudGVyIEd1aWRlbGluZXMqKjoKICAtIE5ldmVyIHJ1bi4gUnVubmluZyB0cmlnZ2VycyBwcmVkYXRvcnkgY2hhc2UgaW5zdGluY3QuCiAgLSBTdGFuZCB0YWxsLCBob2xkIGFybXMgb3ZlcmhlYWQsIGdyb3VwIHRvZ2V0aGVyLCBzcGVhayBmaXJtbHkuCiAgLSBJZiBhIGJlYXIgYXBwcm9hY2hlcyB3aXRoaW4gNTAgZmVldCwgeWVsbCBsb3VkbHkgYW5kIHRocm93IHJvY2tzLgoKLS0tCgojIyAyLiBFZGlibGUgdnMuIFRveGljIEZsb3JhIEZpZWxkIE1hbnVhbAoKIyMjIEVkaWJsZSBQbGFudHMKLSAqKlJhbXBzIChXaWxkIExlZWtzIC0gKkFsbGl1bSB0cmljb2NjdW0qKSoqOiBCcm9hZCBncmVlbiBsZWF2ZXMgd2l0aCBnYXJsaWMvb25pb24gYXJvbWEgZm91bmQgaW4gcmljaCBoYXJkd29vZCBjb3ZlcyBpbiBzcHJpbmcuCi0gKipXaWxkIEJsYWNrYmVycmllcyAmIFdpbmViZXJyaWVzKio6IFJpcGUgbWlkLXN1bW1lciBhbG9uZyBzdW5ueSB0cmFpbCBnYXBzIGFuZCBmb3JtZXIgaG9tZXN0ZWFkIGNsZWFyaW5ncy4KLSAqKldvb2QgU29ycmVsICgqT3hhbGlzKikqKjogVGhyZWUgaGVhcnQtc2hhcGVkIGxlYWZsZXRzIHdpdGggc291ciBsZW1vbnkgZmxhdm9yLgoKIyMjIFRveGljICYgRGFuZ2Vyb3VzIFBsYW50cwotICoqUG9pc29uIEhlbWxvY2sgKCpDb25pdW0gbWFjdWxhdHVtKikqKjogU21vb3RoIGhvbGxvdyBzdGVtIHdpdGggZGlzdGluY3RpdmUgcHVycGxlIHNwb3RzLiBIaWdobHkgZmF0YWwgaWYgaW5nZXN0ZWQuCi0gKipTdGluZ2luZyBOZXR0bGUgKCpVcnRpY2EgZGlvaWNhKikqKjogU2VycmF0ZWQgbGVhdmVzIGNvdmVyZWQgaW4gdGlueSBzaWxpY2Egc3RpbmdpbmcgaGFpcnMuIENhdXNlcyBzZXZlcmUgYnVybmluZyBzZW5zYXRpb24uCi0gKipXaGl0ZSBTbmFrZXJvb3QgKCpBZ2VyYXRpbmEgYWx0aXNzaW1hKikqKjogQ29udGFpbnMgdHJlbWV0b2wgdG94aW4uIENhdXNlZCBoaXN0b3JpYyAiTWlsayBTaWNrbmVzcyIgaW4gcGlvbmVlcnMuCg==";
+        const decodedText = decodeURIComponent(escape(atob(b64Data)));
+        document.getElementById('mdContent').innerHTML = renderMarkdown(decodedText);
     </script>
 
 <script>

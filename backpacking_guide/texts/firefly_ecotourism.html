@@ -144,10 +144,9 @@
             s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
             return s;
         }
-        fetch('firefly_ecotourism.txt')
-            .then(res => res.text())
-            .then(text => { document.getElementById('mdContent').innerHTML = renderMarkdown(text); })
-            .catch(() => { document.getElementById('mdContent').textContent = "Firefly Ecotourism Peak Windows & Wildlife Waypoints"; });
+        const b64Data = "IyBGaXJlZmx5IEVjb3RvdXJpc20gUGVhayBXaW5kb3dzICYgV2lsZGxpZmUgV2F5cG9pbnRzCgojIyAxLiBTeW5jaHJvbm91cyBGaXJlZmxpZXMgKCpQaG90aW51cyBjYXJvbGludXMqKSAtIEVsa21vbnQKLSAqKkxvY2F0aW9uKio6IExpdHRsZSBSaXZlciBUcmFpbCAmIEpha2VzIENyZWVrIFRyYWlsIG5lYXIgRWxrbW9udCwgR1NNTlAuCi0gKipQZWFrIFdpbmRvdyoqOiBMYXRlIE1heSB0byBlYXJseSBKdW5lICgyLXdlZWsgYW5udWFsIHBlYWspLgotICoqRmxhc2hpbmcgU2VxdWVuY2UqKjogTWFsZXMgZW1pdCA2LTggc3luY2hyb25vdXMgZmxhc2hlcyBpbiB0b3RhbCB1bmlzb24sIGZvbGxvd2VkIGJ5IDYtOCBzZWNvbmRzIG9mIGRhcmsgc2lsZW5jZS4KLSAqKlZpZXdpbmcgUnVsZXMqKjogUmVkIGNlbGxvcGhhbmUgY292ZXJzIG92ZXIgYWxsIGZsYXNobGlnaHRzIHRvIHByb3RlY3QgaW5zZWN0IG1hdGluZyBkaXNwbGF5cy4KCi0tLQoKIyMgMi4gQmx1ZSBHaG9zdCBGaXJlZmxpZXMgKCpQaGF1c2lzIHJldGljdWxhdGEqKSAtIER1UG9udCAmIFBpc2dhaAotICoqTG9jYXRpb24qKjogRHVQb250IFN0YXRlIEZvcmVzdCAmIFRyYW5zeWx2YW5pYSBDb3VudHkgaGFyZHdvb2QgY292ZXMuCi0gKipQZWFrIFdpbmRvdyoqOiBNaWQtTWF5IHRvIGVhcmx5IEp1bmUuCi0gKipGbGFzaGluZyBCZWhhdmlvcioqOiBFbWl0cyBhIGNvbnN0YW50LCBnaG9zdGx5IGJsdWUtZ3JlZW4gbGlnaHQgd2hpbGUgaG92ZXJpbmcgMS0yIGZlZXQgYWJvdmUgbW9pc3QgbGVhZiBsaXR0ZXIuCg==";
+        const decodedText = decodeURIComponent(escape(atob(b64Data)));
+        document.getElementById('mdContent').innerHTML = renderMarkdown(decodedText);
     </script>
 
 <script>
