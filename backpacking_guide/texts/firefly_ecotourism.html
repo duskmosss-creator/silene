@@ -76,7 +76,7 @@
 <body>
     <div class="header">
         <div style="max-width: 950px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">Firefly Ecotourism Peak Windows & Wildlife Waypoints</h1>
+            <h1 style="font-size: 0.95rem; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%;">' + esc(line.slice(2)) + '</h1>
             <a href="../index.html" style="font-size: 0.85rem; white-space: nowrap; color: var(--accent); text-decoration: none; font-weight: 600;">← Back</a>
         </div>
     </div>
@@ -137,7 +137,10 @@
             return s;
         }
         const b64Data = "IyBGaXJlZmx5IEVjb3RvdXJpc20gUGVhayBXaW5kb3dzICYgV2lsZGxpZmUgV2F5cG9pbnRzCgojIyAxLiBTeW5jaHJvbm91cyBGaXJlZmxpZXMgKCpQaG90aW51cyBjYXJvbGludXMqKSAtIEVsa21vbnQKLSAqKkxvY2F0aW9uKio6IExpdHRsZSBSaXZlciBUcmFpbCAmIEpha2VzIENyZWVrIFRyYWlsIG5lYXIgRWxrbW9udCwgR1NNTlAuCi0gKipQZWFrIFdpbmRvdyoqOiBMYXRlIE1heSB0byBlYXJseSBKdW5lICgyLXdlZWsgYW5udWFsIHBlYWspLgotICoqRmxhc2hpbmcgU2VxdWVuY2UqKjogTWFsZXMgZW1pdCA2LTggc3luY2hyb25vdXMgZmxhc2hlcyBpbiB0b3RhbCB1bmlzb24sIGZvbGxvd2VkIGJ5IDYtOCBzZWNvbmRzIG9mIGRhcmsgc2lsZW5jZS4KLSAqKlZpZXdpbmcgUnVsZXMqKjogUmVkIGNlbGxvcGhhbmUgY292ZXJzIG92ZXIgYWxsIGZsYXNobGlnaHRzIHRvIHByb3RlY3QgaW5zZWN0IG1hdGluZyBkaXNwbGF5cy4KCi0tLQoKIyMgMi4gQmx1ZSBHaG9zdCBGaXJlZmxpZXMgKCpQaGF1c2lzIHJldGljdWxhdGEqKSAtIER1UG9udCAmIFBpc2dhaAotICoqTG9jYXRpb24qKjogRHVQb250IFN0YXRlIEZvcmVzdCAmIFRyYW5zeWx2YW5pYSBDb3VudHkgaGFyZHdvb2QgY292ZXMuCi0gKipQZWFrIFdpbmRvdyoqOiBNaWQtTWF5IHRvIGVhcmx5IEp1bmUuCi0gKipGbGFzaGluZyBCZWhhdmlvcioqOiBFbWl0cyBhIGNvbnN0YW50LCBnaG9zdGx5IGJsdWUtZ3JlZW4gbGlnaHQgd2hpbGUgaG92ZXJpbmcgMS0yIGZlZXQgYWJvdmUgbW9pc3QgbGVhZiBsaXR0ZXIuCg==";
-        const decodedText = decodeURIComponent(escape(atob(b64Data)));
+        const binStr = atob(b64Data);
+        const bytes = new Uint8Array(binStr.length);
+        for (let i = 0; i < binStr.length; i++) { bytes[i] = binStr.charCodeAt(i); }
+        const decodedText = new TextDecoder('utf-8').decode(bytes);
         document.getElementById('mdContent').innerHTML = renderMarkdown(decodedText);
     </script>
 
