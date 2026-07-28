@@ -11,7 +11,7 @@ os.makedirs("content/audio", exist_ok=True)
 os.makedirs("content/js", exist_ok=True)
 os.makedirs("content/images", exist_ok=True)
 
-# 1. Download PDF.js for 100% Offline Canvas Rendering
+# 1. Verify PDF.js
 try:
     if not os.path.exists("content/js/pdf.min.js"):
         urllib.request.urlretrieve("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js", "content/js/pdf.min.js")
@@ -220,13 +220,12 @@ for gid, (title, category) in gutenberg_ids.items():
         'content': raw_text[:10000]
     })
 
-# 4. PDF Documents -> Continuous Vertical Scroll PDF Viewer Pages with Real Archival Cover
-print("Creating continuous vertical scroll PDF viewers with archival covers...")
+# 4. High-Res Edge-to-Edge Continuous Vertical Scroll PDF Viewer
+print("Creating High-Res Edge-to-Edge Vertical Scroll PDF Viewers...")
 for aid, (title, category) in archive_ids.items():
     pdf_file_path = f"content/pdfs/{aid}.pdf"
     pdf_html_path = f"content/pdfs/{aid}.html"
     cover_img_path = f"images/{aid}_cover.jpg"
-    
     has_cover = os.path.exists(f"content/{cover_img_path}")
 
     pdf_viewer_html = f"""<!DOCTYPE html>
@@ -266,37 +265,30 @@ for aid, (title, category) in archive_ids.items():
         h1 {{ font-size: 1.1rem; margin: 0; color: var(--accent); }}
         .page-info {{ font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }}
         .scroll-container {{
-            max-width: 900px;
+            max-width: 1050px;
             margin: 0 auto;
-            padding: 1.5rem;
+            padding: 1rem 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1.5rem;
         }}
-        .cover-preview {{
-            max-width: 260px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-            margin-bottom: 1rem;
-        }}
         .pdf-page-wrap {{
-            background: #ffffff;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            overflow: hidden;
+            background: transparent;
             width: 100%;
             display: flex;
             justify-content: center;
         }}
         canvas {{
-            max-width: 100%;
+            width: 100%;
             height: auto;
             display: block;
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
         }}
         object, embed {{
             width: 100%;
-            height: 90vh;
+            height: 92vh;
             border: none;
         }}
         a {{ color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }}
@@ -309,12 +301,11 @@ for aid, (title, category) in archive_ids.items():
             <a href="../index.html">← Back to Archive Index</a>
         </div>
         <div>
-            <span class="page-info" id="statusText">Loading vertical PDF document...</span>
+            <span class="page-info" id="statusText">Rendering High-Res Document...</span>
         </div>
     </div>
     
     <div class="scroll-container" id="pdfScrollContainer">
-        {f'<img src="../{cover_img_path}" class="cover-preview" alt="Archival Cover">' if has_cover else ''}
         <object data="{aid}.pdf" type="application/pdf">
             <embed src="{aid}.pdf" type="application/pdf" />
         </object>
@@ -327,9 +318,10 @@ for aid, (title, category) in archive_ids.items():
         const statusText = document.getElementById('statusText');
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc) {{
-            statusText.textContent = 'Document Pages: ' + pdfDoc.numPages + ' (Vertical Scroll)';
-            container.innerHTML = ''; 
+            statusText.textContent = 'Document Pages: ' + pdfDoc.numPages + ' (High-Res Vertical Scroll)';
+            container.innerHTML = '';
 
+            // Render pages in high-resolution edge-to-edge canvas mode
             for (let pageNum = 1; pageNum <= Math.min(pdfDoc.numPages, 100); pageNum++) {{
                 pdfDoc.getPage(pageNum).then(function(page) {{
                     const wrap = document.createElement('div');
@@ -340,11 +332,24 @@ for aid, (title, category) in archive_ids.items():
                     container.appendChild(wrap);
 
                     const ctx = canvas.getContext('2d');
-                    const viewport = page.getViewport({{ scale: 1.3 }});
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
+                    
+                    // High DPI resolution scale (2.5x rendering for zero compression distortion)
+                    const outputScale = window.devicePixelRatio || 2.5;
+                    const unscaledViewport = page.getViewport({{ scale: 1.0 }});
+                    const containerWidth = Math.min(container.clientWidth || 1000, window.innerWidth);
+                    const cssScale = containerWidth / unscaledViewport.width;
+                    const viewport = page.getViewport({{ scale: cssScale * outputScale }});
 
-                    page.render({{ canvasContext: ctx, viewport: viewport }});
+                    canvas.width = Math.floor(viewport.width);
+                    canvas.height = Math.floor(viewport.height);
+                    canvas.style.width = '100%';
+                    canvas.style.height = 'auto';
+
+                    const renderContext = {{
+                        canvasContext: ctx,
+                        viewport: viewport
+                    }};
+                    page.render(renderContext);
                 }});
             }}
         }}).catch(function(err) {{
@@ -419,7 +424,7 @@ audio_viewer_html = f"""<!DOCTYPE html>
         
         <audio controls autoplay preload="auto">
             <source src="elkmont_audio.wav" type="audio/wav">
-            Your browser does not support playing offline audio.
+            Your browser does not support offline audio.
         </audio>
         
         <br>
@@ -443,7 +448,7 @@ downloaded_items.append({
 
 search_json = json.dumps(downloaded_items)
 
-# Unified Dark Theme Index with Authentic Archival Covers
+# Unified Dark Theme Index
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -630,7 +635,6 @@ html_content = f"""<!DOCTYPE html>
 
     <script>
         const searchData = {search_json};
-
         const searchInput = document.getElementById('searchInput');
         const tabs = document.querySelectorAll('.tab');
         const cardGrid = document.getElementById('cardGrid');
@@ -648,14 +652,11 @@ html_content = f"""<!DOCTYPE html>
 
         function renderCards() {{
             cardGrid.innerHTML = '';
-            let visibleCount = 0;
-
             searchData.forEach(item => {{
                 const matchesCategory = (currentCategory === 'ALL' || item.category === currentCategory);
                 let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.content && item.content.toLowerCase().includes(searchQuery));
 
                 if (matchesSearch && matchesCategory) {{
-                    visibleCount++;
                     const card = document.createElement('a');
                     card.className = 'card';
                     card.href = item.path;
@@ -664,7 +665,7 @@ html_content = f"""<!DOCTYPE html>
                     let linkText = '📖 Open Document Viewer →';
                     if (item.type === 'PDF') {{
                         badgeClass = 'badge-pdf';
-                        linkText = '📄 Open Vertical Scroll PDF →';
+                        linkText = '📄 Open High-Res Vertical PDF →';
                     }} else if (item.type === 'AUDIO') {{
                         badgeClass = 'badge-audio';
                         linkText = '🎵 Play Offline Audio (WAV) →';
@@ -688,11 +689,7 @@ html_content = f"""<!DOCTYPE html>
             }});
         }}
 
-        searchInput.addEventListener('input', (e) => {{
-            searchQuery = e.target.value.toLowerCase().trim();
-            renderCards();
-        }});
-
+        searchInput.addEventListener('input', (e) => {{ searchQuery = e.target.value.toLowerCase().trim(); renderCards(); }});
         tabs.forEach(tab => {{
             tab.addEventListener('click', () => {{
                 tabs.forEach(t => t.classList.remove('active'));
@@ -701,7 +698,6 @@ html_content = f"""<!DOCTYPE html>
                 renderCards();
             }});
         }});
-
         renderCards();
     </script>
 </body>
@@ -711,4 +707,4 @@ html_content = f"""<!DOCTYPE html>
 with open("content/index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print("Scrape update with real archival cover images complete.")
+print("High-res edge-to-edge PDF viewer setup complete.")
