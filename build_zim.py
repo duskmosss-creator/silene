@@ -1,7 +1,7 @@
 import os
 from libzim.writer import Creator, Item, StringProvider, FileProvider, Hint
 
-print("Building Appalachian Corridor ZIM file with PDF.js and offline WAV audio...")
+print("Building Appalachian Corridor ZIM file (bundling all photos, PDFs, JS engines, audio, and HTML)...")
 
 class ZimItem(Item):
     def __init__(self, path, content_or_path, mimetype, is_file=True):
@@ -32,6 +32,21 @@ class ZimItem(Item):
 content_dir = "content"
 zim_filename = "Appalachian_Corridor.zim"
 
+mimetype_map = {
+    ".html": "text/html",
+    ".txt": "text/plain",
+    ".json": "application/json",
+    ".pdf": "application/pdf",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".webp": "image/webp",
+    ".wav": "audio/wav",
+    ".mp3": "audio/mpeg",
+    ".js": "application/javascript",
+    ".css": "text/css"
+}
+
 with Creator(zim_filename) as creator:
     creator.set_mainpath("index.html")
     
@@ -39,6 +54,7 @@ with Creator(zim_filename) as creator:
         html_content = f.read()
     creator.add_item(ZimItem("index.html", html_content, "text/html", is_file=False))
     
+    item_count = 0
     for root, dirs, files in os.walk(content_dir):
         for file in files:
             if file == "index.html":
@@ -47,22 +63,10 @@ with Creator(zim_filename) as creator:
             local_path = os.path.join(root, file)
             zim_path = os.path.relpath(local_path, content_dir).replace("\\", "/")
             
-            mimetype = "text/plain"
-            if file.endswith(".json"):
-                mimetype = "application/json"
-            elif file.endswith(".html"):
-                mimetype = "text/html"
-            elif file.endswith(".pdf"):
-                mimetype = "application/pdf"
-            elif file.endswith(".wav"):
-                mimetype = "audio/wav"
-            elif file.endswith(".mp3"):
-                mimetype = "audio/mpeg"
-            elif file.endswith(".js"):
-                mimetype = "application/javascript"
-            elif file.endswith(".css"):
-                mimetype = "text/css"
+            ext = os.path.splitext(file)[1].lower()
+            mimetype = mimetype_map.get(ext, "application/octet-stream")
                 
             creator.add_item(ZimItem(zim_path, local_path, mimetype, is_file=True))
+            item_count += 1
 
-print(f"ZIM file {zim_filename} created successfully.")
+print(f"ZIM file {zim_filename} created successfully with {item_count} bundled items.")
