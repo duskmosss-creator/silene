@@ -270,7 +270,7 @@ for item in natgeo_archive_list:
     <div class="container" style="padding-top: 80px;">
         {f'<div class="cover-box"><img src="../{cover_img_path}" alt="NatGeo Cover" loading="lazy" decoding="async"></div>' if has_cover else ''}
         {f'<div style="text-align:center; margin-bottom: 1.5rem;"><a href="../pdfs/{aid}.html" style="background:#fbbf24; color:#0f172a; padding:0.6rem 1.2rem; border-radius:8px; font-weight:700;">📄 View Full Multi-Megabyte NatGeo PDF →</a></div>' if has_pdf else ''}
-        <div class="text-box" id="textContent">Loading magazine text...</div>
+        <div class="text-box" id="textContent">{raw_text}</div>
     </div>
 
     <script>
@@ -280,11 +280,6 @@ for item in natgeo_archive_list:
         }}
         const savedSize = localStorage.getItem('natgeo_doc_font_size');
         if (savedSize) setFontSize(savedSize);
-
-        fetch('{aid}.txt')
-            .then(res => res.text())
-            .then(text => {{ document.getElementById('textContent').textContent = text; }})
-            .catch(err => {{ document.getElementById('textContent').textContent = "{item['title']}"; }});
     </script>
 </body>
 </html>

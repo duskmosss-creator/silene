@@ -26,6 +26,8 @@ __pycache__/
 # Ignore large downloaded PDFs and raw media
 content/pdfs/*.pdf
 natgeo_collection/pdfs/*.pdf
+natgeo_collection/pdfs_original/
+test_compress.pdf
 *.zip
 *.mp4
 

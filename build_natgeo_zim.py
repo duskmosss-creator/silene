@@ -52,8 +52,13 @@ mimetype_map = {
 with open(f"{natgeo_dir}/index.html", "r", encoding="utf-8") as f:
     html_content = f.read()
 
-# Collect all referenced paths from index.html
-referenced_paths = set(re.findall(r'["\']((?:images|pdfs|texts|js)/[^"\']+)["\']', html_content))
+# Collect all paths referenced by href= in cards (the active gallery items)
+# These are the only PDFs that should be included
+active_pdf_stems = set()
+for href in re.findall(r'href="pdfs/([^"]+)\.html"', html_content):
+    active_pdf_stems.add(href)
+
+print(f"Active PDF items in index: {len(active_pdf_stems)}")
 
 with Creator(zim_filename) as creator:
     creator.add_metadata("Title", "NatGeo Appalachia Col v2")
@@ -71,9 +76,6 @@ with Creator(zim_filename) as creator:
     creator.set_mainpath("C/index.html")
     creator.add_item(ZimItem("C/index.html", html_content, "text/html", is_file=False))
     
-    # set_mainpath handles main article entry cleanly
-    pass
-    
     item_count = 0
     skipped_count = 0
 
@@ -86,13 +88,24 @@ with Creator(zim_filename) as creator:
             zim_path = os.path.relpath(local_path, natgeo_dir).replace("\\", "/")
             
             ext = os.path.splitext(file)[1].lower()
+            stem = os.path.splitext(file)[0]
             
-            # If it's a PDF, only include it if it's referenced in index.html or has a matching .html viewer
+            # STRICT: Only include PDFs whose stem is an active gallery item
             if ext == ".pdf":
-                stem = os.path.splitext(file)[0]
-                matching_html = os.path.join(natgeo_dir, "pdfs", f"{stem}.html")
-                if not os.path.exists(matching_html) and zim_path not in referenced_paths:
-                    print(f"  [SKIP ORPHAN PDF] {zim_path}")
+                if stem not in active_pdf_stems:
+                    print(f"  [SKIP] {zim_path}")
+                    skipped_count += 1
+                    continue
+
+            # STRICT: Only include PDF viewer HTMLs whose stem is an active gallery item
+            if ext == ".html" and "pdfs/" in zim_path.replace("\\", "/"):
+                if stem not in active_pdf_stems:
+                    skipped_count += 1
+                    continue
+
+            # STRICT: Only include .txt files whose stem is an active gallery item
+            if ext in (".txt",) and "texts/" in zim_path:
+                if stem not in active_pdf_stems:
                     skipped_count += 1
                     continue
 
@@ -100,4 +113,4 @@ with Creator(zim_filename) as creator:
             creator.add_item(ZimItem(f"C/{zim_path}", local_path, mimetype, is_file=True))
             item_count += 1
 
-print(f"ZIM file {zim_filename} created successfully with {item_count} bundled items ({skipped_count} orphan PDFs skipped).")
+print(f"ZIM file {zim_filename} created successfully with {item_count} bundled items ({skipped_count} orphan items skipped).")

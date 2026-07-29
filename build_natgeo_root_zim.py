@@ -68,15 +68,14 @@ with Creator(zim_filename) as creator:
     creator.add_metadata("Creator", "Custom ZIM Builder")
     creator.add_metadata("Publisher", "Hickory Search")
     creator.add_metadata("Description", "National Geographic Appalachian magazines collection for Kiwix and iOS")
-    # Change Name to force Kiwix iOS cache invalidation
-    creator.add_metadata("Name", "national_geographic_appalachian_collection_v5")
+    creator.add_metadata("Name", "national_geographic_appalachian_collection_v7")
     creator.add_metadata("Date", datetime.now().strftime("%Y-%m-%d"))
     
     favicon_b64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAA8Bw1AAAEVv+wMAAAAAElFTkSuQmCC"
     favicon_bytes = base64.b64decode(favicon_b64)
     creator.add_illustration(48, favicon_bytes)
     
-    # Kiwix strictly expects articles in C/ namespace.
+    # Set main path for Kiwix
     creator.set_mainpath("C/index.html")
     creator.add_item(ZimItem("C/index.html", html_content, "text/html", is_file=False))
     

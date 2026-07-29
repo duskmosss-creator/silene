@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>National Geographic Archived Magazines (1889 - 2024)</title>
+    <style>
+        :root {
+            --bg: #0b1329;
+            --header-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --natgeo-yellow: #fbbf24;
+            --border: #334155;
+            --base-font-size: 16px;
+        }
+
+        html { font-size: var(--base-font-size); scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: max(1.5rem, env(safe-area-inset-top)) max(1.5rem, env(safe-area-inset-right)) max(1.5rem, env(safe-area-inset-bottom)) max(1.5rem, env(safe-area-inset-left));
+        }
+
+        header {
+            background: linear-gradient(180deg, #1e293b 0%, #0b1329 100%);
+            border-bottom: 5px solid var(--natgeo-yellow);
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+
+        .natgeo-border-logo {
+            display: inline-block;
+            border: 4px solid var(--natgeo-yellow);
+            padding: 0.4rem 1.2rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        header h1 { color: #ffffff; margin: 0 0 0.5rem 0; font-size: 2.2rem; letter-spacing: 0.02em; font-weight: 800; }
+        header p { color: var(--text-muted); font-size: 1.05rem; margin: 0; max-width: 750px; margin: 0 auto; }
+
+        .controls {
+            background: var(--card-bg);
+            padding: 1.25rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .control-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; }
+
+        .search-bar {
+            flex: 1;
+            min-width: 260px;
+            padding: 0.75rem 1.2rem;
+            background: #0b1329;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-bar:focus { border-color: var(--natgeo-yellow); box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25); }
+
+        .filter-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: #334155;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .tab.active, .tab:hover { background: var(--natgeo-yellow); color: #0b1329; border-color: var(--natgeo-yellow); font-weight: 800; }
+
+        .grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+
+        @media only screen and (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        @media only screen and (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+        @media only screen and (min-width: 1280px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .magazine-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+        }
+
+        .magazine-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(251, 191, 36, 0.15);
+            border-color: var(--natgeo-yellow);
+        }
+
+        .cover-hero-wrap {
+            position: relative;
+            width: 100%;
+            padding-top: 140%; /* 1:1.4 aspect ratio for magazine cover */
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+            border: 4px solid var(--natgeo-yellow);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+            margin-bottom: 1rem;
+        }
+
+        .cover-hero-wrap img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .year-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(11, 19, 41, 0.9);
+            color: var(--natgeo-yellow);
+            border: 1px solid var(--natgeo-yellow);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        .mag-title { font-size: 1.05rem; font-weight: 800; color: #ffffff; line-height: 1.35; margin-bottom: 0.5rem; }
+        .mag-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; }
+
+        .action-btn {
+            background: var(--natgeo-yellow);
+            color: #0b1329;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.88rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="natgeo-border-logo">NATIONAL GEOGRAPHIC</div>
+        <h1>NOTABLE & RECENT MAGAZINE GALLERY (1889 - 2024)</h1>
+        <p>Full Issues: Moon Landing (1969), Afghan Girl (1985), Titanic (1985), Millennium (1999), National Parks (2016), Earth Day (2020), Rewilding (2023), Modern (2024)</p>
+    </header>
+
+    <div class="container">
+        <section class="controls">
+            <div class="control-row">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search notable issues, years, topics (e.g. Moon, Titanic, Afghan Girl, 2024)...">
+            </div>
+
+            <div class="filter-tabs" id="filterTabs">
+                <div class="tab active" data-era="ALL">All Eras</div>
+                <div class="tab" data-era="1880s-1910s">1880s - 1910s</div>
+                <div class="tab" data-era="1920s-1940s">1920s - 1940s</div>
+                <div class="tab" data-era="1950s-1970s">1950s - 1970s</div>
+                <div class="tab" data-era="1980s-1990s">1980s - 1990s</div>
+                <div class="tab" data-era="2000s-2010s">2000s - 2010s</div>
+                <div class="tab" data-era="2020s-Present">2020s - Present</div>
+            </div>
+        </section>
+
+        <main class="grid" id="cardGrid"></main>
+    </div>
+
+    <script>
+        const magazines = [{"id": "nationalgeograph11889nati", "title": "National Geographic Magazine (Vol. 1, 1889 - Founding Premiere Issue)", "year": 1889, "era": "1880s-1910s", "desc": "Original premiere issue of National Geographic Society featuring early Appalachian geological surveys.", "cover": "images/nationalgeograph11889nati_cover.jpg", "path": "pdfs/nationalgeograph11889nati.html", "has_pdf": true}, {"id": "nationalgeograph37natiuoft", "title": "National Geographic Magazine (Vol. 37, 1920 - Great Smokies Expedition)", "year": 1920, "era": "1920s-1940s", "desc": "Early expedition coverage of the Southern Appalachian mountain ranges and wilderness crests.", "cover": "images/nationalgeograph37natiuoft_cover.jpg", "path": "pdfs/nationalgeograph37natiuoft.html", "has_pdf": true}, {"id": "194701to12", "title": "National Geographic Magazine (1947 Full Year Collection)", "year": 1947, "era": "1920s-1940s", "desc": "Post-war Appalachian wilderness exploration, park development, and wildlife conservation.", "cover": "images/194701to12_cover.jpg", "path": "pdfs/194701to12.html", "has_pdf": true}, {"id": "194905", "title": "National Geographic Magazine (May 1949 Edition)", "year": 1949, "era": "1920s-1940s", "desc": "Highland forestry, river basin maps, and Appalachian flora documentation.", "cover": "images/194905_cover.jpg", "path": "pdfs/194905.html", "has_pdf": true}, {"id": "195011", "title": "National Geographic Magazine (November 1950 Issue)", "year": 1950, "era": "1950s-1970s", "desc": "Great Smoky Mountains National Park autumn color survey and Blue Ridge Parkway photography.", "cover": "images/195011_cover.jpg", "path": "pdfs/195011.html", "has_pdf": true}, {"id": "195105", "title": "National Geographic Magazine (May 1951 Issue)", "year": 1951, "era": "1950s-1970s", "desc": "Mountain folk craft, rifle making in Gatlinburg, and Cherokee nation traditions.", "cover": "images/195105_cover.jpg", "path": "pdfs/195105.html", "has_pdf": true}, {"id": "195204", "title": "National Geographic Magazine (April 1952 Issue)", "year": 1952, "era": "1950s-1970s", "desc": "Appalachian spring wildflowers, salamander species diversity, and old-growth timber.", "cover": "images/195204_cover.jpg", "path": "pdfs/195204.html", "has_pdf": true}, {"id": "195304", "title": "National Geographic Magazine (April 1953 Issue)", "year": 1953, "era": "1950s-1970s", "desc": "Southern highland culture, traditional music, and mountain balds ecology.", "cover": "images/195304_cover.jpg", "path": "pdfs/195304.html", "has_pdf": true}];
+        const searchInput = document.getElementById('searchInput');
+        const tabs = document.querySelectorAll('.tab');
+        const cardGrid = document.getElementById('cardGrid');
+
+        let currentEra = 'ALL';
+        let searchQuery = '';
+
+        function renderMagazines() {
+            cardGrid.innerHTML = '';
+            magazines.forEach(item => {
+                const matchesEra = (currentEra === 'ALL' || item.era === currentEra);
+                let matchesSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || item.desc.toLowerCase().includes(searchQuery) || item.year.toString().includes(searchQuery);
+
+                if (matchesSearch && matchesEra) {
+                    const card = document.createElement('a');
+                    card.className = 'magazine-card';
+                    card.href = item.path;
+
+                    let coverSrc = item.cover ? item.cover : 'images/nationalgeograph11889nati_cover.jpg';
+
+                    card.innerHTML = `
+                        <div>
+                            <div class="cover-hero-wrap">
+                                <img src="${coverSrc}" alt="${item.title} Cover" loading="lazy" decoding="async">
+                                <div class="year-badge">${item.year}</div>
+                            </div>
+                            <div class="mag-title">${item.title}</div>
+                            <div class="mag-desc">${item.desc}</div>
+                        </div>
+                        <div class="action-btn">
+                            📄 Read Full Magazine PDF →
+                        </div>
+                    `;
+                    cardGrid.appendChild(card);
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase().trim(); renderMagazines(); });
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentEra = tab.getAttribute('data-era');
+                renderMagazines();
+            });
+        });
+        renderMagazines();
+    </script>
+</body>
+</html>

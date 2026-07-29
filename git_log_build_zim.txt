@@ -1,0 +1,406 @@
+commit 250873eec5b2360070367e754eabc28aa866b55c
+Author: silene <silene@local.dev>
+Date:   Tue Jul 28 11:48:53 2026 -0400
+
+    Bump ZIM Name metadata tag and filenames to _v2 to bypass Kiwix JS PWA cache
+
+diff --git a/build_zim.py b/build_zim.py
+index b8964ec..b9c3a72 100644
+--- a/build_zim.py
++++ b/build_zim.py
+@@ -33,7 +33,7 @@ class ZimItem(Item):
+ from datetime import datetime
+ 
+ content_dir = "content"
+-zim_filename = os.path.join("zim_downloads", "Appalachian_Corridor.zim")
++zim_filename = os.path.join("zim_downloads", "Appalachian_Corridor_v2.zim")
+ 
+ mimetype_map = {
+     ".html": "text/html",
+@@ -51,12 +51,12 @@ mimetype_map = {
+ }
+ 
+ with Creator(zim_filename) as creator:
+-    creator.add_metadata("Title", "Appalachian Corridor")
++    creator.add_metadata("Title", "Appalachian Corridor v2")
+     creator.add_metadata("Language", "eng")
+     creator.add_metadata("Creator", "Custom ZIM Builder")
+     creator.add_metadata("Publisher", "Hickory Search")
+     creator.add_metadata("Description", "Offline Appalachian Corridor collection for iOS and Kiwix")
+-    creator.add_metadata("Name", "appalachian_corridor")
++    creator.add_metadata("Name", "appalachian_corridor_v2")
+     creator.add_metadata("Date", datetime.now().strftime("%Y-%m-%d"))
+     
+     favicon_b64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAA8Bw1AAAEVv+wMAAAAAElFTkSuQmCC"
+
+commit b097105c6b58fe5e42ca6facdc95fd9bad2cc71b
+Author: silene <silene@local.dev>
+Date:   Tue Jul 28 11:40:41 2026 -0400
+
+    Update ZIM Date metadata tag to force Kiwix PWA/Desktop cache invalidation
+
+diff --git a/build_zim.py b/build_zim.py
+index aedfa00..b8964ec 100644
+--- a/build_zim.py
++++ b/build_zim.py
+@@ -30,6 +30,8 @@ class ZimItem(Item):
+     def get_hints(self):
+         return {Hint.FRONT_ARTICLE: True} if self.path == "C/index.html" else {}
+ 
++from datetime import datetime
++
+ content_dir = "content"
+ zim_filename = os.path.join("zim_downloads", "Appalachian_Corridor.zim")
+ 
+@@ -55,7 +57,7 @@ with Creator(zim_filename) as creator:
+     creator.add_metadata("Publisher", "Hickory Search")
+     creator.add_metadata("Description", "Offline Appalachian Corridor collection for iOS and Kiwix")
+     creator.add_metadata("Name", "appalachian_corridor")
+-    creator.add_metadata("Date", "2023-10-26")
++    creator.add_metadata("Date", datetime.now().strftime("%Y-%m-%d"))
+     
+     favicon_b64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAA8Bw1AAAEVv+wMAAAAAElFTkSuQmCC"
+     favicon_bytes = base64.b64decode(favicon_b64)
+
+commit 4c5c0b3b22becb93dc84c6382c3b9c52a81a6a37
+Author: silene <silene@local.dev>
+Date:   Tue Jul 28 11:27:13 2026 -0400
+
+    Fix ZIM mainPage redirection, restore index JSON datasets, and add direct PDF opening buttons
+
+diff --git a/build_zim.py b/build_zim.py
+index e820011..aedfa00 100644
+--- a/build_zim.py
++++ b/build_zim.py
+@@ -67,12 +67,8 @@ with Creator(zim_filename) as creator:
+         html_content = f.read()
+     creator.add_item(ZimItem("C/index.html", html_content, "text/html", is_file=False))
+     
+-    try:
+-        creator.add_redirection("mainPage", "Main Page", "C/index.html", {})
+-        creator.add_redirection("A/index.html", "Main Page", "C/index.html", {})
+-        creator.add_redirection("index.html", "Main Page", "C/index.html", {})
+-    except Exception:
+-        pass
++    # set_mainpath handles main article entry cleanly
++    pass
+     
+     item_count = 0
+     for root, dirs, files in os.walk(content_dir):
+
+commit 4821e1efd19c809244aba358e867a43f2fe3a94f
+Author: silene <silene@local.dev>
+Date:   Tue Jul 28 11:03:02 2026 -0400
+
+    Fix ZIM title metadata limits, invalid PDF links, and add Mobile Responsive Sticky Header
+
+diff --git a/build_zim.py b/build_zim.py
+index ae01297..e820011 100644
+--- a/build_zim.py
++++ b/build_zim.py
+@@ -49,7 +49,7 @@ mimetype_map = {
+ }
+ 
+ with Creator(zim_filename) as creator:
+-    creator.add_metadata("Title", "Appalachian Corridor Archive")
++    creator.add_metadata("Title", "Appalachian Corridor")
+     creator.add_metadata("Language", "eng")
+     creator.add_metadata("Creator", "Custom ZIM Builder")
+     creator.add_metadata("Publisher", "Hickory Search")
+
+commit eb845275211a426600ff7e1d14a80c86ad99d217
+Author: silene <silene@local.dev>
+Date:   Mon Jul 27 22:27:11 2026 -0400
+
+    Fix Apple MobileCore ZIM compatibility (Favicon, Date, JS link parser bypass)
+
+diff --git a/build_zim.py b/build_zim.py
+index 7f4fc68..ae01297 100644
+--- a/build_zim.py
++++ b/build_zim.py
+@@ -1,4 +1,5 @@
+ import os
++import base64
+ from libzim.writer import Creator, Item, StringProvider, FileProvider, Hint
+ 
+ print("Building Appalachian Corridor ZIM file (bundling all photos, PDFs, JS engines, audio, and HTML)...")
+@@ -27,10 +28,10 @@ class ZimItem(Item):
+             return StringProvider(self.content_or_path)
+             
+     def get_hints(self):
+-        return {Hint.FRONT_ARTICLE: True} if self.path == "index.html" else {}
++        return {Hint.FRONT_ARTICLE: True} if self.path == "C/index.html" else {}
+ 
+ content_dir = "content"
+-zim_filename = "Appalachian_Corridor.zim"
++zim_filename = os.path.join("zim_downloads", "Appalachian_Corridor.zim")
+ 
+ mimetype_map = {
+     ".html": "text/html",
+@@ -48,11 +49,30 @@ mimetype_map = {
+ }
+ 
+ with Creator(zim_filename) as creator:
+-    creator.set_mainpath("index.html")
++    creator.add_metadata("Title", "Appalachian Corridor Archive")
++    creator.add_metadata("Language", "eng")
++    creator.add_metadata("Creator", "Custom ZIM Builder")
++    creator.add_metadata("Publisher", "Hickory Search")
++    creator.add_metadata("Description", "Offline Appalachian Corridor collection for iOS and Kiwix")
++    creator.add_metadata("Name", "appalachian_corridor")
++    creator.add_metadata("Date", "2023-10-26")
++    
++    favicon_b64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAA8Bw1AAAEVv+wMAAAAAElFTkSuQmCC"
++    favicon_bytes = base64.b64decode(favicon_b64)
++    creator.add_illustration(48, favicon_bytes)
++    
++    creator.set_mainpath("C/index.html")
+     
+     with open(f"{content_dir}/index.html", "r", encoding="utf-8") as f:
+         html_content = f.read()
+-    creator.add_item(ZimItem("index.html", html_content, "text/html", is_file=False))
++    creator.add_item(ZimItem("C/index.html", html_content, "text/html", is_file=False))
++    
++    try:
++        creator.add_redirection("mainPage", "Main Page", "C/index.html", {})
++        creator.add_redirection("A/index.html", "Main Page", "C/index.html", {})
++        creator.add_redirection("index.html", "Main Page", "C/index.html", {})
++    except Exception:
++        pass
+     
+     item_count = 0
+     for root, dirs, files in os.walk(content_dir):
+@@ -66,7 +86,7 @@ with Creator(zim_filename) as creator:
+             ext = os.path.splitext(file)[1].lower()
+             mimetype = mimetype_map.get(ext, "application/octet-stream")
+                 
+-            creator.add_item(ZimItem(zim_path, local_path, mimetype, is_file=True))
++            creator.add_item(ZimItem(f"C/{zim_path}", local_path, mimetype, is_file=True))
+             item_count += 1
+ 
+ print(f"ZIM file {zim_filename} created successfully with {item_count} bundled items.")
+
+commit ad7bf927dde75f74ec55f84721642b816fb7fd35
+Author: silene <silene@local.dev>
+Date:   Mon Jul 27 20:04:34 2026 -0400
+
+    Bundle all photos and media inside ZIM archive and add Zimit HTTP server pipeline
+
+diff --git a/build_zim.py b/build_zim.py
+index b4e0bb0..7f4fc68 100644
+--- a/build_zim.py
++++ b/build_zim.py
+@@ -1,7 +1,7 @@
+ import os
+ from libzim.writer import Creator, Item, StringProvider, FileProvider, Hint
+ 
+-print("Building Appalachian Corridor ZIM file with PDF.js and offline WAV audio...")
++print("Building Appalachian Corridor ZIM file (bundling all photos, PDFs, JS engines, audio, and HTML)...")
+ 
+ class ZimItem(Item):
+     def __init__(self, path, content_or_path, mimetype, is_file=True):
+@@ -32,6 +32,21 @@ class ZimItem(Item):
+ content_dir = "content"
+ zim_filename = "Appalachian_Corridor.zim"
+ 
++mimetype_map = {
++    ".html": "text/html",
++    ".txt": "text/plain",
++    ".json": "application/json",
++    ".pdf": "application/pdf",
++    ".jpg": "image/jpeg",
++    ".jpeg": "image/jpeg",
++    ".png": "image/png",
++    ".webp": "image/webp",
++    ".wav": "audio/wav",
++    ".mp3": "audio/mpeg",
++    ".js": "application/javascript",
++    ".css": "text/css"
++}
++
+ with Creator(zim_filename) as creator:
+     creator.set_mainpath("index.html")
+     
+@@ -39,6 +54,7 @@ with Creator(zim_filename) as creator:
+         html_content = f.read()
+     creator.add_item(ZimItem("index.html", html_content, "text/html", is_file=False))
+     
++    item_count = 0
+     for root, dirs, files in os.walk(content_dir):
+         for file in files:
+             if file == "index.html":
+@@ -47,22 +63,10 @@ with Creator(zim_filename) as creator:
+             local_path = os.path.join(root, file)
+             zim_path = os.path.relpath(local_path, content_dir).replace("\\", "/")
+             
+-            mimetype = "text/plain"
+-            if file.endswith(".json"):
+-                mimetype = "application/json"
+-            elif file.endswith(".html"):
+-                mimetype = "text/html"
+-            elif file.endswith(".pdf"):
+-                mimetype = "application/pdf"
+-            elif file.endswith(".wav"):
+-                mimetype = "audio/wav"
+-            elif file.endswith(".mp3"):
+-                mimetype = "audio/mpeg"
+-            elif file.endswith(".js"):
+-                mimetype = "application/javascript"
+-            elif file.endswith(".css"):
+-                mimetype = "text/css"
++            ext = os.path.splitext(file)[1].lower()
++            mimetype = mimetype_map.get(ext, "application/octet-stream")
+                 
+             creator.add_item(ZimItem(zim_path, local_path, mimetype, is_file=True))
++            item_count += 1
+ 
+-print(f"ZIM file {zim_filename} created successfully.")
++print(f"ZIM file {zim_filename} created successfully with {item_count} bundled items.")
+
+commit 6655d586bec9f6b3d9847eb918bc0dec302539d4
+Author: silene <silene@local.dev>
+Date:   Mon Jul 27 19:45:40 2026 -0400
+
+    Unify design system, add PDF.js canvas viewer engine, inline iOS text reader, and offline WAV audio
+
+diff --git a/build_zim.py b/build_zim.py
+index 313b73b..b4e0bb0 100644
+--- a/build_zim.py
++++ b/build_zim.py
+@@ -1,7 +1,7 @@
+ import os
+ from libzim.writer import Creator, Item, StringProvider, FileProvider, Hint
+ 
+-print("Building ZIM file...")
++print("Building Appalachian Corridor ZIM file with PDF.js and offline WAV audio...")
+ 
+ class ZimItem(Item):
+     def __init__(self, path, content_or_path, mimetype, is_file=True):
+@@ -29,34 +29,40 @@ class ZimItem(Item):
+     def get_hints(self):
+         return {Hint.FRONT_ARTICLE: True} if self.path == "index.html" else {}
+ 
+-with Creator("Appalachian_Corridor.zim") as creator:
++content_dir = "content"
++zim_filename = "Appalachian_Corridor.zim"
++
++with Creator(zim_filename) as creator:
+     creator.set_mainpath("index.html")
+     
+-    # Add index
+-    with open("content/index.html", "r", encoding="utf-8") as f:
++    with open(f"{content_dir}/index.html", "r", encoding="utf-8") as f:
+         html_content = f.read()
+     creator.add_item(ZimItem("index.html", html_content, "text/html", is_file=False))
+     
+-    # Add files
+-    for root, dirs, files in os.walk("content"):
++    for root, dirs, files in os.walk(content_dir):
+         for file in files:
+             if file == "index.html":
+                 continue
+                 
+             local_path = os.path.join(root, file)
+-            # Make the ZIM path relative to content/
+-            zim_path = os.path.relpath(local_path, "content").replace("\\", "/")
++            zim_path = os.path.relpath(local_path, content_dir).replace("\\", "/")
+             
+-            mimetype = "application/octet-stream"
+-            if file.endswith(".txt"):
+-                mimetype = "text/plain"
+-            elif file.endswith(".json"):
++            mimetype = "text/plain"
++            if file.endswith(".json"):
+                 mimetype = "application/json"
+             elif file.endswith(".html"):
+                 mimetype = "text/html"
++            elif file.endswith(".pdf"):
++                mimetype = "application/pdf"
++            elif file.endswith(".wav"):
++                mimetype = "audio/wav"
+             elif file.endswith(".mp3"):
+                 mimetype = "audio/mpeg"
++            elif file.endswith(".js"):
++                mimetype = "application/javascript"
++            elif file.endswith(".css"):
++                mimetype = "text/css"
+                 
+             creator.add_item(ZimItem(zim_path, local_path, mimetype, is_file=True))
+ 
+-print("ZIM file Appalachian_Corridor.zim created successfully.")
++print(f"ZIM file {zim_filename} created successfully.")
+
+commit c5ebc7097e9b8df16abf12bca0da2474af129ddb
+Author: silene <silene@local.dev>
+Date:   Mon Jul 27 19:12:42 2026 -0400
+
+    Initial commit: silene - Southern Appalachian ZIM Scraping & Building Suite
+
+diff --git a/build_zim.py b/build_zim.py
+new file mode 100644
+index 0000000..313b73b
+--- /dev/null
++++ b/build_zim.py
+@@ -0,0 +1,62 @@
++import os
++from libzim.writer import Creator, Item, StringProvider, FileProvider, Hint
++
++print("Building ZIM file...")
++
++class ZimItem(Item):
++    def __init__(self, path, content_or_path, mimetype, is_file=True):
++        super().__init__()
++        self.path = path
++        self.content_or_path = content_or_path
++        self.mimetype = mimetype
++        self.is_file = is_file
++        
++    def get_path(self):
++        return self.path
++    
++    def get_title(self):
++        return self.path
++        
++    def get_mimetype(self):
++        return self.mimetype
++        
++    def get_contentprovider(self):
++        if self.is_file:
++            return FileProvider(self.content_or_path)
++        else:
++            return StringProvider(self.content_or_path)
++            
++    def get_hints(self):
++        return {Hint.FRONT_ARTICLE: True} if self.path == "index.html" else {}
++
++with Creator("Appalachian_Corridor.zim") as creator:
++    creator.set_mainpath("index.html")
++    
++    # Add index
++    with open("content/index.html", "r", encoding="utf-8") as f:
++        html_content = f.read()
++    creator.add_item(ZimItem("index.html", html_content, "text/html", is_file=False))
++    
++    # Add files
++    for root, dirs, files in os.walk("content"):
++        for file in files:
++            if file == "index.html":
++                continue
++                
++            local_path = os.path.join(root, file)
++            # Make the ZIM path relative to content/
++            zim_path = os.path.relpath(local_path, "content").replace("\\", "/")
++            
++            mimetype = "application/octet-stream"
++            if file.endswith(".txt"):
++                mimetype = "text/plain"
++            elif file.endswith(".json"):
++                mimetype = "application/json"
++            elif file.endswith(".html"):
++                mimetype = "text/html"
++            elif file.endswith(".mp3"):
++                mimetype = "audio/mpeg"
++                
++            creator.add_item(ZimItem(zim_path, local_path, mimetype, is_file=True))
++
++print("ZIM file Appalachian_Corridor.zim created successfully.")
